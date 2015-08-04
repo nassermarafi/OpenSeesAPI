@@ -90,6 +90,8 @@ coverage.xml
 # Translations
 *.mo
 *.pot
+*.pyc
+*.pyo
 
 # Django stuff:
 *.log
