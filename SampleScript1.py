@@ -3,9 +3,10 @@
 ##### using an Ibarra-Krawinkler Deterioation spring
 ##### Coded by Nasser Marafi (marafi@uw.edu)
 ##### Last Updated: 8/12/2015
+##### Make sure to have a subfolder called /tcl/ with the OpenSees Executable File
 ############################################################################
-
 __author__ = 'marafi'
+
 import os
 import numpy as np
 
@@ -193,7 +194,7 @@ OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Pushover Analysis'))
 ########################## Time History Analysis ##########################
 OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Time History Analysis'))
 
-#Constraints
+#Analysis Options
 OData.AddObject(OpenSeesAPI.Analysis.Constraints.Transformation())
 OData.AddObject(OpenSeesAPI.Analysis.Numberer.RCM())
 OData.AddObject(OpenSeesAPI.Analysis.System.BandGeneral())
@@ -230,7 +231,7 @@ OData.AddObject(OpenSeesAPI.TCL.TCLScript('puts "Models Run Complete";'))
 ########################## Run OpenSees Script ##########################
 OData.Executable.StartAnalysis(SuppressOutput=True)
 
-########################## Plot Push Over ##########################
+########################## Plot Results ##########################
 Displ = np.loadtxt(os.getcwd()+'/tcl/'+OutputFolder+'/'+Displacement_File_Name)
 Vel = np.loadtxt(os.getcwd()+'/tcl/'+OutputFolder+'/'+Velocity_File_Name)
 Acc = np.loadtxt(os.getcwd()+'/tcl/'+OutputFolder+'/'+Acceleration_File_Name)
