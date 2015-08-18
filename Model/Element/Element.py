@@ -278,7 +278,7 @@ class ForceBeamColumn(OpenSees):
     $eleTag	unique element object tag
     $intType	numerical integration type, options are Lobatto, Legendre, Radau, NewtonCotes, Trapezoidal (optional, default= Lobatto)
     """
-    def __init__(self, id, NodeI, NodeJ, GeomTrans, IntegrationType, Mass, Optional='', **kwargs):
+    def __init__(self, id, NodeI, NodeJ, GeomTrans, IntegrationType, Mass=None, Optional='', **kwargs):
         self._id = id
         self._NodeI = NodeI
         self._NodeJ = NodeJ
