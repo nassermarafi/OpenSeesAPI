@@ -542,3 +542,23 @@ class Concrete04(OpenSees):
 
         self._CommandLine =  'uniaxialMaterial Concrete04 %d %f %f %f %f %s'%(self._id, self._fc, self._ec, self._ecu, self._Ec, self._Optional)
 
+
+class Concrete04(OpenSees):
+    """
+    ### This Material Model was created by Max Stephens
+
+
+    """
+    def __init__(self, id, fpc, epsc0, epsU, Ec, fct, et, beta,**kwargs):
+        self._id = id
+        self._fpc = fpc
+        self._epsc0 = epsc0
+        self._epsU = epsU
+        self._Ec = Ec
+        self._fct = fct
+        self._et = et
+        self._beta = beta
+
+        self.__dict__.update(kwargs)
+
+        self._CommandLine =  'uniaxialMaterial Concrete01 %d %f %f %f %f %f %f %f'%(self._id, self._fpc, self._epsc0, self._epsU, self._Ec, self._fct, self._et, self._beta)
