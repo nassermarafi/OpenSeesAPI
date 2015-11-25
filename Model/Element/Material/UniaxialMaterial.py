@@ -373,7 +373,13 @@ class Clough(OpenSees):
         self._cD = cD
         self.__dict__.update(kwargs)
 
+        self.RunCommandLine()
+
+    def RunCommandLine(self):
         self._CommandLine = 'uniaxialMaterial Clough %d %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f'%(self._id, self._Ke, self._My, self._MyNeg, self._AlphaYield, self._Residual, self._AlphaPC, self._ThetaCappingPos, self._ThetaCappingNeg, self._LambdaS, self._LambdaK, self._LambdaA, self._LambdaD, self._cS, self._cK, self._cA, self._cD)
+
+
+
 
 class Hysteretic(OpenSees):
     """

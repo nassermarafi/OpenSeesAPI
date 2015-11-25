@@ -159,13 +159,19 @@ class Aggregator(OpenSees):
     T Torsion Force-Deformation
     $sectionTag	tag of previously-defined Section object to which the UniaxialMaterial objects are aggregated as additional force-deformation relationships
     """
-    def __init__(self, id, MatList, DOFList, **kwargs):
+    def __init__(self, id, MatList, DOFList, Section=None, **kwargs):
         self._id = id
         self._MatList = MatList
         self._DOFList = DOFList
+        self._Section = Section
         self.__dict__.update(kwargs)
 
-        self._CommandLine = 'section Aggregator %d %s %s'%(self._id, ''.join(map(lambda x: ' %d %d'%(x[0].id, x[0].id), zip(*[self._MatList, self._DOFList]))))
+    def CommandLine(self):
+        if self._Section == None:
+            self._CommandLine = 'section Aggregator %d %s'%(self._id, ''.join(map(lambda x: ' %d %d'%(x[0].id, x[0].id), zip(*[self._MatList, self._DOFList]))))
+        else:
+            self._CommandLine = 'section Aggregator %d %s -section %d'%(self._id, ''.join(map(lambda x: ' %d %d'%(x[0].id, x[0].id), zip(*[self._MatList, self._DOFList]), self._Section.id)))
+        return self._CommandLine
 
 class Uniaxial(OpenSees):
     """

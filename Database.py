@@ -115,5 +115,11 @@ class Collector(object):
         else:
             return filter(lambda x: x.GridX==GridX and x.GridY==GridY and x.GridZ==GridZ and x.NodeType==NodeType, self._Nodes)
 
+    def GetNodesByYGrid(self, GridY, NodeType=1):
+        return filter(lambda x: x.GridY==GridY and x.NodeType==NodeType, self._Nodes)
+
+    def GetNodesByZGrid(self, GridZ, NodeType=1):
+        return filter(lambda x: x.GridZ==GridZ and x.NodeType==NodeType, self._Nodes)
+
     def GetNode(self, id):
         return filter(lambda x: x.id == id, self._Nodes)[0]

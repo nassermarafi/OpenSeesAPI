@@ -4,7 +4,7 @@ from OpenSeesAPI.OpenSees import OpenSees
 
 class Plain(OpenSees):
     def __init__(self):
-        self._CommandLine = 'constaints Plain'
+        self._CommandLine = 'constraints Plain'
 
 class Lagrange(OpenSees):
     def __init__(self, AlphaS=1.0, AlphaM=1.0):

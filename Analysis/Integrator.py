@@ -52,7 +52,7 @@ class Static:
         $Umin	the min stepsize the user will allow. optional, defualt = Umin = U0
         $Umax	the max stepsize the user will allow. optional, default = Umax = U0
         """
-        def __init__(self, Node, DOF, Increment, Optional=None):
+        def __init__(self, Node, DOF, Increment, Optional=''):
             self._Node = Node
             self._DOF = DOF
             self._Increment = Increment

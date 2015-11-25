@@ -73,4 +73,4 @@ class OpenSees(object):
         self._Executable.StartAnalysis()
 
     def AddObject(self, Object):
-        self._Executable.AddCommand(Object.CommandLine)
+        self._Executable.AddCommand(Object.CommandLine())

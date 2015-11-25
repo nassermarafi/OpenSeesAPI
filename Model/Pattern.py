@@ -52,7 +52,11 @@ class Plain(OpenSees):
         self._Objects = Objects
         self.__dict__.update(kwargs)
 
-        self._CommandLine = 'pattern Plain %d %s %s { \n%s\n }'%(self._id, self._TimeSeriesTag, self._Optional, ''.join(map(lambda x: '\n'+x._CommandLine, self._Objects)))
+    @property
+    def CommandLine(self):
+        self._CommandLine = 'pattern Plain %d %s %s { \n%s\n }'%(self._id, self._TimeSeriesTag, self._Optional, ''.join(map(lambda x: '\n'+x.CommandLine, self._Objects)))
+        return self._CommandLine
+
 
 class Load(OpenSees):
     """
@@ -60,12 +64,16 @@ class Load(OpenSees):
     $nodeTag	tag of node to which load is applied.
     $loadvalues	ndf reference load values.
     """
+
     def __init__(self, Node, LoadList, **kwargs):
         self._Node = Node
         self._LoadList = LoadList
         self.__dict__.update(kwargs)
 
+    @property
+    def CommandLine(self):
         self._CommandLine = 'load %d %s'%(self._Node.id, ''.join([' %f'%x for x in self._LoadList]))
+        return self._CommandLine
 
 class EleLoad(OpenSees):
     """
@@ -98,7 +106,10 @@ class EleLoad(OpenSees):
         self._LoadList = LoadList
         self.__dict__.update(kwargs)
 
+    @property
+    def CommandLine(self):
         self._CommandLine = 'eleLoad %s %s %s %s'%(self._EleArg, ''.join([' %d'%x.id for x in self._ElementList]), self._TypeArg, ''.join([' %f'%x for x in self._LoadList]))
+        return self._CommandLine
 
 class sp(OpenSees):
     """
@@ -114,4 +125,7 @@ class sp(OpenSees):
         self._DOFValue = DOFValue
         self.__dict__.update(kwargs)
 
+    @property
+    def CommandLine(self):
         self._CommandLine = 'sp %d %d %f'%(self._Node.id, self._DOF, self._DOFValue)
+        return self._CommandLine
