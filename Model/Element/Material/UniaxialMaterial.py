@@ -223,11 +223,12 @@ class Bilin(OpenSees):
         self._DPlus = DPlus
         self._DNeg = DNeg
         self._nFactor = nFactor
+        self._EndCommand = ''
         self.__dict__.update(kwargs)
 
         if self._nFactor != None:
             self._EndCommand = ' %f'%self._nFactor
-        self._CommandLine = 'uniaxialMaterial Bilin %d %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %s'%(self._id, self._E, self._asPlus, self._asNeg, self._MyPlus, self._MyNeg, self._LamdaS, self._LambaC, self._LamdaA, self._LamdaK, self._cS, self._cC, self._cA, self._cK, self._thetaPPlus, self._thetaPNeg, self._thetaPcPlus, self._thetaPcNeg, self._ResPos, self._ResNeg, self._thetaUPlus, self._thetaUNeg, self._DPlus, self._DNeg, self._EndCommand)
+        self._CommandLine = 'uniaxialMaterial Bilin %d %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %s'%(self._id, self._E, self._asPlus, self._asNeg, self._MyPlus, self._MyNeg, self._LamdaS, self._LambaC, self._LamdaA, self._LamdaK, self._cS, self._cC, self._cA, self._cK, self._thetaPPlus, self._thetaPNeg, self._thetaPcPlus, self._thetaPcNeg, self._ResPos, self._ResNeg, self._thetaUPlus, self._thetaUNeg, self._DPlus, self._DNeg, self._EndCommand)
 
 class ModIMKPeakOriented(OpenSees):
     """

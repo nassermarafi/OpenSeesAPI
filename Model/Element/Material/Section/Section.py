@@ -171,7 +171,7 @@ class Aggregator(OpenSees):
         if self._Section == None:
             self._CommandLine = 'section Aggregator %d %s'%(self._id, ''.join(map(lambda x: ' %d %s'%(x[0].id, x[1]), zip(*[self._MatList, self._DOFList]))))
         else:
-            self._CommandLine = 'section Aggregator %d %s -section %d'%(self._id, ''.join(map(lambda x: ' %d %d'%(x[0].id, x[1]), zip(*[self._MatList, self._DOFList]))), self._Section.id)
+            self._CommandLine = 'section Aggregator %d %s -section %d'%(self._id, ''.join(map(lambda x: ' %d %s'%(x[0].id, x[1]), zip(*[self._MatList, self._DOFList]))), self._Section.id)
         return self._CommandLine
 
 class Uniaxial(OpenSees):
