@@ -162,17 +162,19 @@ class Aggregator(OpenSees):
     def __init__(self, id, MatList, DOFList, Section=None, **kwargs):
         self._id = id
         self._MatList = MatList
-        self._DOFList = DOFList #DOF in terms of P, Mz, Vy, My, Vx, and T
+        self._DOFList = DOFList
         self._Section = Section
         self.__dict__.update(kwargs)
 
     @property
     def CommandLine(self):
         if self._Section == None:
-            self._CommandLine = 'section Aggregator %d %s'%(self._id, ''.join(map(lambda x: ' %d %s'%(x[0].id, x[1]), zip(*[self._MatList, self._DOFList]))))
+            self._CommandLine = 'section Aggregator %d %s'%(self._id, ''.join(map(lambda x: ' %d %d'%(x[0].id, x[1]), zip(*[self._MatList, self._DOFList]))))
         else:
             self._CommandLine = 'section Aggregator %d %s -section %d'%(self._id, ''.join(map(lambda x: ' %d %s'%(x[0].id, x[1]), zip(*[self._MatList, self._DOFList]))), self._Section.id)
         return self._CommandLine
+
+
 
 class Uniaxial(OpenSees):
     """
