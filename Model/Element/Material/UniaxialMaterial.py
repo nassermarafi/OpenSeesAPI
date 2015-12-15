@@ -419,7 +419,7 @@ class Hysteretic(OpenSees):
             self._Optional = ' %f'%self._beta
 
         if self._s3p==None:
-            self._CommandLine = 'uniaxialMaterial Hysteretic %d %f %f %f %f %f %f %f %f %f %f %f %f %s'%(self._s1p, self._e1p, self._s2p, self._e2p, self._s1n, self._e1n, self._s2n, self._e2n, self._pinchx, self._pinchy, self._damage1, self._damage2, self._Optional)
+            self._CommandLine = 'uniaxialMaterial Hysteretic %d %f %f %f %f %f %f %f %f %f %f %f %f %s'%(self._id, self._s1p, self._e1p, self._s2p, self._e2p, self._s1n, self._e1n, self._s2n, self._e2n, self._pinchx, self._pinchy, self._damage1, self._damage2, self._Optional)
         else:
             self._CommandLine = 'uniaxialMaterial Hysteretic %d %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %s'%(self._id, self._s1p, self._e1p, self._s2p, self._e2p, self._s3p, self._e3p, self._s1n, self._e1n, self._s2n, self._e2n, self._s3n, self._e3n, self._pinchx, self._pinchy, self._damage1, self._damage2, self._Optional)
 
@@ -541,3 +541,39 @@ class Concrete04(OpenSees):
             self._Optional += ' %f'%self._beta
 
         self._CommandLine =  'uniaxialMaterial Concrete04 %d %f %f %f %f %s'%(self._id, self._fc, self._ec, self._ecu, self._Ec, self._Optional)
+
+
+class ReinforcingSteelGA(OpenSees):
+    #This command is used to construct a ReinforcingSteel uniaxial material object. This object is intended to be used in a reinforced concrete fiber section as the steel reinforcing material.
+    def __init__(self, id, fy, fu, Es, Esh, esh, eult, Isr, beta, r, gamma, Cf, alpha,Cd, **kwargs):
+        self._id = id
+        self._fy = fy
+        self._fu = fu
+        self._Es = Es
+        self._Esh = Esh
+        self._esh = esh
+        self._eult = eult
+        self._Isr = Isr
+        self._beta = beta
+        self._r = r
+        self._gamma = gamma
+        self._Cf = Cf
+        self._alpha = alpha
+        self._Cd = Cd
+
+        self._CommandLine = 'uniaxialMaterial ReinforcingSteel %d %f %f %f %f %f %f -GABuck %f %f %f %f -CMFatigue %f %f %f'%(self._id, self._fy, self._fu, self._Es, self._Esh, self._esh, self._eult, self._Isr, self._beta, self._r, self._gamma, self._Cf, self._alpha, self._Cd)
+
+class ReinforcingSteelDM(OpenSees):
+    #This command is used to construct a ReinforcingSteel uniaxial material object. This object is intended to be used in a reinforced concrete fiber section as the steel reinforcing material.
+    def __init__(self, id, fy, fu, Es, Esh, esh, eult, Isr, beta, r, gamma, Cf, alpha,Cd, **kwargs):
+        self._id = id
+        self._fy = fy
+        self._fu = fu
+        self._Es = Es
+        self._Esh = Esh
+        self._esh = esh
+        self._eult = eult
+        self._Isr = Isr
+        self._alpha = alpha
+
+        self._CommandLine = 'uniaxialMaterial ReinforcingSteel %d %f %f %f %f %f %f -DMBuck %f %f'%(self._id, self._fy, self._fu, self._Es, self._Esh, self._esh, self._eult, self._Isr, self._alpha)
