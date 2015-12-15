@@ -379,9 +379,6 @@ class Clough(OpenSees):
     def RunCommandLine(self):
         self._CommandLine = 'uniaxialMaterial Clough %d %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f'%(self._id, self._Ke, self._My, self._MyNeg, self._AlphaYield, self._Residual, self._AlphaPC, self._ThetaCappingPos, self._ThetaCappingNeg, self._LambdaS, self._LambdaK, self._LambdaA, self._LambdaD, self._cS, self._cK, self._cA, self._cD)
 
-
-
-
 class Hysteretic(OpenSees):
     """
     This command is used to construct a uniaxial bilinear hysteretic material object with pinching of force and deformation, damage due to ductility and energy, and degraded unloading stiffness based on ductility.
@@ -549,38 +546,77 @@ class Concrete04(OpenSees):
 
         self._CommandLine =  'uniaxialMaterial Concrete04 %d %f %f %f %f %s'%(self._id, self._fc, self._ec, self._ecu, self._Ec, self._Optional)
 
+class ReinforcingSteel():
+    """
+    uniaxialMaterial ReinforcingSteel $matTag $fy $fu $Es $Esh $esh $eult < -GABuck $lsr $beta $r $gama > < -DMBuck $lsr < $alpha >> < -CMFatigue $Cf $alpha $Cd > < -IsoHard <$a1 <$limit> > >
+    $matTag	unique material object integer tag
+    $fy	Yield stress in tension (see Figure 1)
+    $fu	Ultimate stress in tension
+    $Es	Initial elastic tangent
+    $Esh	Tangent at initial strain hardening
+    $esh	Strain corresponding to initial strain hardening
+    $eult	Strain at peak stress
+    -GABuck	Buckling Model Based on Gomes and Appleton (1997)
+    $lsr	Slenderness Ratio (see Figure 2)
+    $beta	Amplification factor for the buckled stress strain curve. (see Figure 3)
+    $r	Buckling reduction factor
+    r can be a real number between [0.0 and 1.0]
+    r=1.0 full reduction (no buckling)
+    r=0.0 no reduction
+    0.0<r<1.0 linear interpolation between buckled and unbuckled curves
+    $gamma	Buckling constant (see Figures 3 and 4)
+    -DMBuck	Buckling model based on Dhakal and Maekawa (2002)
+    $lsr	Slenderness Ratio (see Figure 2)
+    $alpha	Adjustment Constant usually between 0.75 and 1.0
+    Default: alpha=1.0, this parameter is optional.
 
-class ReinforcingSteelGA(OpenSees):
-    #This command is used to construct a ReinforcingSteel uniaxial material object. This object is intended to be used in a reinforced concrete fiber section as the steel reinforcing material.
-    def __init__(self, id, fy, fu, Es, Esh, esh, eult, Isr, beta, r, gamma, Cf, alpha,Cd, **kwargs):
-        self._id = id
-        self._fy = fy
-        self._fu = fu
-        self._Es = Es
-        self._Esh = Esh
-        self._esh = esh
-        self._eult = eult
-        self._Isr = Isr
-        self._beta = beta
-        self._r = r
-        self._gamma = gamma
-        self._Cf = Cf
-        self._alpha = alpha
-        self._Cd = Cd
+    -CMFatigue	Coffin-Manson Fatigue and Strength Reduction
+    $Cf	Coffin-Manson constant C (see Figure 5)
+    $alpha	Coffin-Manson constant a (see Figure 5)
+    $Cd	Cyclic strength reduction constant (see Figure 6 and Equation 3)
 
-        self._CommandLine = 'uniaxialMaterial ReinforcingSteel %d %f %f %f %f %f %f -GABuck %f %f %f %f -CMFatigue %f %f %f'%(self._id, self._fy, self._fu, self._Es, self._Esh, self._esh, self._eult, self._Isr, self._beta, self._r, self._gamma, self._Cf, self._alpha, self._Cd)
 
-class ReinforcingSteelDM(OpenSees):
-    #This command is used to construct a ReinforcingSteel uniaxial material object. This object is intended to be used in a reinforced concrete fiber section as the steel reinforcing material.
-    def __init__(self, id, fy, fu, Es, Esh, esh, eult, Isr, beta, r, gamma, Cf, alpha,Cd, **kwargs):
-        self._id = id
-        self._fy = fy
-        self._fu = fu
-        self._Es = Es
-        self._Esh = Esh
-        self._esh = esh
-        self._eult = eult
-        self._Isr = Isr
-        self._alpha = alpha
+    -IsoHard	Isotropic Hardening / Diminishing Yield Plateau
+    $a1	Hardening constant (default = 4.3)
+    $limit	Limit for the reduction of the yield plateau. % of original plateau length to remain (0.01 < limit < 1.0 )
+    Limit =1.0, then no reduction takes place (default =0.01)
 
-        self._CommandLine = 'uniaxialMaterial ReinforcingSteel %d %f %f %f %f %f %f -DMBuck %f %f'%(self._id, self._fy, self._fu, self._Es, self._Esh, self._esh, self._eult, self._Isr, self._alpha)
+    -MPCurveParams	Menegotto and Pinto Curve Parameters see Fig 6b
+    $R1	(default = 0.333)
+    $R2	(default = 18)
+    $R3	(default = 4)
+    """
+    class GABuck(OpenSees):
+        #This command is used to construct a ReinforcingSteel uniaxial material object. This object is intended to be used in a reinforced concrete fiber section as the steel reinforcing material.
+        def __init__(self, id, fy, fu, Es, Esh, esh, eult, Isr, beta, r, gamma, Cf, alpha,Cd, **kwargs):
+            self._id = id
+            self._fy = fy
+            self._fu = fu
+            self._Es = Es
+            self._Esh = Esh
+            self._esh = esh
+            self._eult = eult
+            self._Isr = Isr
+            self._beta = beta
+            self._r = r
+            self._gamma = gamma
+            self._Cf = Cf
+            self._alpha = alpha
+            self._Cd = Cd
+
+            self._CommandLine = 'uniaxialMaterial ReinforcingSteel %d %f %f %f %f %f %f -GABuck %f %f %f %f -CMFatigue %f %f %f'%(self._id, self._fy, self._fu, self._Es, self._Esh, self._esh, self._eult, self._Isr, self._beta, self._r, self._gamma, self._Cf, self._alpha, self._Cd)
+
+    class DMBuck(OpenSees):
+        #This command is used to construct a ReinforcingSteel uniaxial material object. This object is intended to be used in a reinforced concrete fiber section as the steel reinforcing material.
+        def __init__(self, id, fy, fu, Es, Esh, esh, eult, Isr, beta, r, gamma, Cf, alpha,Cd, **kwargs):
+            self._id = id
+            self._fy = fy
+            self._fu = fu
+            self._Es = Es
+            self._Esh = Esh
+            self._esh = esh
+            self._eult = eult
+            self._Isr = Isr
+            self._alpha = alpha
+
+            self._CommandLine = 'uniaxialMaterial ReinforcingSteel %d %f %f %f %f %f %f -DMBuck %f %f'%(self._id, self._fy, self._fu, self._Es, self._Esh, self._esh, self._eult, self._Isr, self._alpha)
