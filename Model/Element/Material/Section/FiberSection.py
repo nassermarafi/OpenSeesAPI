@@ -99,7 +99,7 @@ class FiberSection(OpenSees):
                     self._EndCommand = '%f %f'%(self._startAng, self._endAng)
                 else:
                     self._EndCommand = ''
-                self._CommandLine =  'layer circ %d %d %d %f %f %f %s'%(self._Mat.id, self._numFiber, self._areaFiber, self._yCenter, self._zCenter, self._radius, self._EndCommand)
+                self._CommandLine =  'layer circ %d %d %f %f %f %f %s'%(self._Mat.id, self._numFiber, self._areaFiber, self._yCenter, self._zCenter, self._radius, self._EndCommand)
 
     class Patch:
         class Quad(object):
