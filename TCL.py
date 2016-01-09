@@ -29,6 +29,10 @@ class TCLScript(OpenSees):
     def __init__(self, Script):
         self._CommandLine = Script
 
+class LogFile(OpenSees):
+    def __init__(self, FileName):
+        self._CommandLine = 'logFile %s'%FileName
+
 ## Make Directory
 
 ## For Loops

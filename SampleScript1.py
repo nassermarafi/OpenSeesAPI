@@ -52,7 +52,7 @@ import time
 import uuid
 randomnumber = str(uuid.uuid4().get_hex().upper()[0:12])
 timestamp = time.strftime("%y%m%d-%H%M%S")+randomnumber
-ModelName = 'FindSDI'
+ModelName = 'ExampleScript'
 FileName = '%s-%s.tcl'%(ModelName,timestamp)
 
 OData = OpenSeesAPI.Database.Collector(OpenSeesCommand, os.getcwd()+'/tcl/', FileName)
