@@ -620,3 +620,35 @@ class ReinforcingSteel():
             self._alpha = alpha
 
             self._CommandLine = 'uniaxialMaterial ReinforcingSteel %d %f %f %f %f %f %f -DMBuck %f %f'%(self._id, self._fy, self._fu, self._Es, self._Esh, self._esh, self._eult, self._Isr, self._alpha)
+
+class Concrete02(OpenSees):
+    """
+    uniaxialMaterial Concrete02 $matTag $fpc $epsc0 $fpcu $epsU $lambda $ft $Ets
+    $matTag	integer tag identifying material
+    $fpc	concrete compressive strength at 28 days (compression is negative)*
+    $epsc0	concrete strain at maximum strength*
+    $fpcu	concrete crushing strength *
+    $epsU	concrete strain at crushing strength*
+    $lambda	ratio between unloading slope at $epscu and initial slope
+    $ft	tensile strength
+    $Ets	tension softening stiffness (absolute value) (slope of the linear tension softening branch)
+
+    NOTE:
+    Compressive concrete parameters should be input as negative values.
+    The initial slope for this model is (2*$fpc/$epsc0)
+    """
+
+    def __init__(self, id, fc, ec, fpcu, ecu, lam, ft, Ets, **kwargs):
+        self._id = id
+        self._fc = fc
+        self._ec = ec
+        self._fpcu = fpcu
+        self._ecu = ecu
+        self._lam = lam
+        self._ft = ft
+        self._Ec = Ets
+
+        self.__dict__.update(kwargs)
+
+        self._CommandLine =  'uniaxialMaterial Concrete02 %d %f %f %f %f %f %f %f'%(self._id, self._fc, self._ec, self._fpcu, self._ecu, self._lam, self._ft, self._Ec)
+
