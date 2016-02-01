@@ -195,7 +195,7 @@ class ElasticBeamColumn(OpenSees):
     $massDens	element mass per unit length (optional, default = 0.0)
     -cMass	to form consistent mass matrix (optional, default = lumped mass matrix)
     """
-    def __init__(self, id, NodeI, NodeJ, A, E, Iz, TransTag, G=None, J=None, IyJ=None, Mass=None, Option='', **kwargs):
+    def __init__(self, id, NodeI, NodeJ, A, E, Iz, TransTag, G=None, J=None, Iy=None, Mass=None, Option='', **kwargs):
         self._id = id
         self._NodeI = NodeI
         self._NodeJ = NodeJ
