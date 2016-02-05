@@ -21,6 +21,15 @@ class Collector(object):
     '''
 
     def __init__(self, OpenSeesCommand, FileLocation, TCLFileName):
+        """
+
+        :param OpenSeesCommand: Name of OpenSees Exeutable File
+        :param FileLocation: Folder location of where you would like the analysis to be
+        :param TCLFileName: Analysis File Name
+        :return: OpenSeesAPI Collector Object. This is Where all the OSAPI objects are stored prior to running analysis
+
+        """
+
         self._Executable = OpenSeesAPI.Executable(OpenSeesCommand, FileLocation, TCLFileName)
         self._Object = []
         self._Nodes = []
