@@ -25,7 +25,7 @@ Mac/Linux Users:
 
 ## Example Scripts
 
-Three Example Script using this OpenSees Wrapper have been posted:
+Three Example Script using OSAPI are available:
 - SampleScript1.py => SDOF System with a Deteriorating Ibarra Spring
 - SampleScript2.py => 40 Story PEER - Tall Building Initiative Building with Buckling Restrained Braced Frames
 - SampleScript3.py => Moment Curvature analysis for a concrete column
