@@ -26,7 +26,8 @@ cRate = 1
 Mu = 8
 Kappa = 0.01
 
-OpenSeesCommand = os.getcwd()+'//tcl//OpenSees' # Path to the OpenSees Executable File
+# OpenSeesCommand = os.getcwd()+'//tcl//OpenSees' # Path to the OpenSees Executable File
+OpenSeesCommand = 'OpenSees'
 
 ########################## Pre-Initialization ##########################
 import OpenSeesAPI
@@ -54,8 +55,15 @@ randomnumber = str(uuid.uuid4().get_hex().upper()[0:12])
 timestamp = time.strftime("%y%m%d-%H%M%S")+randomnumber
 ModelName = 'ExampleScript'
 FileName = '%s-%s.tcl'%(ModelName,timestamp)
+TCLFileDirectory = os.getcwd()+'/tcl/'
+ResultDirectory = os.getcwd()+'/tcl/Results/'
 
-OData = OpenSeesAPI.Database.Collector(OpenSeesCommand, os.getcwd()+'/tcl/', FileName)
+if not os.path.exists(TCLFileDirectory): #Make Directory is unavailable
+    os.makedirs(TCLFileDirectory)
+if not os.path.exists(ResultDirectory): #Make Directory is unavailable
+    os.makedirs(ResultDirectory)
+
+OData = OpenSeesAPI.Database.Collector(OpenSeesCommand, TCLFileDirectory, FileName)
 
 ########################## Setup and Source Definition ##########################
 OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Initialization'))
@@ -212,7 +220,7 @@ OData.AddObject(OpenSeesAPI.TCL.TCLScript('set Nsteps %d;'%len(GMData)))
 OData.AddObject(OpenSeesAPI.TCL.TCLScript('set step 0;'))
 OData.AddObject(OpenSeesAPI.TCL.TCLScript('while {$ok == 0 & $step < [expr $Nsteps +1]} {'))
 OData.AddObject(OpenSeesAPI.TCL.TCLScript('set ok [analyze 1 %f]'%Dt))
-OData.AddObject(OpenSeesAPI.TCL.TCLScript('puts "Running Time History Step: $step"'))
+OData.AddObject(OpenSeesAPI.TCL.TCLScript('puts "Running Time History Step: $step out of %d"'%len(GMData)))
 OData.AddObject(OpenSeesAPI.TCL.TCLScript('set step [expr $step+1]'))
 OData.AddObject(OpenSeesAPI.TCL.TCLScript('}'))
 
@@ -229,28 +237,28 @@ OData.AddObject(OpenSeesAPI.TCL.TCLScript('puts "Models Run Complete";'))
 
 
 ########################## Run OpenSees Script ##########################
-OData.Executable.StartAnalysis(SuppressOutput=True)
+OData.Executable.StartAnalysis(SuppressOutput=False)
 
 ########################## Plot Results ##########################
-Displ = np.loadtxt(os.getcwd()+'/tcl/'+OutputFolder+'/'+Displacement_File_Name)
-Vel = np.loadtxt(os.getcwd()+'/tcl/'+OutputFolder+'/'+Velocity_File_Name)
-Acc = np.loadtxt(os.getcwd()+'/tcl/'+OutputFolder+'/'+Acceleration_File_Name)
-Reac = np.loadtxt(os.getcwd()+'/tcl/'+OutputFolder+'/'+Reaction_File_Name)
+Displ = np.loadtxt(ResultDirectory+'/'+Displacement_File_Name)
+Vel = np.loadtxt(ResultDirectory+'/'+Velocity_File_Name)
+Acc = np.loadtxt(ResultDirectory+'/'+Acceleration_File_Name)
+Reac = np.loadtxt(ResultDirectory+'/'+Reaction_File_Name)
 
 MaxD = max(abs(Displ[:,1]))
 MaxV = max(abs(Vel[:,1]))
 MaxA = max(abs(Acc[:,1]))
 
 try:
-    os.remove(os.getcwd()+'//tcl//%s-%s.out'%(ModelName,timestamp))
+    os.remove(TCLFileDirectory+'/%s-%s.out'%(ModelName,timestamp))
 except:
     pass
 
-os.remove(os.getcwd()+'//tcl//%s-%s.tcl'%(ModelName,timestamp))
-os.remove(os.getcwd()+'//tcl//'+OutputFolder+'//'+Displacement_File_Name)
-os.remove(os.getcwd()+'//tcl//'+OutputFolder+'//'+Velocity_File_Name)
-os.remove(os.getcwd()+'//tcl//'+OutputFolder+'//'+Acceleration_File_Name)
-os.remove(os.getcwd()+'//tcl//'+OutputFolder+'//'+Reaction_File_Name)
+os.remove(TCLFileDirectory+'/%s-%s.tcl'%(ModelName,timestamp))
+os.remove(ResultDirectory+'/'+Displacement_File_Name)
+os.remove(ResultDirectory+'/'+Velocity_File_Name)
+os.remove(ResultDirectory+'/'+Acceleration_File_Name)
+os.remove(ResultDirectory+'/'+Reaction_File_Name)
 
 DataPoints = len(GMData)
 
