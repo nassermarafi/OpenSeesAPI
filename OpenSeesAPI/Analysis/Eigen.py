@@ -5,8 +5,6 @@ eigen
 
 __author__ = 'Nasser'
 
-
-
 from OpenSeesAPI.OpenSees import OpenSees
 
 class Eigen(OpenSees):

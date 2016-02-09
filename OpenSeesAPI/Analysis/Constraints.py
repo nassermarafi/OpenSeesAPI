@@ -29,8 +29,8 @@ class Lagrange(OpenSees):
 
     constraints Lagrange <$alphaS $alphaM >
 
-    $alphaS	αS factor on singe points. optional, default = 1.0
-    $alphaM	αM factor on multi-points, optional default = 1.0;
+    $alphaS	alphaS factor on singe points. optional, default = 1.0
+    $alphaM	alphaM factor on multi-points, optional default = 1.0;
     """
     def __init__(self, AlphaS=1.0, AlphaM=1.0):
         self._AlphaS = AlphaS
@@ -47,8 +47,8 @@ class Penalty(OpenSees):
 
     constraints Penalty $alphaS $alphaM
 
-    $alphaS	penalty αS factor on single point constraints
-    $alphaM	penalty αM factor on multi-point constraints
+    $alphaS	penalty alphaS factor on single point constraints
+    $alphaM	penalty alphaM factor on multi-point constraints
     """
     def __init__(self, AlphaS, AlphaM):
         self._AlphasS = AlphaS

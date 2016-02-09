@@ -18,8 +18,6 @@ Broyden Algorithm
 
 __author__ = 'Nasser'
 
-
-
 from OpenSeesAPI.OpenSees import OpenSees
 
 class Linear(OpenSees):

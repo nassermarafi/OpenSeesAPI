@@ -11,9 +11,6 @@ If the component objects are not defined before hand, the command automatically 
 
 __author__ = 'Nasser'
 
-
-
-
 from OpenSeesAPI.OpenSees import OpenSees
 
 class Static(OpenSees):
