@@ -1,9 +1,12 @@
-__author__ = 'marafi'
+"""
+This class is used to create the following OpenSees TCL Commands:
+Plain Pattern
+Uniform Excitation Pattern
+Multi-Support Excitation Pattern
+DRM Load Pattern
+"""
 
-# Plain Pattern
-# Uniform Excitation Pattern
-# Multi-Support Excitation Pattern
-# DRM Load Pattern
+__author__ = 'marafi'
 
 from OpenSeesAPI.OpenSees import OpenSees
 

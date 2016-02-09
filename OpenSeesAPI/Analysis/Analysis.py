@@ -1,13 +1,18 @@
+"""
+This class is used to create the following OpenSees TCL Commands:
+analysis analysisType?
+$analysisType	char string identifying type of analysis object to be constructed. Currently 3 valid options:
+Static - for static analysis
+Transient - for transient analysis with constant time step
+VariableTransient - for transient analysis with variable time step
+NOTE:
+If the component objects are not defined before hand, the command automatically creates default component objects and issues warning messages to this effect. The number of warning messages depends on the number of component objects that are undefined.
+"""
+
 __author__ = 'Nasser'
 
 
-# analysis analysisType?
-# $analysisType	char string identifying type of analysis object to be constructed. Currently 3 valid options:
-# Static - for static analysis
-# Transient - for transient analysis with constant time step
-# VariableTransient - for transient analysis with variable time step
-# NOTE:
-# If the component objects are not defined before hand, the command automatically creates default component objects and issues warning messages to this effect. The number of warning messages depends on the number of component objects that are undefined.
+
 
 from OpenSeesAPI.OpenSees import OpenSees
 

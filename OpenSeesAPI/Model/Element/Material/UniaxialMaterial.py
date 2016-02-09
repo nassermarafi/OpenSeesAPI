@@ -1,4 +1,3 @@
-__author__ = 'Nasser'
 """
 The following contain information about matType? and the args required for each of the available material types:
 Steel & Reinforcing-Steel Materials
@@ -67,6 +66,8 @@ Pinching Limit State Material
 CFSWSWP Wood Sheathed cold-formed Steel Shear Wall Panel
 CFSSSWP Steel Sheathed cold-formed Steel Shear Wall Panel
 """
+
+__author__ = 'Nasser'
 
 from OpenSeesAPI.OpenSees import OpenSees
 

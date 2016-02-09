@@ -1,4 +1,3 @@
-__author__ = 'marafi'
 """
 Elastic Isotropic Material
 Elastic Orthotropic Material
@@ -33,6 +32,8 @@ UC San Diego Saturated Undrained soil
 FluidSolidPorousMaterial
 UCDavis Soil Models
 """
+
+__author__ = 'marafi'
 
 from OpenSeesAPI.OpenSees import OpenSees
 

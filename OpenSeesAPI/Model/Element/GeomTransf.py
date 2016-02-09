@@ -1,9 +1,12 @@
-__author__ = 'Nasser'
+"""
+This class is used to create the following OpenSees TCL Commands:
+The following contain information about transfType? and the args required for each of the available geometric transformation types:
+Linear Transformation
+PDelta Transformation
+Corotational Transformation
+"""
 
-# The following contain information about transfType? and the args required for each of the available geometric transformation types:
-# Linear Transformation
-# PDelta Transformation
-# Corotational Transformation
+__author__ = 'Nasser'
 
 from OpenSeesAPI.OpenSees import OpenSees
 

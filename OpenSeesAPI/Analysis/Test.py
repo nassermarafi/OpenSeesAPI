@@ -1,18 +1,23 @@
+"""
+This class is used to create the following OpenSees TCL Commands:
+This command is used to construct a ConvergenceTest object. Certain SolutionAlgorithm objects require a ConvergenceTest object to determine if convergence has been achieved at the end of an iteration step. The convergence test is applied to the matrix equation, AX=B stored in the LinearSOE.
+test testType? arg1? ...
+The type of convergence test created and the additional arguments required depends on the testType? provided in the command.
+The following contain information about testType? and the args required for each of the available test types:
+test Command Equation
+Norm Unbalance Test
+Norm Displacement Increment Test
+Energy Increment Test
+Relative Norm Unbalance Test
+Relative Norm Displacement Increment Test
+Total Relative Norm Displacement Increment Test
+Relative Energy Increment Test
+Fixed Number of Iterations
+"""
+
 __author__ = 'Nasser'
 
-# This command is used to construct a ConvergenceTest object. Certain SolutionAlgorithm objects require a ConvergenceTest object to determine if convergence has been achieved at the end of an iteration step. The convergence test is applied to the matrix equation, AX=B stored in the LinearSOE.
-# test testType? arg1? ...
-# The type of convergence test created and the additional arguments required depends on the testType? provided in the command.
-# The following contain information about testType? and the args required for each of the available test types:
-# test Command Equation
-# Norm Unbalance Test
-# Norm Displacement Increment Test
-# Energy Increment Test
-# Relative Norm Unbalance Test
-# Relative Norm Displacement Increment Test
-# Total Relative Norm Displacement Increment Test
-# Relative Energy Increment Test
-# Fixed Number of Iterations
+
 
 from OpenSeesAPI.OpenSees import OpenSees
 

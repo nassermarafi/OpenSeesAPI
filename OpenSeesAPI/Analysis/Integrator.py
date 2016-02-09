@@ -1,25 +1,28 @@
+"""
+This class is used to create the following OpenSees TCL Commands:
+This command is used to construct the Integrator object. The Integrator object determines the meaning of the terms in the system of equation object Ax=B.
+The Integrator object is used for the following:
+   * determine the predictive step for time t+dt
+   * specify the tangent matrix and residual vector at any iteration
+   * determine the corrective step based on the displacement increment dU
+
+The type of integrator used in the analysis is dependent on whether it is a static analysis or transient analysis.
+
+Static Integrators:
+Load Control
+Displacement Control
+Minimum Unbalanced Displacement Norm
+Arc-Length Control
+
+Transient Integrators:
+Central Difference
+Newmark Method
+Hilber-Hughes-Taylor Method
+Generalized Alpha Method
+TRBDF2
+"""
+
 __author__ = 'Nasser'
-
-# This command is used to construct the Integrator object. The Integrator object determines the meaning of the terms in the system of equation object Ax=B.
-# The Integrator object is used for the following:
-#    * determine the predictive step for time t+dt
-#    * specify the tangent matrix and residual vector at any iteration
-#    * determine the corrective step based on the displacement increment dU
-#
-# The type of integrator used in the analysis is dependent on whether it is a static analysis or transient analysis.
-
-# Static Integrators:
-# Load Control
-# Displacement Control
-# Minimum Unbalanced Displacement Norm
-# Arc-Length Control
-
-# Transient Integrators:
-# Central Difference
-# Newmark Method
-# Hilber-Hughes-Taylor Method
-# Generalized Alpha Method
-# TRBDF2
 
 from OpenSeesAPI.OpenSees import OpenSees
 
@@ -61,22 +64,54 @@ class Static:
 
     class ArcLength(OpenSees):
         """
+        This command is used to construct an ArcLength integrator object. In an analysis step with ArcLength we seek to determine the time step that will result in our constraint equation being satisfied.
+        integrator ArcLength $s $alpha
+        $s	the  arcLength.
+        $alpha a scaling factor on the reference loads.
         """
         def __init__(self):
             self._CommandLine = 'integrator ArcLength'
 
 class Transient:
     class Newmark(OpenSees):
+        """
+        This command is used to construct a Newmark integrator object.
+        integrator Newmark $gamma $beta
+        $gamma	gamma factor
+        $beta	beta factor
+
+        EXAMPLE:
+
+        integrator Newmark 0.5 0.25
+        """
         def __init__(self, Gamma, Beta):
             self._Gamma = Gamma
             self._Beta = Beta
             self._CommandLine = 'integrator Newmark %f %f'%(self._Gamma, self._Beta)
 
     class HHT(OpenSees):
+        """
+        This command is used to construct a Hilber-Hughes-Taylor (HHT) integration object. This is an implicit method that allows for energy dissipation and second order accuracy (which is not possible with the regular Newmark method). Depending on choices of input parameters, the method can be unconditionally stable.
+        integrator HHT $alpha <$gamma $beta>
+        $alpha	alpha factor
+        $gamma	gamma factor
+        $beta	beta factor
+        EXAMPLE:
+
+        integrator HHT 0.9
+        """
         def __init__(self):
             self._CommandLine = 'integrator HHT'
 
     class CentralDifference(OpenSees):
+        """
+        This command is used to construct a Central Difference integrator object.
+integrator CentralDifference
+
+        EXAMPLE:
+
+        integrator CentralDifference
+        """
         def __init__(self):
             self._CommandLine = 'integrator CentralDifference'
 

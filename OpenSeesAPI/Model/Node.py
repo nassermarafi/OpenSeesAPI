@@ -1,22 +1,26 @@
+"""
+This class can be used to construct Nodes, Mass Nodes and Raleigh
+"""
+
 __author__ = 'marafi'
 
-
-
-# This command is used to construct a Node object. It assigns coordinates and masses to the Node object.
-#
-# node $nodeTag (ndm $coords) <-mass (ndf $massValues)>
-# $nodeTag	integer tag identifying node
-# $coords	nodal coordinates (ndm arguments)
-# $massValues	nodal mass corresponding to each DOF (ndf arguments) (optional))
-# The optional -mass string allows analyst the option of associating nodal mass with the node
-#
-# EXAMPLE:
-# node 1 0.0 0.0 0.0; # x,y,z coordinates (0,0,0) of node 1
-# node 2 0.0 120. 0.0; # x,y,z coordinates (0,120,0) of node 2
 
 from OpenSeesAPI.OpenSees import OpenSees
 
 class Node(OpenSees):
+    """
+    This command is used to construct a Node object. It assigns coordinates and masses to the Node object.
+
+    node $nodeTag (ndm $coords) <-mass (ndf $massValues)>
+    $nodeTag	integer tag identifying node
+    $coords	nodal coordinates (ndm arguments)
+    $massValues	nodal mass corresponding to each DOF (ndf arguments) (optional))
+    The optional -mass string allows analyst the option of associating nodal mass with the node
+
+    EXAMPLE:
+    node 1 0.0 0.0 0.0; # x,y,z coordinates (0,0,0) of node 1
+    node 2 0.0 120. 0.0; # x,y,z coordinates (0,120,0) of node 2
+    """
     def __init__(self, id, X, Y, Z=None, MassX = None, MassY = None, MassZ = None, **kwargs):
         self._X = X
         self._Y = Y

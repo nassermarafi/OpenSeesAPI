@@ -1,3 +1,8 @@
+"""
+This class is used to create the following OpenSees TCL Commands:
+
+"""
+
 __author__ = 'Nasser'
 
 class Executable(object):

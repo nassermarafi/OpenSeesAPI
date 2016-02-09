@@ -1,16 +1,19 @@
-__author__ = 'Nasser'
+"""
+This class is used to create the following OpenSees TCL Commands:
 
-#List of Available Commands
-# SP_Constraint (single-point constraint), which prescribe the movement (typically 0) of a single dof at a node. There are a number of commands for creating single-point coonstraints:
-# fix
-# fixX
-# fixY
-# fixZ
+SP_Constraint (single-point constraint), which prescribe the movement (typically 0) of a single dof at a node. There are a number of commands for creating single-point coonstraints:
+fix
+fixX
+fixY
+fixZ
 
-# MP_Constraint (multi-point constraint), which prescribe that the movement of certain dof at one node are defined by the movement of certain dof at another node. There again are a number of commands for defining multi-point constraints.
-# equalDOF
-# rigidDiaphragm
-# rigidLink
+MP_Constraint (multi-point constraint), which prescribe that the movement of certain dof at one node are defined by the movement of certain dof at another node. There again are a number of commands for defining multi-point constraints.
+equalDOF
+rigidDiaphragm
+rigidLink
+"""
+
+__author__ = 'Nasser Marafi'
 
 from OpenSeesAPI.OpenSees import OpenSees
 

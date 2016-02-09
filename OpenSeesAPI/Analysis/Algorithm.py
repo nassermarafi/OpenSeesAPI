@@ -1,18 +1,24 @@
+"""
+This class is used to create the following OpenSees TCL Commands:
+
+This command is used to construct a SolutionAlgorithm object, which determines the sequence of steps taken to solve the non-linear equation.
+algorithm algorithmType? arg1? ...
+The type of solution algorithm created and the additional arguments required depends on the algorithmType? provided in the command.
+
+The following contain information about algorithmType? and the args required for each of the available algorithm types:
+Linear Algorithm
+Newton Algorithm
+Newton with Line Search Algorithm
+Modified Newton Algorithm
+Krylov-Newton Algorithm
+Secant Newton Algorithm
+BFGS Algorithm
+Broyden Algorithm
+"""
+
 __author__ = 'Nasser'
 
-# This command is used to construct a SolutionAlgorithm object, which determines the sequence of steps taken to solve the non-linear equation.
-# algorithm algorithmType? arg1? ...
-# The type of solution algorithm created and the additional arguments required depends on the algorithmType? provided in the command.
-#
-# The following contain information about algorithmType? and the args required for each of the available algorithm types:
-# Linear Algorithm
-# Newton Algorithm
-# Newton with Line Search Algorithm
-# Modified Newton Algorithm
-# Krylov-Newton Algorithm
-# Secant Newton Algorithm
-# BFGS Algorithm
-# Broyden Algorithm
+
 
 from OpenSeesAPI.OpenSees import OpenSees
 

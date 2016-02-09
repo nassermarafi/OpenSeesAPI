@@ -1,92 +1,97 @@
+"""
+This class is used to create the following OpenSees TCL Commands:
+
+This command is used to construct an element and add it to the Domain.
+element eleType? arg1? ...
+
+The type of element created and the additional arguments required depends on the eleType? provided in the command.
+
+NOTE:
+The valid queries to any element when creating an ElementRecorder are documented in the NOTES section for each element.
+
+The following contain information about eleType? and the args required for each of the available element types:
+
+Zero-Length Elements
+zeroLength Element
+zeroLengthND Element
+zeroLengthSection Element
+CoupledZeroLength Element
+zeroLengthContact Element
+zeroLengthContactNTS2D
+zeroLengthInterface2D
+zeroLengthImpact3D
+Truss Elements
+Truss Element
+Corotational Truss Element
+Beam-Column Elements
+Elastic Beam Column Element
+Elastic Beam Column Element with Stiffness Modifiers
+Elastic Timoshenko Beam Column Element
+Beam With Hinges Element
+Displacement-Based Beam-Column Element
+Force-Based Beam-Column Element
+Flexure-Shear Interaction Displacement-Based Beam-Column Element
+Joint Elements
+BeamColumnJoint Element
+ElasticTubularJoint Element
+Joint2D Element
+Link Elements
+Two Node Link Element
+Bearing Elements
+Elastomeric Bearing (Plasticity) Element
+Elastomeric Bearing (Bouc-Wen) Element
+Flat Slider Bearing Element
+Single Friction Pendulum Bearing Element
+TFP Bearing
+Triple Friction Pendulum Element
+MultipleShearSpring Element
+KikuchiBearing Element
+YamamotoBiaxialHDR Element
+ElastomericX
+LeadRubberX
+HDR
+RJ-Watson EQS Bearing Element
+Quadrilateral Elements
+Quad Element
+Shell Element
+ShellNL
+Bbar Plane Strain Quadrilateral Element
+Enhanced Strain Quadrilateral Element
+SSPquad Element
+Triangular Elements
+Tri31 Element
+Brick Elements
+Standard Brick Element
+Bbar Brick Element
+Twenty Node Brick Element
+Twenty Seven Node Brick Element
+SSPbrick Element
+u-p Elements
+UC San Diego u-p element (saturated soil)
+Four Node Quad u-p Element
+Brick u-p Element
+bbarQuad u-p Element
+bbarBrick u-p Element
+Nine Four Node Quad u-p Element
+Twenty Eight Node Brick u-p Element
+Twenty Node Brick u-p Element
+Brick Large Displacement u-p Element
+SSPquadUP Element
+SSPbrickUP Element
+Misc.
+ShallowFoundationGen
+SurfaceLoad Element
+Contact Elements
+SimpleContact2D Element
+SimpleContact3D Element
+BeamContact2D Element
+BeamContact3D Element
+BeamEndContact3D Element
+zeroLengthImpact3D
+"""
+
 __author__ = 'marafi'
 
-# This command is used to construct an element and add it to the Domain.
-# element eleType? arg1? ...
-#
-# The type of element created and the additional arguments required depends on the eleType? provided in the command.
-#
-# NOTE:
-# The valid queries to any element when creating an ElementRecorder are documented in the NOTES section for each element.
-#
-# The following contain information about eleType? and the args required for each of the available element types:
-#
-# Zero-Length Elements
-# zeroLength Element
-# zeroLengthND Element
-# zeroLengthSection Element
-# CoupledZeroLength Element
-# zeroLengthContact Element
-# zeroLengthContactNTS2D
-# zeroLengthInterface2D
-# zeroLengthImpact3D
-# Truss Elements
-# Truss Element
-# Corotational Truss Element
-# Beam-Column Elements
-# Elastic Beam Column Element
-# Elastic Beam Column Element with Stiffness Modifiers
-# Elastic Timoshenko Beam Column Element
-# Beam With Hinges Element
-# Displacement-Based Beam-Column Element
-# Force-Based Beam-Column Element
-# Flexure-Shear Interaction Displacement-Based Beam-Column Element
-# Joint Elements
-# BeamColumnJoint Element
-# ElasticTubularJoint Element
-# Joint2D Element
-# Link Elements
-# Two Node Link Element
-# Bearing Elements
-# Elastomeric Bearing (Plasticity) Element
-# Elastomeric Bearing (Bouc-Wen) Element
-# Flat Slider Bearing Element
-# Single Friction Pendulum Bearing Element
-# TFP Bearing
-# Triple Friction Pendulum Element
-# MultipleShearSpring Element
-# KikuchiBearing Element
-# YamamotoBiaxialHDR Element
-# ElastomericX
-# LeadRubberX
-# HDR
-# RJ-Watson EQS Bearing Element
-# Quadrilateral Elements
-# Quad Element
-# Shell Element
-# ShellNL
-# Bbar Plane Strain Quadrilateral Element
-# Enhanced Strain Quadrilateral Element
-# SSPquad Element
-# Triangular Elements
-# Tri31 Element
-# Brick Elements
-# Standard Brick Element
-# Bbar Brick Element
-# Twenty Node Brick Element
-# Twenty Seven Node Brick Element
-# SSPbrick Element
-# u-p Elements
-# UC San Diego u-p element (saturated soil)
-# Four Node Quad u-p Element
-# Brick u-p Element
-# bbarQuad u-p Element
-# bbarBrick u-p Element
-# Nine Four Node Quad u-p Element
-# Twenty Eight Node Brick u-p Element
-# Twenty Node Brick u-p Element
-# Brick Large Displacement u-p Element
-# SSPquadUP Element
-# SSPbrickUP Element
-# Misc.
-# ShallowFoundationGen
-# SurfaceLoad Element
-# Contact Elements
-# SimpleContact2D Element
-# SimpleContact3D Element
-# BeamContact2D Element
-# BeamContact3D Element
-# BeamEndContact3D Element
-# zeroLengthImpact3D
 
 from OpenSeesAPI.OpenSees import OpenSees
 

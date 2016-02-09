@@ -1,16 +1,24 @@
+"""
+This class is used to create the following OpenSees TCL Commands:
+eigen
+"""
+
 __author__ = 'Nasser'
 
-# This command is used to perform the analysis.
-# eigen <$solver> $numEigenvalues
-# $numEigenvalues	number of eigenvalues required
-# $solver	optional string detailing type of solver: -genBandArpack, -symmBandLapack, -fullGenLapack (default: -genBandArpack)
-#
-# RETURNS:
-# a tcl string containg eigenvalues.
+
 
 from OpenSeesAPI.OpenSees import OpenSees
 
 class Eigen(OpenSees):
+    """
+    This command is used to perform the analysis.
+    eigen <$solver> $numEigenvalues
+    $numEigenvalues	number of eigenvalues required
+    $solver	optional string detailing type of solver: -genBandArpack, -symmBandLapack, -fullGenLapack (default: -genBandArpack)
+
+    RETURNS:
+    a tcl string containg eigenvalues.
+    """
     def __init__(self, NoOfModes, symmBandLapack=False, fullGenLapack=False):
         self._NoOfModes = NoOfModes
         self._Optional = ''
