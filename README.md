@@ -7,17 +7,17 @@ OSAPI is written using an object-oriented programing style making easy to intera
 
 ## Installation instructions
 
-- Make sure you have OpenSees [downloaded](http://opensees.berkeley.edu/OpenSees/user/download.php) and installed (including the required TCL libraries).
-- Add OpenSees or OpenSeesSP/OpenSeesMP to your system path. This can be done easily in the command windows or terminal (mac users).
+- Make sure you have OpenSees [downloaded](http://opensees.berkeley.edu/OpenSees/user/download.php) and installed (including the required tcl libraries).
+- Add OpenSees (or OpenSeesSP/OpenSeesMP) to your system path. This can be done easily in the command prompt or terminal.
 
 Windows Users:
 
-<pre><code>set PATH=%PATH%;OpenSeesExeutableLocation
+<pre><code>set PATH=%PATH%;OpenSeesPath
 </code></pre>
 
 Mac/Linux Users:
 
-<pre><code>export PATH=$PATH:~/OpenSeesExecutableLocation
+<pre><code>export PATH=$PATH:~/OpenSeesPath
 </code></pre>
 
 - Install OpenSeesAPI using pip. This can be done using the following command.
