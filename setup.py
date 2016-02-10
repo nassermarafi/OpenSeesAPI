@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='OpenSeesAPI',
-      version='0.12',
+      version='0.12.1',
       # install_requires=[
       # "numpy",
       # "matplotlib",
