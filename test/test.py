@@ -238,5 +238,4 @@
 #
 # ########################## Run OpenSees Script ##########################
 
-# import OpenSeesAPI
-print 'Done'
+import OpenSeesAPI
