@@ -31,6 +31,7 @@ Three Example Script using OSAPI are available:
 - SampleScript1.py => SDOF System with a Deteriorating Ibarra Spring
 - SampleScript2.py => 40 Story PEER - Tall Building Initiative Building with Buckling Restrained Braced Frames
 - SampleScript3.py => Moment Curvature analysis for a concrete column
+- SampleScript4.py => Dynamic Analysis of a Steel Moment Frame Structure ([Recreation of Sample OpenSees TCL Script](http://opensees.berkeley.edu/wiki/index.php/Pushover_Analysis_of_2-Story_Moment_Frame))
 
 I am working on more. Email me if you have suggestions or need something specific.
 
