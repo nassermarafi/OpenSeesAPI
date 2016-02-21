@@ -77,7 +77,7 @@ OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Define Materials, Sections and Elemen
 
 #Create Columns - Element Type 5
 def CreateColumn(XGrid, YGrid): #YGrid must be more than 0
-    n = 10.
+    n = 1.
     E = 29000
     Acol = 38.5
     Icol = 4020*(1.+n)/n
@@ -90,9 +90,6 @@ def CreateColumn(XGrid, YGrid): #YGrid must be more than 0
     Ks = 6.0*E*Icol/(YGrids[YGrid]-YGrids[YGrid-1])*n
     a_mem = (n+1)*(Mycol*0.05)/(Ks*ThetaP)
     Alpha = a_mem/(1.+n*(1.0-a_mem))
-
-	# set a_mem [expr ($n+1.0)*($Mycol_12*($McMy-1.0)) / ($Ks_col_1*$th_pP)];	# strain hardening ratio of spring
-	# set b [expr ($a_mem)/(1.0+$n*(1.0-$a_mem))];
 
     #Get and Create Sub Nodes for the Zero Length Elements
     BaseNode = OData.GetNodesByGrid(XGrid,YGrid-1)[0]
@@ -114,7 +111,7 @@ CreateColumn(1,2)
 
 #Create Beams - Element Type 6
 def CreateBeam(StartXGrid, EndXGrid, YGrid): #YGrid must be more than 0
-    n = 10.
+    n = 1.
     E = 29000
     Abeam = 30
     Ibeam = 3620.*(n+1)/n
