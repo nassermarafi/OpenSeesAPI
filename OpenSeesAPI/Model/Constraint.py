@@ -39,9 +39,9 @@ class EqualDOF(OpenSees):
     $dof1 $dof2 ...	nodal degrees-of-freedom that are constrained at the cNode to be the same as those at the rNode
     Valid range is from 1 through ndf, the number of nodal degrees-of-freedom.
     """
-    def __init__(self, MasterNode, SlaveNodes, DOFList, **kwargs):
+    def __init__(self, MasterNode, SlaveNode, DOFList, **kwargs):
         self._MasterNode = MasterNode
-        self._SlaveNode = SlaveNodes
+        self._SlaveNode = SlaveNode
         self._DOFList = DOFList
         self.__dict__.update(kwargs)
 
