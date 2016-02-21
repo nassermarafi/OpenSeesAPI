@@ -8,7 +8,231 @@ import numpy as np
 GMData = 386.4*np.array([0.0063,0.00364,0.00099,0.00428,0.00758,0.01087,0.00682,0.00277,-0.00128,0.00368,0.00864,0.0136,0.00727,0.00094,0.0042,0.00221,0.00021,0.00444,0.00867,0.0129,0.01713,-0.00343,-0.024,-0.00992,0.00416,0.00528,0.01653,0.02779,0.03904,0.02449,0.00995,0.00961,0.00926,0.00892,-0.00486,-0.01864,-0.03242,-0.03365,-0.05723,-0.04534,-0.03346,-0.03201,-0.03056,-0.02911,-0.02766,-0.04116,-0.05466,-0.06816,-0.08166,-0.06846,-0.05527,-0.04208,-0.04259,-0.04311,-0.02428,-0.00545,0.01338,0.03221,0.05104,0.06987,0.0887,0.04524,0.00179,-0.04167,-0.08513,-0.12858,-0.17204,-0.12908,-0.08613,-0.08902,-0.09192,-0.09482,-0.09324,-0.09166,-0.09478,-0.09789,-0.12902,-0.07652,-0.02401,0.02849,0.08099,0.1335,0.186,0.2385,0.21993,0.20135,0.18277,0.1642,0.14562,0.16143,0.17725,0.13215,0.08705,0.04196,-0.00314,-0.04824,-0.09334,-0.13843,-0.18353,-0.22863,-0.27372,-0.31882,-0.25024,-0.18166,-0.11309,-0.04451,0.02407,0.09265,0.16123,0.22981,0.29839,0.23197,0.16554,0.09912,0.0327,-0.03372,-0.10014,-0.16656,-0.23299,-0.29941,-0.00421,0.29099,0.2238,0.15662,0.08943,0.02224,-0.04495,0.01834,0.08163,0.14491,0.2082,0.18973,0.17125,0.13759,0.10393,0.07027,0.03661,0.00295,-0.03071,-0.00561,0.01948,0.04458,0.06468,0.08478,0.10487,0.05895,0.01303,-0.03289,-0.07882,-0.03556,0.00771,0.05097,0.01013,-0.03071,-0.07156,-0.1124,-0.15324,-0.11314,-0.07304,-0.03294,0.00715,-0.0635,-0.13415,-0.2048,-0.12482,-0.04485,0.03513,0.1151,0.19508,0.12301,0.05094,-0.02113,-0.0932,-0.02663,0.03995,0.10653,0.17311,0.11283,0.05255,-0.00772,0.01064,0.029,0.04737,0.06573,0.02021,-0.0253,-0.07081,-0.04107,-0.01133,0.00288,0.01709,0.03131,-0.02278,-0.07686,-0.13095,-0.18504,-0.14347,-0.1019,-0.06034,-0.01877,0.0228,-0.00996,-0.04272,-0.02147,-0.00021,0.02104,-0.01459,-0.05022,-0.08585,-0.12148,-0.15711,-0.19274,-0.22837,-0.18145,-0.13453,-0.08761,-0.04069,0.00623,0.05316,0.10008,0.147,0.09754,0.04808,-0.00138,0.05141,0.1042,0.15699,0.20979,0.26258,0.16996,0.07734,-0.01527,-0.10789,-0.20051,-0.06786,0.06479,0.01671,-0.03137,-0.07945,-0.12753,-0.17561,-0.22369,-0.27177,-0.15851,-0.04525,0.06802,0.18128,0.14464,0.108,0.07137,0.03473,0.09666,0.1586,0.22053,0.18296,0.14538,0.1078,0.07023,0.03265,0.06649,0.10033,0.13417,0.10337,0.07257,0.04177,0.01097,-0.01983,0.04438,0.1086,0.17281,0.10416,0.03551,-0.03315,-0.1018,-0.07262,-0.04344,-0.01426,0.01492,-0.02025,-0.05543,-0.0906,-0.12578,-0.16095,-0.19613,-0.14784,-0.09955,-0.05127,-0.00298,-0.01952,-0.03605,-0.05259,-0.04182,-0.03106,-0.02903,-0.02699,0.02515,0.0177,0.02213,0.02656,0.00419,-0.01819,-0.04057,-0.06294,-0.02417,0.0146,0.05337,0.02428,-0.0048,-0.03389,-0.00557,0.02274,0.00679,-0.00915,-0.02509,-0.04103,-0.05698,-0.01826,0.02046,0.00454,-0.01138,-0.00215,0.00708,0.00496,0.00285,0.00074,-0.00534,-0.01141,0.00361,0.01863,0.03365,0.04867,0.0304,0.01213,-0.00614,-0.02441,0.01375,0.01099,0.00823,0.00547,0.00812,0.01077,-0.00692,-0.02461,-0.0423,-0.05999,-0.07768,-0.09538,-0.06209,-0.0288,0.00448,0.03777,0.01773,-0.00231,-0.02235,0.01791,0.05816,0.03738,0.0166,-0.00418,-0.02496,-0.04574,-0.02071,0.00432,0.02935,0.01526,0.01806,0.02086,0.00793,-0.00501,-0.01795,-0.03089,-0.01841,-0.00593,0.00655,-0.02519,-0.05693,-0.04045,-0.02398,-0.0075,0.00897,0.00384,-0.00129,-0.00642,-0.01156,-0.02619,-0.04082,-0.05545,-0.04366,-0.03188,-0.06964,-0.05634,-0.04303,-0.02972,-0.01642,-0.00311,0.0102,0.0235,0.03681,0.05011,0.02436,-0.00139,-0.02714,-0.00309,0.02096,0.04501,0.06906,0.05773,0.0464,0.03507,0.03357,0.03207,0.03057,0.0325,0.03444,0.03637,0.01348,-0.00942,-0.03231,-0.02997,-0.03095,-0.03192,-0.02588,-0.01984,-0.01379,-0.00775,-0.01449,-0.02123,0.01523,0.0517,0.08816,0.12463,0.16109,0.12987,0.09864,0.06741,0.03618,0.00495,0.0042,0.00345,0.00269,-0.05922,-0.12112,-0.18303,-0.12043,-0.05782,0.00479,0.0674,0.13001,0.08373,0.03745,0.06979,0.10213,-0.03517,-0.17247,-0.13763,-0.10278,-0.06794,-0.0331,-0.03647,-0.03984,-0.00517,0.0295,0.06417,0.09883,0.1335,0.05924,-0.01503,-0.08929,-0.16355,-0.06096,0.04164,0.01551,-0.01061,-0.03674,-0.06287,-0.08899,-0.0543,-0.01961,0.01508,0.04977,0.08446,0.05023,0.016,-0.01823,-0.05246,-0.08669,-0.06769,-0.0487,-0.0297,-0.01071,0.00829,-0.00314,0.02966,0.06246,-0.00234,-0.06714,-0.04051,-0.01388,0.01274,0.00805,0.03024,0.05243,0.02351,-0.00541,-0.03432,-0.06324,-0.09215,-0.12107,-0.0845,-0.04794,-0.01137,0.0252,0.06177,0.04028,0.0188,0.04456,0.07032,0.09608,0.12184,0.0635,0.00517,-0.05317,-0.03124,-0.0093,0.01263,0.03457,0.03283,0.03109,0.02935,0.04511,0.06087,0.07663,0.09239,0.05742,0.02245,-0.01252,0.0068,0.02611,0.04543,0.01571,-0.01402,-0.04374,-0.07347,-0.0399,-0.00633,0.02724,0.0608,0.03669,0.01258,-0.01153,-0.03564,-0.00677,0.0221,0.05098,0.07985,0.06915,0.05845,0.04775,0.03706,0.02636,0.05822,0.09009,0.12196,0.10069,0.07943,0.05816,0.03689,0.01563,-0.00564,-0.0269,-0.04817,-0.06944,-0.0907,-0.11197,-0.11521,-0.11846,-0.1217,-0.12494,-0.165,-0.20505,-0.15713,-0.10921,-0.06129,-0.01337,0.03455,0.08247,0.07576,0.06906,0.06236,0.08735,0.11235,0.13734,0.12175,0.10616,0.09057,0.07498,0.08011,0.08524,0.09037,0.06208,0.03378,0.00549,-0.02281,-0.05444,-0.0403,-0.02615,-0.01201,-0.02028,-0.02855,-0.06243,-0.03524,-0.00805,-0.04948,-0.03643,-0.02337,-0.03368,-0.01879,-0.00389,0.011,0.02589,0.01446,0.00303,-0.0084,0.00463,0.01766,0.03069,0.04372,0.02165,-0.00042,-0.02249,-0.04456,-0.03638,-0.02819,-0.02001,-0.01182,-0.02445,-0.03707,-0.04969,-0.05882,-0.06795,-0.07707,-0.0862,-0.09533,-0.06276,-0.03018,0.00239,0.03496,0.04399,0.05301,0.03176,0.01051,-0.01073,-0.03198,-0.05323,0.00186,0.05696,0.01985,-0.01726,-0.05438,-0.01204,0.03031,0.07265,0.11499,0.07237,0.02975,-0.01288,0.01212,0.03711,0.03517,0.03323,0.01853,0.00383,0.00342,-0.02181,-0.04704,-0.07227,-0.0975,-0.12273,-0.08317,-0.04362,-0.00407,0.03549,0.07504,0.1146,0.07769,0.04078,0.00387,0.00284,0.00182,-0.05513,0.04732,0.05223,0.05715,0.06206,0.06698,0.07189,0.02705,-0.01779,-0.06263,-0.10747,-0.15232,-0.12591,-0.0995,-0.07309,-0.04668,-0.02027,0.00614,0.03255,0.00859,-0.01537,-0.03932,-0.06328,-0.03322,-0.00315,0.02691,0.01196,-0.003,0.00335,0.0097,0.01605,0.02239,0.04215,0.06191,0.08167,0.03477,-0.01212,-0.01309,-0.01407,-0.05274,-0.02544,0.00186,0.02916,0.05646,0.08376,0.01754,-0.04869,-0.02074,0.00722,0.03517,-0.00528,-0.04572,-0.08617,-0.0696,-0.05303,-0.03646,-0.01989,-0.00332,0.01325,0.02982,0.01101,-0.00781,-0.02662,-0.00563,0.01536,0.03635,0.05734,0.03159,0.00584,-0.01992,-0.00201,0.01589,-0.01024,-0.03636,-0.06249,-0.0478,-0.03311,-0.04941,-0.0657,-0.082,-0.0498,-0.0176,0.0146,0.0468,0.079,0.0475,0.016,-0.0155,-0.00102,0.01347,0.02795,0.04244,0.05692,0.03781,0.0187,-0.00041,-0.01952,-0.00427,0.01098,0.02623,0.04148,0.01821,-0.00506,-0.00874,-0.03726,-0.06579,-0.026,0.0138,0.05359,0.09338,0.05883,0.02429,-0.01026,-0.0448,-0.01083,-0.01869,-0.02655,-0.03441,-0.02503,-0.01564,-0.00626,-0.01009,-0.01392,0.0149,0.04372,0.03463,0.02098,0.00733,-0.00632,-0.01997,0.00767,0.03532,0.03409,0.03287,0.03164,0.02403,0.01642,0.00982,0.00322,-0.00339,0.02202,-0.01941,-0.06085,-0.10228,-0.07847,-0.05466,-0.03084,-0.00703,0.01678,0.01946,0.02214,0.02483,0.01809,-0.00202,-0.02213,-0.00278,0.01656,0.0359,0.05525,0.07459,0.06203,0.04948,0.03692,-0.00145,0.04599,0.04079,0.03558,0.03037,0.03626,0.04215,0.04803,0.05392,0.04947,0.04502,0.04056,0.03611,0.03166,0.00614,-0.01937,-0.04489,-0.0704,-0.09592,-0.07745,-0.05899,-0.04052,-0.02206,-0.00359,0.01487,0.01005,0.00523,0.00041,-0.00441,-0.00923,-0.01189,-0.01523,-0.01856,-0.0219,-0.00983,0.00224,0.01431,0.00335,-0.0076,-0.01856,-0.00737,0.00383,0.01502,0.02622,0.01016,-0.0059,-0.02196,-0.00121,0.01953,0.04027,0.02826,0.01625,0.00424,0.00196,-0.00031,-0.00258,-0.00486,-0.00713,-0.00941,-0.01168,-0.01396,-0.0175,-0.02104,-0.02458,-0.02813,-0.03167,-0.03521,-0.04205,-0.04889,-0.03559,-0.02229,-0.00899,0.00431,0.01762,0.00714,-0.00334,-0.01383,0.01314,0.04011,0.06708,0.0482,0.02932,0.01043,-0.00845,-0.02733,-0.04621,-0.03155,-0.01688,-0.00222,0.01244,0.02683,0.04121,0.05559,0.03253,0.00946,-0.0136,-0.01432,-0.01504,-0.01576,-0.04209,-0.02685,-0.01161,0.00363,0.01887,0.03411,0.03115,0.02819,0.02917,0.03015,0.03113,0.00388,-0.02337,-0.05062,-0.0382,-0.02579,-0.01337,-0.00095,0.01146,0.02388,0.03629,0.01047,-0.01535,-0.04117,-0.06699,-0.05207,-0.03715,-0.02222,-0.0073,0.00762,0.02254,0.03747,0.04001,0.04256,0.04507,0.04759,0.0501,0.04545,0.0408,0.02876,0.01671,0.00467,-0.00738,-0.00116,0.00506,0.01128,0.0175,-0.00211,-0.02173,-0.04135,-0.06096,-0.08058,-0.06995,-0.05931,-0.04868,-0.03805,-0.02557,-0.0131,-0.00063,0.01185,0.02432,0.0368,0.04927,0.02974,0.01021,-0.00932,-0.02884,-0.04837,-0.0679,-0.04862,-0.02934,-0.01006,0.00922,0.02851,0.04779,0.02456,0.00133,-0.0219,-0.04513,-0.06836,-0.04978,-0.0312,-0.01262,0.00596,0.02453,0.04311,0.06169,0.08027,0.09885,0.06452,0.03019,-0.00414,-0.03848,-0.07281,-0.05999,-0.04717,-0.03435,-0.03231,-0.03028,-0.02824,-0.00396,0.02032,0.00313,-0.01406,-0.03124,-0.04843,-0.06562,-0.05132,-0.03702,-0.02272,-0.00843,0.00587,0.02017,0.02698,0.03379,0.04061,0.04742,0.05423,0.03535,0.01647,0.01622,0.01598,0.01574,0.00747,-0.0008,-0.00907,0.00072,0.01051,0.0203,0.03009,0.03989,0.03478,0.02967,0.02457,0.03075,0.03694,0.04313,0.04931,0.0555,0.06168,-0.00526,-0.0722,-0.06336,-0.05451,-0.04566,-0.03681,-0.03678,-0.03675,-0.03672,-0.01765,0.00143,0.02051,0.03958,0.05866,0.03556,0.01245,-0.01066,-0.03376,-0.05687,-0.04502,-0.03317,-0.02131,-0.00946,0.00239,-0.00208,-0.00654,-0.01101,-0.01548,-0.012,-0.00851,-0.00503,-0.00154,0.00195,0.00051,-0.00092,0.01135,0.02363,0.0359,0.04818,0.06045,0.07273,0.02847,-0.01579,-0.06004,-0.05069,-0.04134,-0.03199,-0.03135,-0.03071,-0.03007,-0.01863,-0.00719,0.00425,0.0157,0.02714,0.03858,0.02975,0.02092,0.02334,0.02576,0.02819,0.03061,0.03304,0.01371,-0.00561,-0.02494,-0.02208,-0.01923,-0.01638,-0.01353,-0.01261,-0.0117,-0.00169,0.00833,0.01834,0.02835,0.03836,0.04838,0.03749,0.0266,0.01571,0.00482,-0.00607,-0.01696,-0.0078,0.00136,0.01052,0.01968,0.02884,-0.00504,-0.03893,-0.02342,-0.00791,0.00759,0.0231,0.00707,-0.00895,-0.02498,-0.041,-0.05703,-0.0292,-0.00137,0.02645,0.05428,0.03587,0.01746,-0.00096,-0.01937,-0.03778,-0.02281,-0.00784,0.00713,0.0221,0.03707,0.05204,0.06701,0.08198,0.03085,-0.02027,-0.0714,-0.12253,-0.08644,-0.05035,-0.01426,0.02183,0.05792,0.094,0.13009,0.03611,-0.05787,-0.04802,-0.03817,-0.02832,-0.01846,-0.00861,-0.03652,-0.06444,-0.06169,-0.05894,-0.05618,-0.06073,-0.06528,-0.04628,-0.02728,-0.00829,0.01071,0.0297,0.03138,0.03306,0.03474,0.03642,0.04574,0.05506,0.06439,0.07371,0.08303,0.03605,-0.01092,-0.0579,-0.04696,-0.03602,-0.02508,-0.01414,-0.03561,-0.05708,-0.07855,-0.06304,-0.04753,-0.03203,-0.01652,-0.00102,0.00922,0.01946,0.0297,0.03993,0.05017,0.06041,0.07065,0.08089,-0.00192,-0.08473,-0.07032,-0.0559,-0.04148,-0.05296,-0.06443,-0.0759,-0.08738,-0.09885,-0.06798,-0.0371,-0.00623,0.02465,0.05553,0.0864,0.11728,0.14815,0.08715,0.02615,-0.03485,-0.09584,-0.071,-0.04616,-0.02132,0.00353,0.02837,0.05321,-0.00469,-0.06258,-0.12048,-0.0996,-0.07872,-0.05784,-0.03696,-0.01608,0.0048,0.02568,0.04656,0.06744,0.08832,0.1092,0.13008,0.10995,0.08982,0.06969,0.04955,0.04006,0.03056,0.02107,0.01158,0.0078,0.00402,0.00024,-0.00354,-0.00732,-0.0111,-0.0078,-0.0045,-0.0012,0.0021,0.0054,-0.00831,-0.02203,-0.03575,-0.04947,-0.06319,-0.05046,-0.03773,-0.025,-0.01227,0.00046,0.00482,0.00919,0.01355,0.01791,0.02228,0.00883,-0.00462,-0.01807,-0.03152,-0.02276,-0.01401,-0.00526,0.0035,0.01225,0.02101,0.01437,0.00773,0.0011,0.00823,0.01537,0.02251,0.01713,0.01175,0.00637,0.01376,0.02114,0.02852,0.03591,0.04329,0.03458,0.02587,0.01715,0.00844,-0.00027,-0.00898,-0.00126,0.00645,0.01417,0.02039,0.02661,0.03283,0.03905,0.04527,0.03639,0.0275,0.01862,0.00974,0.00086,-0.01333,-0.02752,-0.04171,-0.02812,-0.01453,-0.00094,0.01264,0.02623,0.0169,0.00756,-0.00177,-0.01111,-0.02044,-0.02977,-0.03911,-0.02442,-0.00973,0.00496,0.01965,0.03434,0.02054,0.00674,-0.00706,-0.02086,-0.03466,-0.02663,-0.0186,-0.01057,-0.00254,-0.00063,0.00128,0.00319,0.0051,0.00999,0.01488,0.00791,0.00093,-0.00605,0.00342,0.01288,0.02235,0.03181,0.04128,0.02707,0.01287,-0.00134,-0.01554,-0.02975,-0.04395,-0.03612,-0.02828,-0.02044,-0.0126,-0.00476,0.00307,0.01091,0.00984,0.00876,0.00768,0.00661,0.01234,0.01807,0.0238,0.02953,0.03526,0.02784,0.02042,0.013,-0.03415,-0.00628,-0.00621,-0.00615,-0.00609,-0.00602,-0.00596,-0.0059,-0.00583,-0.00577,-0.00571,-0.00564,-0.00558,-0.00552,-0.00545,-0.00539,-0.00532,-0.00526,-0.0052,-0.00513,-0.00507,-0.00501,-0.00494,-0.00488,-0.00482,-0.00475,-0.00469,-0.00463,-0.00456,-0.0045,-0.00444,-0.00437,-0.00431,-0.00425,-0.00418,-0.00412,-0.00406,-0.00399,-0.00393,-0.00387,-0.0038,-0.00374,-0.00368,-0.00361,-0.00355,-0.00349,-0.00342,-0.00336,-0.0033,-0.00323,-0.00317,-0.00311,-0.00304,-0.00298,-0.00292,-0.00285,-0.00279,-0.00273,-0.00266,-0.0026,-0.00254,-0.00247,-0.00241,-0.00235,-0.00228,-0.00222,-0.00216,-0.00209,-0.00203,-0.00197,-0.0019,-0.00184,-0.00178,-0.00171,-0.00165,-0.00158,-0.00152,-0.00146,-0.00139,-0.00133,-0.00127,-0.0012,-0.00114,-0.00108,-0.00101,-0.00095,-0.00089,-0.00082,-0.00076,-0.0007,-0.00063,-0.00057,-0.00051,-0.00044,-0.00038,-0.00032,-0.00025,-0.00019,-0.00013,-0.00006,0]+list(np.zeros(1000)))
 Dt = 0.02
 
-def TBI_BRB_A(GMDataX,GMDataY, Dt, T1=None,T2=None, SupressOutput=True, Viewer = False, Animation = False, PushOver=False, OpenSeesCommand = os.getcwd()+'/tcl/OpenSees', TestingModeOff=True):
+#### Methods used
+
+def CreateNodesFromGrids2D(OData, XGrid, YGrid):
+    Nodes = []
+    for i in range(len(XGrid)):
+        for j in range(len(YGrid)):
+            Nodes.append(OData.CreateNode(XGrid[i],YGrid[j],GridX=i, GridY=j,GroupId=j,_Notes='At GridX: %d, GridY: %d'%(i,j)))
+    return Nodes
+
+def CreateNodesFromGrids3D(OData, XGrid, YGrid, ZGrid):
+    Nodes = []
+    for i in range(len(XGrid)):
+        for j in range(len(YGrid)):
+            for k in range(len(ZGrid)):
+                Nodes.append(OData.CreateNode(XGrid[i],YGrid[j],ZGrid[k],GridX=i, GridY=j,GridZ=k,GroupId=k,_Notes='At GridX: %d, GridY: %d, GridZ: %d'%(i,j,k)))
+    return Nodes
+
+def AddElasticColumnsToDatabase(OData, column_grids, z_grids, section, transformation_tag, plot_name):
+    column_elements = []
+    for j in range(1, len(z_grids)):
+        for i in range(0, len(column_grids)):
+            start = OData.GetNodesByGrid(column_grids[i][0], column_grids[i][1], z_grids[j-1])[0]
+            end = OData.GetNodesByGrid(column_grids[i][0], column_grids[i][1], z_grids[j])[0]
+
+            Name = OData.GetFreeElementId(5,z_grids[j])
+
+            import OpenSeesAPI
+            Element = OpenSeesAPI.Model.Element.Element.ElasticBeamColumn(Name, start,end,section._A, section._E, section._Iz, transformation_tag, G=section._G, J=section._J, Iy=section._Iy, _PlotName=plot_name ,_Notes=plot_name)
+            OData.AddElement(Element)
+            column_elements.append(Element)
+    return column_elements
+
+def AddElasticBeamsToDatabase(OData, beam_grids, z_grids, section, transformation_tag, plot_name):
+    beams_elements = []
+    for j in range(0, len(z_grids)):
+        for i in range(0, len(beam_grids)):
+            NodeI = OData.GetNodesByGrid(beam_grids[i][0], beam_grids[i][1], z_grids[j])[0]
+            NodeJ = OData.GetNodesByGrid(beam_grids[i][2], beam_grids[i][3], z_grids[j])[0]
+            Name = OData.GetFreeElementId(6,z_grids[j])
+
+            import OpenSeesAPI
+
+            #Pinned Beam Option
+            SubNodeI = OData.CreateNode(NodeI.X,NodeI.Y,NodeI.Z,2,NodeI.GridX,NodeI.GridY,NodeI.GridZ,_Notes='Pinned Beam Node at:'+plot_name)
+            SubNodeJ = OData.CreateNode(NodeJ.X,NodeJ.Y,NodeJ.Z,2,NodeJ.GridX,NodeJ.GridY,NodeJ.GridZ,_Notes='Pinned Beam Node at:'+plot_name)
+            L = ((NodeI.X-NodeJ.X)**2.+(NodeI.Y-NodeJ.Y)**2.)**.5
+            EI = section._E*section._Iz*6./L
+            RigidMat = OData.AddMaterial(OpenSeesAPI.Model.Element.Material.UniaxialMaterial.Elastic(OData.GetFreeMaterialId(9,NodeI.GridZ),EI*1000,_Notes='Rigid Beam ZeroLength Stiffness at:'+plot_name))
+            FlexMat = OData.AddMaterial(OpenSeesAPI.Model.Element.Material.UniaxialMaterial.Elastic(OData.GetFreeMaterialId(9,NodeI.GridZ),EI*0.001,_Notes='Pinned Beam ZeroLength Stiffness at:'+plot_name))
+            ZeroDOF1 = OData.AddConstraint(OpenSeesAPI.Model.Element.Element.ZeroLength(OData.GetFreeElementId(9,NodeI.GridZ),NodeI,SubNodeI,[RigidMat,RigidMat,RigidMat,FlexMat,FlexMat,FlexMat],[1,2,3,4,5,6],_Notes='Pinning Beam at:'+plot_name))
+            ZeroDOF2 = OData.AddConstraint(OpenSeesAPI.Model.Element.Element.ZeroLength(OData.GetFreeElementId(9,NodeI.GridZ),NodeJ,SubNodeJ,[RigidMat,RigidMat,RigidMat,FlexMat,FlexMat,FlexMat],[1,2,3,4,5,6],_Notes='Pinning Beam at:'+plot_name))
+            Element = OpenSeesAPI.Model.Element.Element.ElasticBeamColumn(Name, SubNodeI, SubNodeJ, section._A, section._E, section._Iz, transformation_tag, G=section._G, J=section._J, Iy=section._Iy, _PlotName=plot_name ,_Notes=plot_name)
+
+            #Beam Not Pinned Option
+            # Element = OpenSeesAPI.Model.Element.Element.ElasticBeamColumn(Name, NodeI, NodeJ, section._A, section._E, section._Iz, transformation_tag, G=section._G, J=section._J, Iy=section._Iy, _PlotName=plot_name ,_Notes=plot_name)
+
+            OData.AddElement(Element)
+            beams_elements.append(Element)
+    return beams_elements
+
+def GetNodeBetweenTwoNodes3D(OData, NodeI, NodeJ, PercentageWay, NodeType,_Notes=''):
+    Location_X = (NodeJ.X-NodeI.X)*PercentageWay + NodeI.X
+    Location_Y = (NodeJ.Y-NodeI.Y)*PercentageWay + NodeI.Y
+    Location_Z = (NodeJ.Z-NodeI.Z)*PercentageWay + NodeI.Z
+
+    node = OData.CreateNode(Location_X,Location_Y,Location_Z,NodeType=NodeType,GridX=NodeJ.GridX,GridY=NodeJ.GridY,GridZ=NodeJ.GridZ,_Notes=_Notes)
+    return node
+
+def AddNonLinearBraceToDatabase(OData, BraceGrids, BraceLevels, BRBSection, GeoTranfs, _PlotName):
+    elements = []
+    for j in range(0, len(BraceLevels)):
+        for i in range(0, len(BraceGrids)):
+            NodeI = OData.GetNodesByGrid(BraceGrids[i][0], BraceGrids[i][1], BraceLevels[j]-1)[0]
+            NodeJ = OData.GetNodesByGrid(BraceGrids[i][2], BraceGrids[i][3], BraceLevels[j])[0]
+
+            TopNode = GetNodeBetweenTwoNodes3D(OData,NodeI,NodeJ,.7,2)
+
+            import OpenSeesAPI
+
+            # BRB_Element = OData.AddElement(OpenSeesAPI.Model.Element.Element.Truss(NameBRB, NodeI, TopNode, BRBSection._As, BRBSection._Material,_PlotName=_PlotName))
+            # Rigid = 29e3*10
+            # Rigid_Element = OData.AddElement(OpenSeesAPI.Model.Element.Element.ElasticBeamColumn(NameRigid, TopNode, NodeJ, BRBSection._As, Rigid, BRBSection._As**10, GeoTranfs, Rigid, BRBSection._As**10, BRBSection._As**2,_PlotName='Rigid Element'))
+
+            # Pinned BRb Element
+            TopTopNode = OData.CreateNode(NodeJ.X,NodeJ.Y,NodeJ.Z,2,NodeJ.GridX,NodeJ.GridY,NodeJ.GridZ,GroupId=NodeJ.GridZ,_Notes='Equal DOF Node for Brace')
+            BottomBottomNode = OData.CreateNode(NodeI.X,NodeI.Y,NodeI.Z,2,NodeI.GridX,NodeI.GridY,NodeI.GridZ,GroupId=NodeI.GridZ,_Notes='Equal DOF Node for Brace')
+
+            SteelE = 29000
+            RigidFactor = 1000
+            FreeFactor = 0.001
+            RigidMat = OData.AddMaterial(OpenSeesAPI.Model.Element.Material.UniaxialMaterial.Elastic(OData.GetFreeMaterialId(9,NodeI.GridZ), SteelE*RigidFactor*BRBSection._As))
+            FreeMat = OData.AddMaterial(OpenSeesAPI.Model.Element.Material.UniaxialMaterial.Elastic(OData.GetFreeMaterialId(9,NodeI.GridZ), SteelE*FreeFactor*BRBSection._As))
+
+            TopBRB_Pin = OData.AddElement(OpenSeesAPI.Model.Element.Element.ZeroLength(OData.GetFreeElementId(9,BraceLevels[j]),TopTopNode,NodeJ,[RigidMat,RigidMat,RigidMat,FreeMat,FreeMat,FreeMat],[1,2,3,4,5,6]))
+            Rigid_Element = OData.AddElement(OpenSeesAPI.Model.Element.Element.ElasticBeamColumn(OData.GetFreeElementId(9,BraceLevels[j]), TopNode, NodeJ, BRBSection._As, SteelE*RigidFactor, BRBSection._As*FreeFactor, GeoTranfs, G=SteelE*FreeFactor, J=BRBSection._As,Iy= BRBSection._As,_PlotName='Rigid Element'))
+            BRB_Element = OData.AddElement(OpenSeesAPI.Model.Element.Element.Truss(OData.GetFreeElementId(7,BraceLevels[j]), BottomBottomNode, TopTopNode, BRBSection._As, BRBSection._Material,_PlotName=_PlotName))
+            BottomBRB_Pin = OData.AddElement(OpenSeesAPI.Model.Element.Element.ZeroLength(OData.GetFreeElementId(9,BraceLevels[j]),NodeI,BottomBottomNode,[RigidMat,RigidMat,RigidMat,FreeMat,FreeMat,FreeMat],[1,2,3,4,5,6]))
+
+            elements.append(BRB_Element)
+    return elements
+
+def AddElasticWallsToDatabase(OData, WallGrids, WallLevels, Section, XGrids, YGrids, ZGrids, MeshSize, PlotName):
+    import OpenSeesAPI
+    for j in range(0,len(WallLevels)):
+        for i in range(0,len(WallGrids)):
+            tempX = []
+            tempX.append(XGrids[WallGrids[i][0]])
+            if WallGrids[i][0] != WallGrids[i][2]:
+                for k in range(WallGrids[i][0]+1,WallGrids[i][2]+1):
+                    if XGrids[k]-XGrids[k-1] > MeshSize:
+                        Split = int((XGrids[k]-XGrids[k-1])/float(MeshSize))
+                        Size = (XGrids[k]-XGrids[k-1])/float(Split)
+                        for l in range(Split-1):
+                            tempX.append(XGrids[k-1]+Size*(l+1))
+                    tempX.append(XGrids[k])
+
+            tempY = []
+            tempY.append(YGrids[WallGrids[i][1]])
+            if WallGrids[i][1] != WallGrids[i][3]:
+                for k in range(WallGrids[i][1]+1,WallGrids[i][3]+1):
+                    if YGrids[k]-YGrids[k-1] > MeshSize:
+                        Split = int((YGrids[k]-YGrids[k-1])/float(MeshSize))
+                        Size = (YGrids[k]-YGrids[k-1])/float(Split)
+                        for l in range(Split-1):
+                            tempY.append(YGrids[k-1]+Size*(l+1))
+                    tempY.append(YGrids[k])
+
+            tempZ = []
+            tempZ.append(ZGrids[WallLevels[j]-1])
+            for k in range(WallLevels[j]-1,WallLevels[j]):
+                if ZGrids[k+1]-ZGrids[k] > MeshSize:
+                    Split = int((ZGrids[k+1]-ZGrids[k])/float(MeshSize))
+                    Size = (ZGrids[k+1]-ZGrids[k])/float(Split)
+                    for l in range(Split-1):
+                        tempZ.append(ZGrids[k]+Size*(l+1))
+                tempZ.append(ZGrids[k+1])
+
+            HorizontalPlan = tempX if len(tempX)>len(tempY) else tempY
+            PerpDirection = tempY if len(tempX)>len(tempY) else tempX
+
+            NodeArray = [[0 for x in xrange(len(tempZ))] for x in xrange(len(HorizontalPlan))]
+
+            # Fill in Node Array
+            for c in range(len(tempZ)):
+                for b in range(len(HorizontalPlan)):
+                    if len(tempX)>len(tempY):
+                        Nodes = filter(lambda x: x.X == tempX[b] and x.Y == tempY[0] and x.Z == tempZ[c] and (x.NodeType == 1 or x.NodeType == 4), OData._Nodes)
+                        if len(Nodes) == 1:
+                            NodeArray[b][c] = Nodes[0]
+                        else:
+                            NodeArray[b][c] = OData.CreateNode(tempX[b],tempY[0],tempZ[c],NodeType=4,_Notes='Wall Node')
+                    else:
+                        Nodes = filter(lambda x: x.X == tempX[0] and x.Y == tempY[b] and x.Z == tempZ[c] and (x.NodeType == 1 or x.NodeType == 4), OData._Nodes)
+                        if len(Nodes) == 1:
+                            NodeArray[b][c] = Nodes[0]
+                        else:
+                            NodeArray[b][c] = OData.CreateNode(tempX[0],tempY[b],tempZ[c],NodeType=4,_Notes='Wall Node')
+
+            # Create Elements
+            for c in range(1,len(tempZ)):
+                for b in range(1,len(HorizontalPlan)):
+                    OData.AddQuadrilateral(OpenSeesAPI.Model.Element.Element.ShellMITC4(OData.GetFreeElementId(8,WallLevels[j]), NodeArray[b-1][c-1], NodeArray[b][c-1], NodeArray[b][c],NodeArray[b-1][c], Section ,_Notes=PlotName,_PlotName=PlotName))
+
+def AddMeshedSlabToDatabase(OData, SlabGrids, SlabLevels, Section, xgrids, ygrids, zgrids, MeshSize, PlotName):
+    import OpenSeesAPI
+    for i in range(0,len(SlabLevels)):
+        for j in range(0,len(SlabGrids)):
+
+            Z = zgrids[SlabLevels[i]]
+
+            SouthWestX = xgrids[SlabGrids[j][0]]
+            SouthWestY = ygrids[SlabGrids[j][1]]
+            NorthEastX = xgrids[SlabGrids[j][4]]
+            NorthEastY = ygrids[SlabGrids[j][5]]
+
+            XGrids = []
+            YGrids = []
+
+            ONodes_Z = OData.GetNodesByZCoordinate(Z,NodeType=1)+OData.GetNodesByZCoordinate(Z,NodeType=4)
+            for node in ONodes_Z:
+                if SouthWestX <= node.X and SouthWestY <= node.Y and NorthEastX >= node.X and NorthEastY >= node.Y:
+                    if not(XGrids.__contains__(node.X)):
+                        XGrids.append(node.X)
+                    if not(YGrids.__contains__(node.Y)):
+                        YGrids.append(node.Y)
+
+
+            XGrids.sort()
+            YGrids.sort()
+
+            #Make sure the grid spacing is smaller than the mesh size
+            for m in range(1,len(XGrids)):
+                if XGrids[m] - XGrids[m-1] > MeshSize:
+                    split = int((XGrids[m] - XGrids[m-1])/float(MeshSize))
+                    splitlength = float((XGrids[m] - XGrids[m-1]))/split
+                    for n in range(1,split):
+                        XGrids.append(XGrids[m-1]+splitlength*(n))
+            XGrids.sort()
+
+            for m in range(1,len(YGrids)):
+                if YGrids[m] - YGrids[m-1] > MeshSize:
+                    split = int((YGrids[m] - YGrids[m-1])/float(MeshSize))
+                    splitlength = float((YGrids[m] - YGrids[m-1]))/split
+                    for n in range(1,split):
+                        YGrids.append(YGrids[m-1]+splitlength*(n))
+            YGrids.sort()
+
+            #Create Nodes
+            NodeArray = [[0 for x in xrange(len(YGrids))] for x in xrange(len(XGrids))]
+
+            for a in range(0,len(XGrids)):
+                for b in range(0,len(YGrids)):
+                    Nodes = filter(lambda x: x.X == XGrids[a] and x.Y == YGrids[b] and x.Z == Z and (x.NodeType == 1 or x.NodeType == 4), OData._Nodes)
+                    if len(Nodes) == 1:
+                        NodeArray[a][b] = Nodes[0]
+                    else:
+                        NodeArray[a][b] = OData.CreateNode(XGrids[a],YGrids[b],Z,4,_Notes='Slab Node')
+
+            #Create Quads
+            for a in range(1,len(XGrids)):
+                for b in range(1,len(YGrids)):
+                    Element = OpenSeesAPI.Model.Element.Element.ShellMITC4(OData.GetFreeElementId(8,SlabLevels[i]), NodeArray[a-1][b-1], NodeArray[a-1][b], NodeArray[a][b],NodeArray[a][b-1], Section ,_Notes=PlotName,_PlotName=PlotName)
+                    OData.AddQuadrilateral(Element)
+
+def TBI_BRB_A(GMDataX,GMDataY, Dt, T1=None,T2=None, SupressOutput=True, Viewer = False, Animation = False, PushOver=False, OpenSeesCommand = 'OpenSeesSP', TestingModeOff=True):
     ### TesingMode
     TestingModeOff = TestingModeOff
 
@@ -31,12 +255,18 @@ def TBI_BRB_A(GMDataX,GMDataY, Dt, T1=None,T2=None, SupressOutput=True, Viewer =
     import time
     import uuid
     randomnumber = str(uuid.uuid4().get_hex().upper()[0:12])
-    timestamp = 'test2'#time.strftime("%y%m%d-%H%M%S")+randomnumber
-    ModelName = 'TBI-BRB-'
+    timestamp = ''#time.strftime("%y%m%d-%H%M%S")+randomnumber
+    ModelName = 'TBI-BRB'
     FileName = '%s-%s.tcl'%(ModelName,timestamp)
 
     FileLocation = os.getcwd()+'/tcl/'
+    ResultFileLocation = os.getcwd()+'/tcl/Results/'
     OData = OpenSeesAPI.Database.Collector(OpenSeesCommand, FileLocation, FileName)
+
+    if not os.path.exists(FileLocation): #Make Directory is unavailable
+        os.makedirs(FileLocation)
+    if not os.path.exists(ResultFileLocation): #Make Directory is unavailable
+        os.makedirs(ResultFileLocation)
 
     #endregion
 
@@ -57,10 +287,9 @@ def TBI_BRB_A(GMDataX,GMDataY, Dt, T1=None,T2=None, SupressOutput=True, Viewer =
         ZGrids = 12*np.array([0, 12, 24, 36, 48, 66, 79.5, 93, 106.5, 120, 133.5, 147, 160.5, 174, 187.5, 201, 214.5, 228, 241.5, 255, 268.5, 282, 295.5, 309, 322.5, 336, 349.5, 363, 376.5, 390, 403.5, 417, 430.5, 444, 457.5, 471, 484.5, 498, 511.5, 525, 538.5, 552, 565.5, 579, 592.5])
     else:
         ZGrids = 12*np.array([0, 12, 24, 36, 48])
-    import OSGeometryHelper as OSGeo
 
     #Create Grid Nodes
-    GridNodes = OSGeo.CreateNodesFromGrids3D(OData, XGrids, YGrids, ZGrids)
+    GridNodes = CreateNodesFromGrids3D(OData, XGrids, YGrids, ZGrids)
 
     #Create Diaphragm Nodes
     DiaphragmNodes = []
@@ -231,9 +460,9 @@ def TBI_BRB_A(GMDataX,GMDataY, Dt, T1=None,T2=None, SupressOutput=True, Viewer =
                     [2,8],[4,8],[6,8],[8,8]
                     ] # What Grids the Columns Occur
     if TestingModeOff:
-       ColumnSet.extend(OSGeo.AddElasticColumnsToDatabase(OData,ColumnGrids,range(0, 45), Column_Gravity,ColumnGeoTransfPDelta,'Columns - Gravity'))
+       ColumnSet.extend(AddElasticColumnsToDatabase(OData,ColumnGrids,range(0, 45), Column_Gravity,ColumnGeoTransfPDelta,'Columns - Gravity'))
     else:
-        ColumnSet.extend(OSGeo.AddElasticColumnsToDatabase(OData,ColumnGrids,range(0, 5), Column_Gravity,ColumnGeoTransfPDelta,'Columns - Gravity'))
+        ColumnSet.extend(AddElasticColumnsToDatabase(OData,ColumnGrids,range(0, 5), Column_Gravity,ColumnGeoTransfPDelta,'Columns - Gravity'))
 
     #### Gravity Columns ####
     #Defining Column Grids - Define Grid Numbers Where Columns Occur
@@ -242,7 +471,7 @@ def TBI_BRB_A(GMDataX,GMDataY, Dt, T1=None,T2=None, SupressOutput=True, Viewer =
                     [1,2],[9,2],[1,8],[9,8]
                    ] # What Grids the Columns Occur
     if TestingModeOff:
-        ColumnSet.extend(OSGeo.AddElasticColumnsToDatabase(OData,ColumnGrids,range(14, 45), Column_Gravity,ColumnGeoTransfPDelta,'Columns - Gravity'))
+        ColumnSet.extend(AddElasticColumnsToDatabase(OData,ColumnGrids,range(14, 45), Column_Gravity,ColumnGeoTransfPDelta,'Columns - Gravity'))
 
     #### Lateral Columns ####
     #Defining Column Grids - Define Grid Numbers Where Columns Occur
@@ -252,14 +481,14 @@ def TBI_BRB_A(GMDataX,GMDataY, Dt, T1=None,T2=None, SupressOutput=True, Viewer =
                     [9,2], [9,8]
                     ] # What Grids the Columns Occur
     if TestingModeOff:
-        ColumnSet.extend(OSGeo.AddElasticColumnsToDatabase(OData,ColumnGrids,range(0, 4), Column_39_25, ColumnGeoTransfPDelta,'Columns - 54x54inch '))
-        ColumnSet.extend(OSGeo.AddElasticColumnsToDatabase(OData,ColumnGrids,range(3, 6), Column_36_25, ColumnGeoTransfPDelta,'Columns - 51x51inch '))
-        ColumnSet.extend(OSGeo.AddElasticColumnsToDatabase(OData,ColumnGrids,range(5, 8), Column_30_25, ColumnGeoTransfPDelta,'Columns - 48x48inch '))
-        ColumnSet.extend(OSGeo.AddElasticColumnsToDatabase(OData,ColumnGrids,range(7, 10), Column_27_2, ColumnGeoTransfPDelta,'Columns - 48x48inch '))
-        ColumnSet.extend(OSGeo.AddElasticColumnsToDatabase(OData,ColumnGrids,range(9, 12), Column_24_2, ColumnGeoTransfPDelta,'Columns - 48x48inch '))
-        ColumnSet.extend(OSGeo.AddElasticColumnsToDatabase(OData,ColumnGrids,range(11, 15), Column_21_15, ColumnGeoTransfPDelta,'Columns - 48x48inch '))
+        ColumnSet.extend(AddElasticColumnsToDatabase(OData,ColumnGrids,range(0, 4), Column_39_25, ColumnGeoTransfPDelta,'Columns - 54x54inch '))
+        ColumnSet.extend(AddElasticColumnsToDatabase(OData,ColumnGrids,range(3, 6), Column_36_25, ColumnGeoTransfPDelta,'Columns - 51x51inch '))
+        ColumnSet.extend(AddElasticColumnsToDatabase(OData,ColumnGrids,range(5, 8), Column_30_25, ColumnGeoTransfPDelta,'Columns - 48x48inch '))
+        ColumnSet.extend(AddElasticColumnsToDatabase(OData,ColumnGrids,range(7, 10), Column_27_2, ColumnGeoTransfPDelta,'Columns - 48x48inch '))
+        ColumnSet.extend(AddElasticColumnsToDatabase(OData,ColumnGrids,range(9, 12), Column_24_2, ColumnGeoTransfPDelta,'Columns - 48x48inch '))
+        ColumnSet.extend(AddElasticColumnsToDatabase(OData,ColumnGrids,range(11, 15), Column_21_15, ColumnGeoTransfPDelta,'Columns - 48x48inch '))
     else:
-        ColumnSet.extend(OSGeo.AddElasticColumnsToDatabase(OData,ColumnGrids,range(0, 5), Column_39_25, ColumnGeoTransfPDelta,'Columns - 54x54inch '))
+        ColumnSet.extend(AddElasticColumnsToDatabase(OData,ColumnGrids,range(0, 5), Column_39_25, ColumnGeoTransfPDelta,'Columns - 54x54inch '))
 
 
     #Defining Column Grids - Define Grid Numbers Where Columns Occur
@@ -271,20 +500,20 @@ def TBI_BRB_A(GMDataX,GMDataY, Dt, T1=None,T2=None, SupressOutput=True, Viewer =
                    [9,4],[9,6]] # What Grids the Columns Occur
     if TestingModeOff:
         #Defining Column Elements
-        ColumnSet.extend(OSGeo.AddElasticColumnsToDatabase(OData,ColumnGrids,range(0, 4), Column_54_3, ColumnGeoTransfPDelta,'Columns - 54x54inch '))
-        ColumnSet.extend(OSGeo.AddElasticColumnsToDatabase(OData,ColumnGrids,range(3, 8), Column_51_3, ColumnGeoTransfPDelta,'Columns - 51x51inch '))
-        ColumnSet.extend(OSGeo.AddElasticColumnsToDatabase(OData,ColumnGrids,range(7, 12), Column_48_3, ColumnGeoTransfPDelta,'Columns - 48x48inch '))
-        ColumnSet.extend(OSGeo.AddElasticColumnsToDatabase(OData,ColumnGrids,range(11, 14), Column_45_3, ColumnGeoTransfPDelta,'Columns - 45x45inch '))
-        ColumnSet.extend(OSGeo.AddElasticColumnsToDatabase(OData,ColumnGrids,range(13, 16), Column_42_3, ColumnGeoTransfPDelta,'Columns - 42x42inch '))
-        ColumnSet.extend(OSGeo.AddElasticColumnsToDatabase(OData,ColumnGrids,range(15, 20), Column_39_25, ColumnGeoTransfPDelta,'Columns - 39x39inch '))
-        ColumnSet.extend(OSGeo.AddElasticColumnsToDatabase(OData,ColumnGrids,range(19, 22), Column_36_25, ColumnGeoTransfPDelta,'Columns - 36x36inch '))
-        ColumnSet.extend(OSGeo.AddElasticColumnsToDatabase(OData,ColumnGrids,range(21, 24), Column_33_25, ColumnGeoTransfPDelta,'Columns - 33x33inch '))
-        ColumnSet.extend(OSGeo.AddElasticColumnsToDatabase(OData,ColumnGrids,range(23, 26), Column_30_25, ColumnGeoTransfPDelta,'Columns - 30x30inch '))
-        ColumnSet.extend(OSGeo.AddElasticColumnsToDatabase(OData,ColumnGrids,range(25, 28), Column_27_2, ColumnGeoTransfPDelta,'Columns - 27x27inch '))
-        ColumnSet.extend(OSGeo.AddElasticColumnsToDatabase(OData,ColumnGrids,range(27, 32), Column_24_2, ColumnGeoTransfPDelta,'Columns - 24x24inch '))
-        ColumnSet.extend(OSGeo.AddElasticColumnsToDatabase(OData,ColumnGrids,range(31, 45), Column_21_15, ColumnGeoTransfPDelta,'Columns - 21x21inch '))
+        ColumnSet.extend(AddElasticColumnsToDatabase(OData,ColumnGrids,range(0, 4), Column_54_3, ColumnGeoTransfPDelta,'Columns - 54x54inch '))
+        ColumnSet.extend(AddElasticColumnsToDatabase(OData,ColumnGrids,range(3, 8), Column_51_3, ColumnGeoTransfPDelta,'Columns - 51x51inch '))
+        ColumnSet.extend(AddElasticColumnsToDatabase(OData,ColumnGrids,range(7, 12), Column_48_3, ColumnGeoTransfPDelta,'Columns - 48x48inch '))
+        ColumnSet.extend(AddElasticColumnsToDatabase(OData,ColumnGrids,range(11, 14), Column_45_3, ColumnGeoTransfPDelta,'Columns - 45x45inch '))
+        ColumnSet.extend(AddElasticColumnsToDatabase(OData,ColumnGrids,range(13, 16), Column_42_3, ColumnGeoTransfPDelta,'Columns - 42x42inch '))
+        ColumnSet.extend(AddElasticColumnsToDatabase(OData,ColumnGrids,range(15, 20), Column_39_25, ColumnGeoTransfPDelta,'Columns - 39x39inch '))
+        ColumnSet.extend(AddElasticColumnsToDatabase(OData,ColumnGrids,range(19, 22), Column_36_25, ColumnGeoTransfPDelta,'Columns - 36x36inch '))
+        ColumnSet.extend(AddElasticColumnsToDatabase(OData,ColumnGrids,range(21, 24), Column_33_25, ColumnGeoTransfPDelta,'Columns - 33x33inch '))
+        ColumnSet.extend(AddElasticColumnsToDatabase(OData,ColumnGrids,range(23, 26), Column_30_25, ColumnGeoTransfPDelta,'Columns - 30x30inch '))
+        ColumnSet.extend(AddElasticColumnsToDatabase(OData,ColumnGrids,range(25, 28), Column_27_2, ColumnGeoTransfPDelta,'Columns - 27x27inch '))
+        ColumnSet.extend(AddElasticColumnsToDatabase(OData,ColumnGrids,range(27, 32), Column_24_2, ColumnGeoTransfPDelta,'Columns - 24x24inch '))
+        ColumnSet.extend(AddElasticColumnsToDatabase(OData,ColumnGrids,range(31, 45), Column_21_15, ColumnGeoTransfPDelta,'Columns - 21x21inch '))
     else:
-        ColumnSet.extend(OSGeo.AddElasticColumnsToDatabase(OData,ColumnGrids,range(0, 5), Column_54_3, ColumnGeoTransfPDelta,'Columns - 54x54inch '))
+        ColumnSet.extend(AddElasticColumnsToDatabase(OData,ColumnGrids,range(0, 5), Column_54_3, ColumnGeoTransfPDelta,'Columns - 54x54inch '))
 
     #### Beams ####
     BeamSet = []
@@ -294,26 +523,26 @@ def TBI_BRB_A(GMDataX,GMDataY, Dt, T1=None,T2=None, SupressOutput=True, Viewer =
                  [9,2,9,3], [9,3,9,4],  [9,6,9,7], [9,7,9,8], #Grid 8X
                  ]  # What grids do the beams connect to
     if TestingModeOff:
-        BeamSet.extend(OSGeo.AddElasticBeamsToDatabase(OData, BeamGrids, range(1, 4), W24X131, BeamGeoTransfPDelta,'Beam - W24x131'))
-        BeamSet.extend(OSGeo.AddElasticBeamsToDatabase(OData, BeamGrids, range(4, 5), W24X162, BeamGeoTransfPDelta,'Beam - W24x162'))
-        BeamSet.extend(OSGeo.AddElasticBeamsToDatabase(OData, BeamGrids, range(5, 12), W14X193, BeamGeoTransfPDelta,'Beam - W14x193'))
-        BeamSet.extend(OSGeo.AddElasticBeamsToDatabase(OData, BeamGrids, range(12, 15), W14X176, BeamGeoTransfPDelta,'Beam - W14x176'))
+        BeamSet.extend(AddElasticBeamsToDatabase(OData, BeamGrids, range(1, 4), W24X131, BeamGeoTransfPDelta,'Beam - W24x131'))
+        BeamSet.extend(AddElasticBeamsToDatabase(OData, BeamGrids, range(4, 5), W24X162, BeamGeoTransfPDelta,'Beam - W24x162'))
+        BeamSet.extend(AddElasticBeamsToDatabase(OData, BeamGrids, range(5, 12), W14X193, BeamGeoTransfPDelta,'Beam - W14x193'))
+        BeamSet.extend(AddElasticBeamsToDatabase(OData, BeamGrids, range(12, 15), W14X176, BeamGeoTransfPDelta,'Beam - W14x176'))
     else:
-        BeamSet.extend(OSGeo.AddElasticBeamsToDatabase(OData, BeamGrids, range(1, 5), W24X131, BeamGeoTransfPDelta,'Beam - W24x131'))
+        BeamSet.extend(AddElasticBeamsToDatabase(OData, BeamGrids, range(1, 5), W24X131, BeamGeoTransfPDelta,'Beam - W24x131'))
 
     #1-(4/6) X
     BeamGrids = [ [1,4,1,5], [1,5,1,6], #Grid 0X
                   [9,4,9,5], [9,5,9,6] #Grid 8X
                  ]  # What grids do the beams connect to
     if TestingModeOff:
-        BeamSet.extend(OSGeo.AddElasticBeamsToDatabase(OData, BeamGrids, range(1, 15), W16X100, BeamGeoTransfPDelta,'Beam - W16x100'))
-        BeamSet.extend(OSGeo.AddElasticBeamsToDatabase(OData, BeamGrids, range(15, 24), W14X159, BeamGeoTransfPDelta,'Beam - W14x159'))
-        BeamSet.extend(OSGeo.AddElasticBeamsToDatabase(OData, BeamGrids, range(24, 28), W14X132, BeamGeoTransfPDelta,'Beam - W14x132'))
-        BeamSet.extend(OSGeo.AddElasticBeamsToDatabase(OData, BeamGrids, range(28, 32), W16X100, BeamGeoTransfPDelta,'Beam - W16x100'))
-        BeamSet.extend(OSGeo.AddElasticBeamsToDatabase(OData, BeamGrids, range(32, 40), W14X68, BeamGeoTransfPDelta,'Beam - W14x68'))
-        BeamSet.extend(OSGeo.AddElasticBeamsToDatabase(OData, BeamGrids, range(40, 45), W14X53, BeamGeoTransfPDelta,'Beam - W14x53'))
+        BeamSet.extend(AddElasticBeamsToDatabase(OData, BeamGrids, range(1, 15), W16X100, BeamGeoTransfPDelta,'Beam - W16x100'))
+        BeamSet.extend(AddElasticBeamsToDatabase(OData, BeamGrids, range(15, 24), W14X159, BeamGeoTransfPDelta,'Beam - W14x159'))
+        BeamSet.extend(AddElasticBeamsToDatabase(OData, BeamGrids, range(24, 28), W14X132, BeamGeoTransfPDelta,'Beam - W14x132'))
+        BeamSet.extend(AddElasticBeamsToDatabase(OData, BeamGrids, range(28, 32), W16X100, BeamGeoTransfPDelta,'Beam - W16x100'))
+        BeamSet.extend(AddElasticBeamsToDatabase(OData, BeamGrids, range(32, 40), W14X68, BeamGeoTransfPDelta,'Beam - W14x68'))
+        BeamSet.extend(AddElasticBeamsToDatabase(OData, BeamGrids, range(40, 45), W14X53, BeamGeoTransfPDelta,'Beam - W14x53'))
     else:
-        BeamSet.extend(OSGeo.AddElasticBeamsToDatabase(OData, BeamGrids, range(1, 5), W16X100, BeamGeoTransfPDelta,'Beam - W16x100'))
+        BeamSet.extend(AddElasticBeamsToDatabase(OData, BeamGrids, range(1, 5), W16X100, BeamGeoTransfPDelta,'Beam - W16x100'))
 
     #2 4 6 8 X
     BeamGrids = [
@@ -321,14 +550,14 @@ def TBI_BRB_A(GMDataX,GMDataY, Dt, T1=None,T2=None, SupressOutput=True, Viewer =
                  [6,4,6,5], [6,5,6,6], [8,4,8,5], [8,5,8,6], #Grid 5-7X
                  ]  # What grids do the beams connect to
     if TestingModeOff:
-        BeamSet.extend(OSGeo.AddElasticBeamsToDatabase(OData, BeamGrids, range(1, 15), W16X100, BeamGeoTransfPDelta,'Beam - W16x100'))
-        BeamSet.extend(OSGeo.AddElasticBeamsToDatabase(OData, BeamGrids, range(15, 24), W14X159, BeamGeoTransfPDelta,'Beam - W14x159'))
-        BeamSet.extend(OSGeo.AddElasticBeamsToDatabase(OData, BeamGrids, range(24, 28), W14X132, BeamGeoTransfPDelta,'Beam - W14x132'))
-        BeamSet.extend(OSGeo.AddElasticBeamsToDatabase(OData, BeamGrids, range(28, 32), W16X100, BeamGeoTransfPDelta,'Beam - W16x100'))
-        BeamSet.extend(OSGeo.AddElasticBeamsToDatabase(OData, BeamGrids, range(32, 40), W14X68, BeamGeoTransfPDelta,'Beam - W14x68'))
-        BeamSet.extend(OSGeo.AddElasticBeamsToDatabase(OData, BeamGrids, range(40, 45), W14X53, BeamGeoTransfPDelta,'Beam - W14x53'))
+        BeamSet.extend(AddElasticBeamsToDatabase(OData, BeamGrids, range(1, 15), W16X100, BeamGeoTransfPDelta,'Beam - W16x100'))
+        BeamSet.extend(AddElasticBeamsToDatabase(OData, BeamGrids, range(15, 24), W14X159, BeamGeoTransfPDelta,'Beam - W14x159'))
+        BeamSet.extend(AddElasticBeamsToDatabase(OData, BeamGrids, range(24, 28), W14X132, BeamGeoTransfPDelta,'Beam - W14x132'))
+        BeamSet.extend(AddElasticBeamsToDatabase(OData, BeamGrids, range(28, 32), W16X100, BeamGeoTransfPDelta,'Beam - W16x100'))
+        BeamSet.extend(AddElasticBeamsToDatabase(OData, BeamGrids, range(32, 40), W14X68, BeamGeoTransfPDelta,'Beam - W14x68'))
+        BeamSet.extend(AddElasticBeamsToDatabase(OData, BeamGrids, range(40, 45), W14X53, BeamGeoTransfPDelta,'Beam - W14x53'))
     else:
-       BeamSet.extend(OSGeo.AddElasticBeamsToDatabase(OData, BeamGrids, range(1, 5), W16X100, BeamGeoTransfPDelta,'Beam - W16x100'))
+       BeamSet.extend(AddElasticBeamsToDatabase(OData, BeamGrids, range(1, 5), W16X100, BeamGeoTransfPDelta,'Beam - W16x100'))
 
     #4Y & 6Y
     BeamGrids = [
@@ -336,14 +565,14 @@ def TBI_BRB_A(GMDataX,GMDataY, Dt, T1=None,T2=None, SupressOutput=True, Viewer =
                  [2,6,3,6], [3,6,4,6], [4,6,5,6], [5,6,6,6], [6,6,7,6], [7,6,8,6] #Grid 4Y
                  ]  # What grids do the beams connect to
     if TestingModeOff:
-        BeamSet.extend(OSGeo.AddElasticBeamsToDatabase(OData, BeamGrids, range(1, 15), W16X100, BeamGeoTransfPDelta,'Beam - W16x100'))
-        BeamSet.extend(OSGeo.AddElasticBeamsToDatabase(OData, BeamGrids, range(15, 24), W14X159, BeamGeoTransfPDelta,'Beam - W14x159'))
-        BeamSet.extend(OSGeo.AddElasticBeamsToDatabase(OData, BeamGrids, range(24, 28), W14X132, BeamGeoTransfPDelta,'Beam - W14x132'))
-        BeamSet.extend(OSGeo.AddElasticBeamsToDatabase(OData, BeamGrids, range(28, 32), W16X100, BeamGeoTransfPDelta,'Beam - W16x100'))
-        BeamSet.extend(OSGeo.AddElasticBeamsToDatabase(OData, BeamGrids, range(32, 40), W14X68, BeamGeoTransfPDelta,'Beam - W14x68'))
-        BeamSet.extend(OSGeo.AddElasticBeamsToDatabase(OData, BeamGrids, range(40, 45), W14X53, BeamGeoTransfPDelta,'Beam - W14x53'))
+        BeamSet.extend(AddElasticBeamsToDatabase(OData, BeamGrids, range(1, 15), W16X100, BeamGeoTransfPDelta,'Beam - W16x100'))
+        BeamSet.extend(AddElasticBeamsToDatabase(OData, BeamGrids, range(15, 24), W14X159, BeamGeoTransfPDelta,'Beam - W14x159'))
+        BeamSet.extend(AddElasticBeamsToDatabase(OData, BeamGrids, range(24, 28), W14X132, BeamGeoTransfPDelta,'Beam - W14x132'))
+        BeamSet.extend(AddElasticBeamsToDatabase(OData, BeamGrids, range(28, 32), W16X100, BeamGeoTransfPDelta,'Beam - W16x100'))
+        BeamSet.extend(AddElasticBeamsToDatabase(OData, BeamGrids, range(32, 40), W14X68, BeamGeoTransfPDelta,'Beam - W14x68'))
+        BeamSet.extend(AddElasticBeamsToDatabase(OData, BeamGrids, range(40, 45), W14X53, BeamGeoTransfPDelta,'Beam - W14x53'))
     else:
-        BeamSet.extend(OSGeo.AddElasticBeamsToDatabase(OData, BeamGrids, range(1, 5), W16X100, BeamGeoTransfPDelta,'Beam - W16x100'))
+        BeamSet.extend(AddElasticBeamsToDatabase(OData, BeamGrids, range(1, 5), W16X100, BeamGeoTransfPDelta,'Beam - W16x100'))
 
     #### Braces ####
     #Define Braces
@@ -351,85 +580,85 @@ def TBI_BRB_A(GMDataX,GMDataY, Dt, T1=None,T2=None, SupressOutput=True, Viewer =
     BraceGrids = [ [1,4,1,5], [1,6,1,5] ]#Grid 0X #Define Bottom-to-Top
     BraceSet = []
     if TestingModeOff:
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(1, 15), Brace_530, BraceGeoTransfPDelta, 'BRB - 530 k'))
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(15, 24), Brace_855, BraceGeoTransfPDelta, 'BRB - 855 k'))
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(24, 28), Brace_633, BraceGeoTransfPDelta, 'BRB - 633 k'))
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(28, 32), Brace_530, BraceGeoTransfPDelta, 'BRB - 530 k'))
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(32, 40), Brace_308, BraceGeoTransfPDelta, 'BRB - 308 k'))
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(40, 45), Brace_205, BraceGeoTransfPDelta, 'BRB - 205 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(1, 15), Brace_530, BraceGeoTransfPDelta, 'BRB - 530 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(15, 24), Brace_855, BraceGeoTransfPDelta, 'BRB - 855 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(24, 28), Brace_633, BraceGeoTransfPDelta, 'BRB - 633 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(28, 32), Brace_530, BraceGeoTransfPDelta, 'BRB - 530 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(32, 40), Brace_308, BraceGeoTransfPDelta, 'BRB - 308 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(40, 45), Brace_205, BraceGeoTransfPDelta, 'BRB - 205 k'))
     else:
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(1, 5), Brace_530, BraceGeoTransfPDelta, 'BRB - 530 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(1, 5), Brace_530, BraceGeoTransfPDelta, 'BRB - 530 k'))
 
     BraceGrids = [[1,2,1,3], [1,4,1,3],  [1,6,1,7], [1,8,1,7]]
     if TestingModeOff:
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(1, 4), Brace_633, BraceGeoTransfPDelta, 'BRB - 633 k'))
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(4, 7), Brace_923, BraceGeoTransfPDelta, 'BRB - 923 k'))
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(7, 15), Brace_855, BraceGeoTransfPDelta, 'BRB - 855 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(1, 4), Brace_633, BraceGeoTransfPDelta, 'BRB - 633 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(4, 7), Brace_923, BraceGeoTransfPDelta, 'BRB - 923 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(7, 15), Brace_855, BraceGeoTransfPDelta, 'BRB - 855 k'))
     else:
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(1, 5), Brace_633, BraceGeoTransfPDelta, 'BRB - 633 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(1, 5), Brace_633, BraceGeoTransfPDelta, 'BRB - 633 k'))
 
     #Grid 9X
     BraceGrids = [[9,4,9,5], [9,6,9,5] ]#Grid 0X #Define Bottom-to-Top
     if TestingModeOff:
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(1, 15), Brace_530, BraceGeoTransfPDelta, 'BRB - 530 k'))
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(15, 24), Brace_855, BraceGeoTransfPDelta, 'BRB - 855 k'))
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(24, 28), Brace_633, BraceGeoTransfPDelta, 'BRB - 633 k'))
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(28, 32), Brace_530, BraceGeoTransfPDelta, 'BRB - 530 k'))
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(32, 40), Brace_308, BraceGeoTransfPDelta, 'BRB - 308 k'))
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(40, 45), Brace_205, BraceGeoTransfPDelta, 'BRB - 205 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(1, 15), Brace_530, BraceGeoTransfPDelta, 'BRB - 530 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(15, 24), Brace_855, BraceGeoTransfPDelta, 'BRB - 855 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(24, 28), Brace_633, BraceGeoTransfPDelta, 'BRB - 633 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(28, 32), Brace_530, BraceGeoTransfPDelta, 'BRB - 530 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(32, 40), Brace_308, BraceGeoTransfPDelta, 'BRB - 308 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(40, 45), Brace_205, BraceGeoTransfPDelta, 'BRB - 205 k'))
     else:
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(1, 5), Brace_530, BraceGeoTransfPDelta, 'BRB - 530 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(1, 5), Brace_530, BraceGeoTransfPDelta, 'BRB - 530 k'))
 
     BraceGrids = [[9,2,9,3], [9,4,9,3], [9,6,9,7], [9,8,9,7] ]
     if TestingModeOff:
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(1, 4), Brace_633, BraceGeoTransfPDelta, 'BRB - 633 k'))
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(4, 7), Brace_923, BraceGeoTransfPDelta, 'BRB - 923 k'))
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(7, 15), Brace_855, BraceGeoTransfPDelta, 'BRB - 855 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(1, 4), Brace_633, BraceGeoTransfPDelta, 'BRB - 633 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(4, 7), Brace_923, BraceGeoTransfPDelta, 'BRB - 923 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(7, 15), Brace_855, BraceGeoTransfPDelta, 'BRB - 855 k'))
     else:
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(1, 5), Brace_633, BraceGeoTransfPDelta, 'BRB - 633 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(1, 5), Brace_633, BraceGeoTransfPDelta, 'BRB - 633 k'))
 
     #Grid 2,8X
     BraceGrids = [[2,4,2,5], [2,6,2,5], [8,4,8,5], [8,6,8,5]]
     if TestingModeOff:
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(1, 36), Brace_462, BraceGeoTransfPDelta, 'BRB - 462 k'))
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(36, 40), Brace_376, BraceGeoTransfPDelta, 'BRB - 376 k'))
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(40, 43), Brace_308, BraceGeoTransfPDelta, 'BRB - 308 k'))
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(43, 45), Brace_239, BraceGeoTransfPDelta, 'BRB - 239 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(1, 36), Brace_462, BraceGeoTransfPDelta, 'BRB - 462 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(36, 40), Brace_376, BraceGeoTransfPDelta, 'BRB - 376 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(40, 43), Brace_308, BraceGeoTransfPDelta, 'BRB - 308 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(43, 45), Brace_239, BraceGeoTransfPDelta, 'BRB - 239 k'))
     else:
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(1, 5), Brace_462, BraceGeoTransfPDelta, 'BRB - 462 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(1, 5), Brace_462, BraceGeoTransfPDelta, 'BRB - 462 k'))
 
     #Grid 4,6X
     BraceGrids = [ [4,4,4,5], [4,6,4,5], [6,4,6,5], [6,6,6,5]]
     if TestingModeOff:
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(1, 36), Brace_462, BraceGeoTransfPDelta, 'BRB - 462 k'))
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(36, 40), Brace_376, BraceGeoTransfPDelta, 'BRB - 376 k'))
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(40, 45), Brace_239, BraceGeoTransfPDelta, 'BRB - 239 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(1, 36), Brace_462, BraceGeoTransfPDelta, 'BRB - 462 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(36, 40), Brace_376, BraceGeoTransfPDelta, 'BRB - 376 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(40, 45), Brace_239, BraceGeoTransfPDelta, 'BRB - 239 k'))
     else:
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(1, 5), Brace_462, BraceGeoTransfPDelta, 'BRB - 462 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(1, 5), Brace_462, BraceGeoTransfPDelta, 'BRB - 462 k'))
 
     #Grid 4Y
     BraceGrids = [ [2,4,3,4], [4,4,3,4], [4,4,5,4], [6,4,5,4], [6,4,7,4], [8,4,7,4] ]
     if TestingModeOff:
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(1, 4), Brace_479, BraceGeoTransfPDelta, 'BRB - 479 k'))
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(4, 30), Brace_530, BraceGeoTransfPDelta, 'BRB - 530 k'))
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(30, 35), Brace_462, BraceGeoTransfPDelta, 'BRB - 462 k'))
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(35, 39), Brace_342, BraceGeoTransfPDelta, 'BRB - 342 k'))
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(39, 42), Brace_274, BraceGeoTransfPDelta, 'BRB - 274 k'))
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(42, 45), Brace_239, BraceGeoTransfPDelta, 'BRB - 239 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(1, 4), Brace_479, BraceGeoTransfPDelta, 'BRB - 479 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(4, 30), Brace_530, BraceGeoTransfPDelta, 'BRB - 530 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(30, 35), Brace_462, BraceGeoTransfPDelta, 'BRB - 462 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(35, 39), Brace_342, BraceGeoTransfPDelta, 'BRB - 342 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(39, 42), Brace_274, BraceGeoTransfPDelta, 'BRB - 274 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(42, 45), Brace_239, BraceGeoTransfPDelta, 'BRB - 239 k'))
     else:
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(1, 5), Brace_479, BraceGeoTransfPDelta, 'BRB - 479 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(1, 5), Brace_479, BraceGeoTransfPDelta, 'BRB - 479 k'))
 
     #Grid 6Y
     BraceGrids = [ [2,6,3,6], [4,6,3,6], [4,6,5,6], [6,6,5,6], [6,6,7,6], [8,6,7,6] ]
     if TestingModeOff:
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(1, 4), Brace_479, BraceGeoTransfPDelta, 'BRB - 479 k'))
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(4, 30), Brace_530, BraceGeoTransfPDelta, 'BRB - 530 k'))
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(30, 35), Brace_462, BraceGeoTransfPDelta, 'BRB - 462 k'))
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(35, 39), Brace_342, BraceGeoTransfPDelta, 'BRB - 342 k'))
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(39, 42), Brace_274, BraceGeoTransfPDelta, 'BRB - 274 k'))
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(42, 45), Brace_239, BraceGeoTransfPDelta, 'BRB - 239 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(1, 4), Brace_479, BraceGeoTransfPDelta, 'BRB - 479 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(4, 30), Brace_530, BraceGeoTransfPDelta, 'BRB - 530 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(30, 35), Brace_462, BraceGeoTransfPDelta, 'BRB - 462 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(35, 39), Brace_342, BraceGeoTransfPDelta, 'BRB - 342 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(39, 42), Brace_274, BraceGeoTransfPDelta, 'BRB - 274 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(42, 45), Brace_239, BraceGeoTransfPDelta, 'BRB - 239 k'))
     else:
-        BraceSet.extend(OSGeo.AddNonLinearBraceToDatabase(OData, BraceGrids, range(1, 5), Brace_479, BraceGeoTransfPDelta, 'BRB - 479 k'))
+        BraceSet.extend(AddNonLinearBraceToDatabase(OData, BraceGrids, range(1, 5), Brace_479, BraceGeoTransfPDelta, 'BRB - 479 k'))
 
     #### Walls ####
 
@@ -439,15 +668,15 @@ def TBI_BRB_A(GMDataX,GMDataY, Dt, T1=None,T2=None, SupressOutput=True, Viewer =
              [10,0,10,10]]
 
     if TestingModeOff:
-        WallSet = OSGeo.AddElasticWallsToDatabase(OData, WallGrids, range(1,3), Wall_24_5000, XGrids, YGrids, ZGrids, 6*12, 'Walls - 24 - inches')
-        WallSet = OSGeo.AddElasticWallsToDatabase(OData, WallGrids, range(3,5), Wall_18_5000, XGrids, YGrids, ZGrids, 6*12, 'Walls - 18 - inches')
+        WallSet = AddElasticWallsToDatabase(OData, WallGrids, range(1,3), Wall_24_5000, XGrids, YGrids, ZGrids, 6*12, 'Walls - 24 - inches')
+        WallSet = AddElasticWallsToDatabase(OData, WallGrids, range(3,5), Wall_18_5000, XGrids, YGrids, ZGrids, 6*12, 'Walls - 18 - inches')
     else:
-        WallSet = OSGeo.AddElasticWallsToDatabase(OData, WallGrids, range(1,5), Wall_24_5000, XGrids, YGrids, ZGrids, 6*12, 'Walls - 24 - inches')
+        WallSet = AddElasticWallsToDatabase(OData, WallGrids, range(1,5), Wall_24_5000, XGrids, YGrids, ZGrids, 6*12, 'Walls - 24 - inches')
 
     #### Slabs ####
     SlabGrids = [[0,0,10,0,10,10,0,10]]
 
-    SlabSet = OSGeo.AddMeshedSlabToDatabase(OData, SlabGrids, range(1,5),Slab_4_4000, XGrids, YGrids, ZGrids, 6*12, 'Slabs - 4 - inch')
+    SlabSet = AddMeshedSlabToDatabase(OData, SlabGrids, range(1,5),Slab_4_4000, XGrids, YGrids, ZGrids, 6*12, 'Slabs - 4 - inch')
 
     #endregion
 
@@ -819,16 +1048,6 @@ def TBI_BRB_A(GMDataX,GMDataY, Dt, T1=None,T2=None, SupressOutput=True, Viewer =
     ### Start Running OpenSees File
     ##############################################################################
 
-    #region ########################## Plot Geometry ##########################
-
-    if Viewer:
-        import OSViewer
-        OSViewer.OpenSeesViewerGUI(OData, XGrids, YGrids, ZGrids, TwoDimensional=False)
-        import matplotlib.pylab as plt
-        plt.show()
-
-    #endregion
-
     #region ########################## Run OpenSees Script ##########################
     OData.Executable.StartAnalysis(SuppressOutput=SupressOutput)
 
@@ -991,26 +1210,10 @@ def TBI_BRB_A(GMDataX,GMDataY, Dt, T1=None,T2=None, SupressOutput=True, Viewer =
 
     #endregion
 
-    #region ########################## OpenSees Animation ##########################
-
-    if Animation:
-        import OSAnimationHelper
-        import matplotlib.pylab as plt
-
-        ani = OSAnimationHelper.HysteresisAnimationWithDeflectedShape(O, OData, XGrids, YGrids, ZGrids,TwoDimensional=False, PlotText='$T_1$= %.2f, $T_2$= %.2f'%(T1,T2), DeflectedShapeScaleFactor=10)
-        # ani.save(os.getcwd()+'\\Figures\\'+'TBI-BRB.mp4', fps=100)
-        # ani.SaveToMP4andGIF(os.getcwd()+'\\Figures\\','TBI-BRB.mp4')
-        # ani.SaveToMP4(os.getcwd()+'\\Figures\\','TBI-BRB.mp4')
-        plt.show()
-
-    #endregion
-
     return Output()
 
 
-Output = TBI_BRB_A(GMData*386.4,GMData*386.4, Dt, T1=5.25, T2=1.48, PushOver=False, SupressOutput=False, Viewer=True, Animation=False, OpenSeesCommand=os.getcwd()+'/tcl/OpenSeesSP_150712', TestingModeOff=False)
-
-# TBI_BRB_A(GMData['121711'][:]*386.4*1.5,GMData['121712'][:]*386.4*1.5, Dt['121711'],  PushOver=True, SupressOutput=False, Viewer=False, Animation=True, OpenSeesCommand=os.getcwd()+'/tcl/OpenSeesSP_150712')
+Output = TBI_BRB_A(GMData*386.4,GMData*386.4, Dt, T1=5.25, T2=1.48, PushOver=False, SupressOutput=False, Viewer=True, Animation=False, OpenSeesCommand='OpenSeesSP', TestingModeOff=False)
 
 import matplotlib.pylab as plt
 import numpy as np
