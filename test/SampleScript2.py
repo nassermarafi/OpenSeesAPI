@@ -448,8 +448,6 @@ def TBI_BRB_A(GMDataX,GMDataY, Dt, T1=None,T2=None, SupressOutput=True, Viewer =
 
     ########################## Define Elements ##########################
     OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Define Elements'))
-    import OSMaterialHelper as OSMat
-    import OSGeometryHelper as OSGeo
 
     #### Gravity Columns ####
     #Defining Column Grids & Levels - Define Grid Numbers Where Columns Occur
