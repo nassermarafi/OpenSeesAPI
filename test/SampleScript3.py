@@ -30,7 +30,7 @@ timestamp = time.strftime("%y%m%d-%H%M%S")+randomnumber
 ModelName = 'ExampleScript'
 FileName = '%s-%s.tcl'%(ModelName,timestamp)
 
-Directory = os.getcwd().replace('OpenSeesAPI','')
+Directory = os.getcwd()
 OData = OpenSeesAPI.Database.Collector(OpenSeesCommand, Directory+'/tcl/', FileName)
 
 ########################## Setup and Source Definition ##########################
