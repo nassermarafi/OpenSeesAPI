@@ -349,7 +349,7 @@ class ModIMKPinched(OpenSees):
         self._DNeg = DNeg
         self.__dict__.update(kwargs)
 
-        self._CommandLine = 'uniaxialMaterial ModIMKPinching %d %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f'%(self._id, self._E, self._asPlus, self._asNeg, self._MyPlus, self._MyNeg, self._FprPos, self._APinch, self._FprNeg, self._LamdaS, self._LambaC, self._LamdaA, self._LamdaK, self._cS, self._cC, self._cA, self._cK, self._thetaPPlus, self._thetaPNeg, self._thetaPcPlus, self._thetaPcNeg, self._ResPos, self._ResNeg, self._thetaUPlus, self._thetaUNeg, self._DPlus, self._DNeg)
+        self._CommandLine = 'uniaxialMaterial ModIMKPinching %d %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f'%(self._id, self._E, self._asPlus, self._asNeg, self._MyPlus, self._MyNeg, self._FprPos, self._FprNeg, self._APinch, self._LamdaS, self._LambaC, self._LamdaA, self._LamdaK, self._cS, self._cC, self._cA, self._cK, self._thetaPPlus, self._thetaPNeg, self._thetaPcPlus, self._thetaPcNeg, self._ResPos, self._ResNeg, self._thetaUPlus, self._thetaUNeg, self._DPlus, self._DNeg)
 
 class Clough(OpenSees):
     """
