@@ -70,7 +70,7 @@ class FiberSection(OpenSees):
                 self._zEnd = zEnd
                 self.__dict__.update(kwargs)
 
-                self._CommandLine =  'layer straight %d %d %d %f %f %f %f'%(self._Mat.id, self._numFiber, self._areaFiber, self._yStart, self._zStart, self._yEnd, self._zEnd)
+                self._CommandLine =  'layer straight %d %d %f %f %f %f %f'%(self._Mat.id, self._numFiber, self._areaFiber, self._yStart, self._zStart, self._yEnd, self._zEnd)
 
         class Circ(object):
             """
