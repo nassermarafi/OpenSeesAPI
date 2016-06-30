@@ -653,3 +653,30 @@ class Concrete02(OpenSees):
 
         self._CommandLine =  'uniaxialMaterial Concrete02 %d %f %f %f %f %f %f %f'%(self._id, self._fc, self._ec, self._fpcu, self._ecu, self._lam, self._ft, self._Ec)
 
+class SelfCentering(OpenSees):
+    """
+    uniaxialMaterial SelfCentering $matTag $k1 $k2 $sigAct $beta <$epsSlip> <$epsBear> <rBear>
+
+    $matTag	integer tag identifying material
+    $k1	Initial Stiffness
+    $k2	Post-Activation Stiffness (0<$k2<$k1)
+    $sigAct	Forward Activation Stress/Force
+    $beta	Ratio of Forward to Reverse Activation Stress/Force
+    $epsSlip	slip Strain/Deformation (if $epsSlip = 0, there will be no slippage)
+    $epsBear	Bearing Strain/Deformation (if $epsBear = 0, there will be no bearing)
+    $rBear	Ratio of Bearing Stiffness to Initial Stiffness $k1
+    """
+
+    def __init__(self, id, k1, k2, sigAct, beta, epsSlip, epsBear, rBear, **kwargs):
+        self._id = id
+        self._k1 = k1
+        self._k2 = k2
+        self._sigAct = sigAct
+        self._beta = beta
+        self._epsSlip = epsSlip
+        self._epsBear = epsBear
+        self._rBear = rBear
+
+        self.__dict__.update(kwargs)
+
+        self._CommandLine =  'uniaxialMaterial SelfCentering %d %f %f %f %f %f %f %f'%(self._id, self._k1, self._k2, self._sigAct, self._beta, self._epsSlip, self._epsBear, self._rBear)
