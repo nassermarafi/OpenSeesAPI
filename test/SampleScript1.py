@@ -2,7 +2,8 @@
 ##### This is a sample script that runs an SDOF analysis in OpenSees
 ##### using an Ibarra-Krawinkler Deterioation spring
 ##### Coded by Nasser Marafi (marafi@uw.edu)
-##### Last Updated: 8/12/2015
+##### Modified by Travis Thonstad (thonstat@uw.edu)
+##### Last Updated: 8/12/2016
 ##### Make sure to have a subfolder called /tcl/ with the OpenSees Executable File
 ############################################################################
 __author__ = 'marafi'
@@ -30,7 +31,7 @@ Kappa = 0.01
 OpenSeesCommand = 'OpenSees'
 
 ########################## Pre-Initialization ##########################
-import OpenSeesAPI
+import OpenSeesAPI as osapi
 import os
 import numpy as np
 
@@ -51,7 +52,7 @@ c=Zeta*2*m*wn
 
 import time
 import uuid
-randomnumber = str(uuid.uuid4().get_hex().upper()[0:12])
+randomnumber = str(uuid.uuid4().hex.upper()[0:12])
 timestamp = time.strftime("%y%m%d-%H%M%S")+randomnumber
 ModelName = 'ExampleScript'
 FileName = '%s-%s.tcl'%(ModelName,timestamp)
@@ -63,178 +64,106 @@ if not os.path.exists(TCLFileDirectory): #Make Directory is unavailable
 if not os.path.exists(ResultDirectory): #Make Directory is unavailable
     os.makedirs(ResultDirectory)
 
-OData = OpenSeesAPI.Database.Collector(OpenSeesCommand, TCLFileDirectory, FileName)
+OData = osapi.Database.Collector(OpenSeesCommand, TCLFileDirectory, FileName)
 
 ########################## Setup and Source Definition ##########################
-OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Initialization'))
-OData.AddObject(OpenSeesAPI.Model.BasicBuilder(2,3))
+OData.AddObject(osapi.TCL.CodeTitle('Initialization'))
+OData.AddObject(osapi.BasicBuilder.BasicBuilder(2,3))
 
-########################## Define Building Geometry, Nodes and Constraints ##########################
-OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Geometry Setup'))
+########################## Define Nodes ##########################
+SupportNode = osapi.Node.Node(OData.GetFreeNodeId(1,1),0,0)
+MassNode = osapi.Node.Node(OData.GetFreeNodeId(2,1),0,0)
 
-SupportNode = OData.CreateNode(0,0)
-MassNode = OData.CreateNode(0,0)
-OData.AddConstraint(OpenSeesAPI.Model.Node.Mass(MassNode,[m,1e-6,1e-6]))
+OData.AddNode(SupportNode)
+OData.AddNode(MassNode)
 
-########################## Define Geometric Transformations ##########################
-OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Define Geometric Transformations'))
+OData.AddRestraint(osapi.Node.Mass(MassNode,[m,1e-6,1e-6]))
 
-#Define Geometry Transformations for Beams and Column
-GeoTransfLinear = OpenSeesAPI.Model.Element.GeomTransf.Linear(1)
+#Defining Fixity
+OData.AddRestraint(osapi.Restraint.Fix(SupportNode, [1, 1, 1]))
+OData.AddRestraint(osapi.Restraint.Fix(MassNode, [0, 1, 1]))
+
+########################## Define Transformations ##########################
+GeoTransfLinear = osapi.GeomTransf.Linear(1)
 OData.AddObject(GeoTransfLinear)
 
-##############################################################################
-### All OpenSEES Objects are adding directly to the Database Beyond This Point
-##############################################################################
-
 ########################## Define Materials and Sections ##########################
-OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Define Materials and Sections'))
-
-########################## Define Rotational Springs for Plastic Hinge ##########################
-OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Define Rotational Springs for Plastic Hinge'))
-
 #Define Rotational Spring
 #### Collector Should Give ID
 
 ThetaP = Dy*Mu - Dy
 Ult = k*Dy + k*PY*ThetaP
 ThetaPC = Ult/(k*PC)
-Spring = OpenSeesAPI.Model.Element.Material.UniaxialMaterial.ModIMKPinched(1,k,PY,PY,k*Dy,-1*k*Dy, 0.1, 0.1, 0.5, LamdaSCA,LamdaSCA,LamdaSCA,LamdaK,cRate,cRate,cRate,cRate,ThetaP, ThetaP, ThetaPC, ThetaPC, Kappa, Kappa, (ThetaPC+ThetaP+Dy)*2, (ThetaPC+ThetaP+Dy)*2, 1.0, 1.0)
+Spring = osapi.UniaxialMaterial.ModIMKPinched(1,k,PY,PY,k*Dy,-1*k*Dy, 0.1, 0.1, 0.5, LamdaSCA,LamdaSCA,LamdaSCA,LamdaK,cRate,cRate,cRate,cRate,ThetaP, ThetaP, ThetaPC, ThetaPC, Kappa, Kappa, (ThetaPC+ThetaP+Dy)*2, (ThetaPC+ThetaP+Dy)*2, 1.0, 1.0)
 OData.AddMaterial(Spring)
 
 ########################## Define Elements ##########################
-OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Define Elements'))
-OData.AddElement(OpenSeesAPI.Model.Element.Element.ZeroLength(OData.GetFreeElementId(9,1),SupportNode, MassNode, [Spring],[1]))
-
-##############################################################################
-### Start Writing Elements to the Executible File
-##############################################################################
+OData.AddElement(osapi.Element.ZeroLength(OData.GetFreeElementId(9,1),SupportNode, MassNode, [Spring],[1]))
 
 # Setting Nodes as Used
 for object in set(OData._Elements):
     object._NodeI.__setattr__('Used',True)
     object._NodeJ.__setattr__('Used',True)
 
-#Writing Nodes to File
-OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Defining Nodes'))
-for obj in OData._Nodes:
-    try:
-        if obj.Used:
-            OData.Executable.AddCommand(obj.CommandLine)
-    except:
-        continue
-
-#Defining Fixity
-OData.AddConstraint(OpenSeesAPI.Model.Constraint.Fix(SupportNode,[1,1,1]))
-OData.AddConstraint(OpenSeesAPI.Model.Constraint.Fix(MassNode,[0,1,1]))
-
-#Defining Masses
-
-#Write Element from OpenSees Collector
-OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Writing Materials'))
-for obj in OData._Materials:
-    OData.Executable.AddCommand(obj.CommandLine)
-
-#Write Sections from OpenSees Collector
-OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Writing Sections'))
-for obj in OData._Sections:
-    OData.Executable.AddCommand(obj.CommandLine)
-
-#Write Elements from OpenSees Collector
-OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Writing Elements'))
-for obj in OData._Elements:
-    OData.Executable.AddCommand(obj.CommandLine)
-
-#Write Shells from OpenSees Collector
-OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Writing Shells'))
-for obj in OData._Quadrilaterals:
-    OData.Executable.AddCommand(obj.CommandLine)
-
-#Write Constraints from OpenSees Collector
-OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Writing Constraints'))
-for obj in OData._Constraints:
-    OData.Executable.AddCommand(obj.CommandLine)
+# Writes model object to file
+OData.WriteModel()
 
 ########################## Eigenvalue Analysis ##########################
-OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Eigenvalue Analysis'))
-OData.AddObject(OpenSeesAPI.Analysis.Eigen(1, fullGenLapack=True))
+OData.AddObject(osapi.TCL.CodeTitle('Eigenvalue Analysis'))
+OData.AddObject(osapi.Eigen.Eigen(1, fullGenLapack=True))
 
 ########################## Rayleigh Damping ##########################
-OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Rayleigh Damping'))
+OData.AddObject(osapi.TCL.CodeTitle('Rayleigh Damping'))
 # Adding Rayleigh Damping to the Mass Matrix Only
-OData.AddObject(OpenSeesAPI.Model.Node.Raleigh(2*Zeta*2*np.pi/T,0,0,0))
-
-########################## Loads ##########################
-OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Loads'))
+OData.AddObject(osapi.Node.Raleigh(2*Zeta*2*np.pi/T,0,0,0))
 
 ########################## Time Series ##########################
-OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Time Series'))
-
-TimeSeries = OpenSeesAPI.Model.TimeSeries.Path(1,Dt, GMData)
+TimeSeries = osapi.TimeSeries.Path(1,Dt, GMData)
 OData.AddObject(TimeSeries)
 
 ########################## Recorders ##########################
-OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Recorder Setup'))
+OData.AddObject(osapi.TCL.CodeTitle('Recorder Setup'))
 
 OutputFolder = 'Results'
 
 Displacement_File_Name = '%s-NodeD-%s.dat'%(ModelName,timestamp)
-OData.AddObject(OpenSeesAPI.Output.Recorder.Node(OutputFolder+'/'+Displacement_File_Name, [MassNode], [1], 'disp'))
+OData.AddObject(osapi.Output.Recorder.Node(OutputFolder+'/'+Displacement_File_Name, [MassNode], [1], 'disp'))
 
 Velocity_File_Name = '%s-NodeV-%s.dat'%(ModelName,timestamp)
-OData.AddObject(OpenSeesAPI.Output.Recorder.Node(OutputFolder+'/'+Velocity_File_Name, [MassNode], [1], 'vel'))
+OData.AddObject(osapi.Output.Recorder.Node(OutputFolder+'/'+Velocity_File_Name, [MassNode], [1], 'vel'))
 
 Acceleration_File_Name = '%s-NodeA-%s.dat'%(ModelName,timestamp)
-OData.AddObject(OpenSeesAPI.Output.Recorder.Node(OutputFolder+'/'+Acceleration_File_Name, [MassNode], [1], 'accel','-timeSeries %d'%TimeSeries.id))
+OData.AddObject(osapi.Output.Recorder.Node(OutputFolder+'/'+Acceleration_File_Name, [MassNode], [1], 'accel','-timeSeries %d'%TimeSeries.id))
 
 Reaction_File_Name = '%s-NodeReact-%s.dat'%(ModelName,timestamp)
-OData.AddObject(OpenSeesAPI.Output.Recorder.Node(OutputFolder+'/'+Reaction_File_Name, [SupportNode], [1], 'reaction'))
-
-########################## Display Results ##########################
-OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Display Results'))
-
-########################## Gravity Analysis ##########################
-OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Gravity Analysis'))
-
-########################## Pushover Analysis ##########################
-OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Pushover Analysis'))
+OData.AddObject(osapi.Output.Recorder.Node(OutputFolder+'/'+Reaction_File_Name, [SupportNode], [1], 'reaction'))
 
 ########################## Time History Analysis ##########################
-OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Time History Analysis'))
+#AData = osapi.Database.AnalysisCollector(OpenSeesCommand, TCLFileDirectory, FileName,'Time History Analysis')
 
 #Analysis Options
-OData.AddObject(OpenSeesAPI.Analysis.Constraints.Transformation())
-OData.AddObject(OpenSeesAPI.Analysis.Numberer.RCM())
-OData.AddObject(OpenSeesAPI.Analysis.System.BandGeneral())
-OData.AddObject(OpenSeesAPI.Analysis.Test.EnergyIncr(1e-6, 10))
-OData.AddObject(OpenSeesAPI.Analysis.Algorithm.KrylovNewton())
-OData.AddObject(OpenSeesAPI.Analysis.Integrator.Transient.Newmark(0.5,0.25))
-OData.AddObject(OpenSeesAPI.Analysis.Analysis.Transient())
+OData.AddType('Time History Analysis')
+OData.AddConstraint(osapi.Constraints.Transformation())
+OData.AddNumberer(osapi.Numberer.RCM())
+OData.AddSystem(osapi.System.BandGeneral())
+OData.AddTest(osapi.Test.EnergyIncr(1e-6, 10))
+OData.AddAlgorithm(osapi.Algorithm.KrylovNewton())
+OData.AddIntegrator(osapi.Integrator.Transient.Newmark(0.5,0.25))
+OData.AddAnalysis(osapi.Analysis.Transient())
 
 #Load Pattern
-OData.AddObject(OpenSeesAPI.Model.Pattern.UniformExcitation(400,1,TimeSeries))
+OData.AddLoad(osapi.Pattern.UniformExcitation(400,1,TimeSeries))
 
-#Run Analysis
-OData.AddObject(OpenSeesAPI.TCL.TCLScript('set ok 0;'))
-OData.AddObject(OpenSeesAPI.TCL.TCLScript('set Nsteps %d;'%len(GMData)))
-OData.AddObject(OpenSeesAPI.TCL.TCLScript('set step 0;'))
-OData.AddObject(OpenSeesAPI.TCL.TCLScript('while {$ok == 0 & $step < [expr $Nsteps +1]} {'))
-OData.AddObject(OpenSeesAPI.TCL.TCLScript('set ok [analyze 1 %f]'%Dt))
-OData.AddObject(OpenSeesAPI.TCL.TCLScript('puts "Running Time History Step: $step out of %d"'%len(GMData)))
-OData.AddObject(OpenSeesAPI.TCL.TCLScript('set step [expr $step+1]'))
-OData.AddObject(OpenSeesAPI.TCL.TCLScript('}'))
+#Solution Method
+OData.AddSolutionMethod(osapi.SolutionMethod.BasicTimeHistory(Dt,None,len(GMData)))
+
+#Writes Analysis Object to file
+OData.WriteAnalysis()
 
 ########################## Close File ##########################
-OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Close File'))
-OData.AddObject(OpenSeesAPI.TCL.TCLScript('wipe;'))
-OData.AddObject(OpenSeesAPI.TCL.TCLScript('puts "Models Run Complete";'))
-
-##############################################################################
-### Start Running OpenSees File
-##############################################################################
-
-########################## Plot Geometry ##########################
-
+OData.AddObject(osapi.TCL.CodeTitle('Close File'))
+OData.AddObject(osapi.TCL.TCLScript('wipe;'))
+OData.AddObject(osapi.TCL.TCLScript('puts "Models Run Complete";'))
 
 ########################## Run OpenSees Script ##########################
 OData.Executable.StartAnalysis(SuppressOutput=False)
@@ -249,12 +178,12 @@ MaxD = max(abs(Displ[:,1]))
 MaxV = max(abs(Vel[:,1]))
 MaxA = max(abs(Acc[:,1]))
 
-try:
-    os.remove(TCLFileDirectory+'/%s-%s.out'%(ModelName,timestamp))
-except:
-    pass
+#try:
+#    os.remove(TCLFileDirectory+'/%s-%s.out'%(ModelName,timestamp))
+#except:
+#    pass
 
-os.remove(TCLFileDirectory+'/%s-%s.tcl'%(ModelName,timestamp))
+#os.remove(TCLFileDirectory+'/%s-%s.tcl'%(ModelName,timestamp))
 os.remove(ResultDirectory+'/'+Displacement_File_Name)
 os.remove(ResultDirectory+'/'+Velocity_File_Name)
 os.remove(ResultDirectory+'/'+Acceleration_File_Name)

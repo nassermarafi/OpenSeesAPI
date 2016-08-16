@@ -55,10 +55,7 @@ class Plain(OpenSees):
         self._Objects = Objects
         self.__dict__.update(kwargs)
 
-    @property
-    def CommandLine(self):
         self._CommandLine = 'pattern Plain %d %s %s { \n%s\n }'%(self._id, self._TimeSeriesTag, self._Optional, ''.join(map(lambda x: '\n'+x.CommandLine, self._Objects)))
-        return self._CommandLine
 
 
 class Load(OpenSees):

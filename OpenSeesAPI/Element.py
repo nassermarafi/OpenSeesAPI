@@ -124,6 +124,35 @@ class Truss(OpenSees):
         self._CommandLine =  'element truss %d %s %s %f %s'%(self.id, self._NodeI.id, self._NodeJ.id, self._Area, self._Material.id)
         self.__dict__.update(kwargs)
 
+class corotTruss(OpenSees):
+    """
+    One way is to specify an area and a UniaxialMaterial identifier:
+    element truss $eleTag $iNode $jNode $A $matTag <-rho $rho> <-cMass $cFlag> <-doRayleigh $rFlag>
+    the other is to specify a Section identifier:
+    element trussSection $eleTag $iNode $jNode $secTag <-rho $rho> <-cMass $cFlag> <-doRayleigh $rFlag>
+
+    $eleTag	unique element object tag
+    $iNode $jNode	end nodes
+    $A	cross-sectional area of element
+    $matTag	tag associated with previously-defined UniaxialMaterial
+    $secTag	tag associated with previously-defined Section
+    $rho	mass per unit length, optional, default = 0.0
+    $cFlag	consistent mass flag, optional, default = 0
+    cFlag = 0 lumped mass matrix (default)
+    cFlag = 1 consistent mass matrix
+    $rFlag	Rayleigh damping flag, optional, default = 0
+    rFlag = 0 NO RAYLEIGH DAMPING (default)
+    rFlag = 1 include Rayleigh damping
+    """
+    def __init__(self, id, NodeI, NodeJ, Area, Material, **kwargs):
+        self._id = id
+        self._NodeI = NodeI
+        self._NodeJ = NodeJ
+        self._Area = Area
+        self._Material = Material
+        self._CommandLine =  'element corotTruss %d %s %s %f %s'%(self.id, self._NodeI.id, self._NodeJ.id, self._Area, self._Material.id)
+        self.__dict__.update(kwargs)
+
 class ZeroLength(OpenSees):
     """
     element zeroLength $eleTag $iNode $jNode -mat $matTag1 $matTag2 ... -dir $dir1 $dir2 ...<-doRayleigh $rFlag> <-orient $x1 $x2 $x3 $yp1 $yp2 $yp3>
@@ -299,6 +328,82 @@ class ForceBeamColumn(OpenSees):
             self._EndCommand = ' %s'%(self._Optional)
 
         self._CommandLine = 'element forceBeamColumn %d %d %d %d %s %s'%(self._id, self._NodeI.id, self._NodeJ.id, self._GeomTrans.id, self._IntegrationType, self._EndCommand)
+
+class ForceBeamColumnUserDefined(OpenSees):
+    """
+    element forceBeamColumn $eleTag $iNode $jNode $transfTag "IntegrationType arg1 arg2 ..." <-mass $massDens> <-iter $maxIters $tol>
+    $eleTag	unique element object tag
+    $iNode $jNode	end nodes
+    $transfTag	identifier for previously-defined coordinate-transformation (CrdTransf) object
+    IntegrationType arg1 arg2 ...	specifies locations and weights of integration points and their associated section force-deformation models (see File:IntegrationTypes.pdf)
+    $massDens	element mass density (per unit length), from which a lumped-mass matrix is formed (optional, default=0.0)
+    $maxIters	maximum number of iterations to undertake to satisfy element compatibility (optional, default=10)
+    $tol	tolerance for satisfaction of element compatibility (optional, default=10-12)
+
+    Original command that assumes Gauss-Lobatto integration with a copy of the same section force-deformation model at each integration point:
+    element forceBeamColumn $eleTag $iNode $jNode $numIntgrPts $secTag $transfTag <-mass $massDens> <-iter $maxIters $tol> <-integration $intType>
+    $eleTag	unique element object tag
+    $numIntgrPts	number of Gauss-Lobatto integration points along the element.
+    $secTag	identifier for previously-defined section object
+
+    Alternative command (kept for backward compatability):
+    element nonlinearBeamColumn $eleTag $iNode $jNode $numIntgrPts $secTag $transfTag <-mass $massDens> <-iter $maxIters $tol> <-integration $intType>
+    $eleTag	unique element object tag
+    $intType	numerical integration type, options are Lobatto, Legendre, Radau, NewtonCotes, Trapezoidal (optional, default= Lobatto)
+    """
+
+    def __init__(self, id, NodeI, NodeJ, GeomTrans, SectionList, **kwargs):
+        self._id = id
+        self._NodeI = NodeI
+        self._NodeJ = NodeJ
+        self._GeomTrans = GeomTrans
+        self._NoOfIntPoints = len(SectionList)
+        self._SectionList = SectionList #list of section ids
+        self.__dict__.update(kwargs)
+        self._SectionString = ''
+        for tag in SectionList:
+            self._SectionString += '%d '%tag._id
+
+        if self._NoOfIntPoints == 3:
+            self._CommandLine = 'element forceBeamColumn %d %d %d %d UserDefined %d %s 0 0.5 1 0.166665 0.66667 0.166665'%(self._id, self._NodeI.id, self._NodeJ.id, self._GeomTrans.id,self._NoOfIntPoints,self._SectionString)
+        elif self._NoOfIntPoints == 4:
+            self._CommandLine = 'element forceBeamColumn %d %d %d %d UserDefined %d %s 0 0.276395 0.723605 1 0.083334 0.416665 0.416665 0.083334'%(self._id, self._NodeI.id, self._NodeJ.id, self._GeomTrans.id,self._NoOfIntPoints,self._SectionString)
+        elif self._NoOfIntPoints == 5:
+            self._CommandLine = 'element forceBeamColumn %d %d %d %d UserDefined %d %s 0 0.17267 0.5 0.82733 1 0.05 0.272222 0.355556 0.272222 0.05 '%(self._id, self._NodeI.id, self._NodeJ.id, self._GeomTrans.id,self._NoOfIntPoints,self._SectionString)
+        elif self._NoOfIntPoints == 6:
+            self._CommandLine = 'element forceBeamColumn %d %d %d %d UserDefined %d %s 0 0.117473 0.357384 0.642616 0.882528 1 0.033333 0.189235 0.27743 0.27743 0.189235 0.033333'%(self._id, self._NodeI.id, self._NodeJ.id, self._GeomTrans.id, self._NoOfIntPoints, self._SectionString)
+        else:
+            print('Number of Sections not supported')
+            self._CommandLine = ''
+
+class ForceBeamColumnOriginal(OpenSees):
+    """
+    Original command that assumes Gauss-Lobatto integration with a copy of the same section force-deformation model at each integration point:
+    element forceBeamColumn $eleTag $iNode $jNode $numIntgrPts $secTag $transfTag <-mass $massDens> <-iter $maxIters $tol> <-integration $intType>
+    $eleTag	unique element object tag
+    $numIntgrPts	number of Gauss-Lobatto integration points along the element.
+    $secTag	identifier for previously-defined section object
+    """
+    def __init__(self, id, NodeI, NodeJ, NoOfIntPoints, Section, GeomTrans, Mass=None, Optional='', **kwargs):
+        self._id = id
+        self._NodeI = NodeI
+        self._NodeJ = NodeJ
+        self._NoOfIntPoints = NoOfIntPoints
+        self._Section = Section
+        self._GeomTrans = GeomTrans
+        self._Mass = Mass
+        self._Optional = Optional
+        self.__dict__.update(kwargs)
+
+        if self._Mass != None:
+            self._EndCommand = '-mass %f %s'%(self._Mass,self._Optional)
+        else:
+            self._EndCommand = ' %s'%(self._Optional)
+
+        if type(self._Section) == str:
+            self._CommandLine = 'element forceBeamColumn %d %d %d %d %s %d %s'%(self._id, self._NodeI.id, self._NodeJ.id, self._NoOfIntPoints, self._Section, self._GeomTrans.id, self._EndCommand)
+        else:
+            self._CommandLine = 'element forceBeamColumn %d %d %d %d %d %d %s'%(self._id, self._NodeI.id, self._NodeJ.id, self._NoOfIntPoints, self._Section.id, self._GeomTrans.id, self._EndCommand)
 
 class Joint2D(OpenSees):
     """
