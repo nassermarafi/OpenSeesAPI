@@ -8,7 +8,7 @@
     - Elements
     - Shells
     - Restraints/Constraints
-    - Output Commands
+    - Output (Recorders)
     - Eigen
     - Loading
     - Gravity Analysis
@@ -51,6 +51,6 @@
         - TimeSeries
         - TCL
         - Database
-        - Output
+        - Output (Recorders)
         - Executable
         - Misc
