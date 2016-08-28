@@ -148,19 +148,19 @@ def AddElasticWallsToDatabase(OData, WallGrids, WallLevels, Section, XGrids, YGr
             HorizontalPlan = tempX if len(tempX)>len(tempY) else tempY
             PerpDirection = tempY if len(tempX)>len(tempY) else tempX
 
-            NodeArray = [[0 for x in xrange(len(tempZ))] for x in xrange(len(HorizontalPlan))]
+            NodeArray = [[0 for x in range(len(tempZ))] for x in range(len(HorizontalPlan))]
 
             # Fill in Node Array
             for c in range(len(tempZ)):
                 for b in range(len(HorizontalPlan)):
                     if len(tempX)>len(tempY):
-                        Nodes = filter(lambda x: x.X == tempX[b] and x.Y == tempY[0] and x.Z == tempZ[c] and (x.NodeType == 1 or x.NodeType == 4), OData._Nodes)
+                        Nodes = list(filter(lambda x: x.X == tempX[b] and x.Y == tempY[0] and x.Z == tempZ[c] and (x.NodeType == 1 or x.NodeType == 4), OData._Nodes))
                         if len(Nodes) == 1:
                             NodeArray[b][c] = Nodes[0]
                         else:
                             NodeArray[b][c] = OData.CreateNode(tempX[b],tempY[0],tempZ[c],NodeType=4,_Notes='Wall Node')
                     else:
-                        Nodes = filter(lambda x: x.X == tempX[0] and x.Y == tempY[b] and x.Z == tempZ[c] and (x.NodeType == 1 or x.NodeType == 4), OData._Nodes)
+                        Nodes = list(filter(lambda x: x.X == tempX[0] and x.Y == tempY[b] and x.Z == tempZ[c] and (x.NodeType == 1 or x.NodeType == 4), OData._Nodes))
                         if len(Nodes) == 1:
                             NodeArray[b][c] = Nodes[0]
                         else:
@@ -216,11 +216,11 @@ def AddMeshedSlabToDatabase(OData, SlabGrids, SlabLevels, Section, xgrids, ygrid
             YGrids.sort()
 
             #Create Nodes
-            NodeArray = [[0 for x in xrange(len(YGrids))] for x in xrange(len(XGrids))]
+            NodeArray = [[0 for x in range(len(YGrids))] for x in range(len(XGrids))]
 
             for a in range(0,len(XGrids)):
                 for b in range(0,len(YGrids)):
-                    Nodes = filter(lambda x: x.X == XGrids[a] and x.Y == YGrids[b] and x.Z == Z and (x.NodeType == 1 or x.NodeType == 4), OData._Nodes)
+                    Nodes = list(filter(lambda x: x.X == XGrids[a] and x.Y == YGrids[b] and x.Z == Z and (x.NodeType == 1 or x.NodeType == 4), OData._Nodes))
                     if len(Nodes) == 1:
                         NodeArray[a][b] = Nodes[0]
                     else:
@@ -735,7 +735,7 @@ def TBI_BRB_A(GMDataX,GMDataY, Dt, T1=None,T2=None, SupressOutput=True, Viewer =
 
     LowerStoriesCenterNodes = []
     for i in range(1,5):
-        LowerStoriesCenterNodes.append(OData.GetNodesByGrid(len(XGrids)/2,len(YGrids)/2,i)[0])
+        LowerStoriesCenterNodes.append(OData.GetNodesByGrid(int(len(XGrids)/2),int(len(YGrids)/2),i)[0])
 
     OutputNodes = [None]+LowerStoriesCenterNodes+DiaphragmNodes
 
@@ -743,7 +743,7 @@ def TBI_BRB_A(GMDataX,GMDataY, Dt, T1=None,T2=None, SupressOutput=True, Viewer =
     OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Defining Diaphragms'))
     for i in range(5,len(ZGrids)):
         Nodes = OData.GetNodesByZCoordinate(ZGrids[i],1)+OData.GetNodesByZCoordinate(ZGrids[i],4)
-        Nodes = filter(lambda x: hasattr(x,'Used'),Nodes)
+        Nodes = list(filter(lambda x: hasattr(x,'Used'),Nodes))
         OData.AddObject(OpenSeesAPI.Model.Constraint.RigidDiaphragm(3,OutputNodes[i],Nodes[0:],_Notes='Rigid Diaphrams at Zgrid: %d'%i))
 
     #Defining Masses
@@ -752,7 +752,7 @@ def TBI_BRB_A(GMDataX,GMDataY, Dt, T1=None,T2=None, SupressOutput=True, Viewer =
     OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Defining Node Mass'))
     for i in range(1,5):
         MassNodes = OData.GetNodesByZCoordinate(ZGrids[i],NodeType=1)+OData.GetNodesByZCoordinate(ZGrids[i],NodeType=4)
-        MassNodes = filter(lambda x: x.Used if hasattr(x,'Used') else False, MassNodes)
+        MassNodes = list(filter(lambda x: x.Used if hasattr(x,'Used') else False, MassNodes))
         for node in MassNodes:
             OData.AddObject(OpenSeesAPI.Model.Node.Mass(node,[FloorMass[i]/len(MassNodes),FloorMass[i]/len(MassNodes),1e-6,1e-6,1e-6,1e-6],_Notes='Mass at GridZ: %d'%(i)))
 
@@ -830,11 +830,11 @@ def TBI_BRB_A(GMDataX,GMDataY, Dt, T1=None,T2=None, SupressOutput=True, Viewer =
     Loads = []
     for i in range(1,len(ZGrids)):
         Nodes = OData.GetNodesByZCoordinate(ZGrids[i],1)
-        Nodes = filter(lambda x: hasattr(x, 'Used'),Nodes)
+        Nodes = list(filter(lambda x: hasattr(x, 'Used'),Nodes))
         XColumnGrids = [1,2,4,6,8,9]
         YColumnGrids = [2,4,6,8]
-        Nodes = filter(lambda x: XColumnGrids.__contains__(x.GridX),Nodes)
-        Nodes = filter(lambda x: YColumnGrids.__contains__(x.GridY),Nodes)
+        Nodes = list(filter(lambda x: XColumnGrids.__contains__(x.GridX),Nodes))
+        Nodes = list(filter(lambda x: YColumnGrids.__contains__(x.GridY),Nodes))
         for node in Nodes:
             ApproxLoad = -1*EquivLoad[i]*g/len(Nodes)
             Loads.append(OpenSeesAPI.Model.Pattern.Load(node,[0, 0, ApproxLoad,0 ,0, 0]))
@@ -880,7 +880,7 @@ def TBI_BRB_A(GMDataX,GMDataY, Dt, T1=None,T2=None, SupressOutput=True, Viewer =
     OData.AddObject(OpenSeesAPI.Output.Recorder.Node(OutputFolder+Reaction_Y_File_Name, SupportNodes, [2], 'reaction'))
 
     #Record Def. At all Nodes for OpenSeesAnimation
-    AllNodes = filter(lambda x: hasattr(x, 'Used'), OData._Nodes)
+    AllNodes = list(filter(lambda x: hasattr(x, 'Used'), OData._Nodes))
     All_Node_Disp_File_Name = '%s-AllNodeDisp-%s.dat'%(ModelName,timestamp)
     OData.AddObject(OpenSeesAPI.Output.Recorder.Node(OutputFolder+All_Node_Disp_File_Name, AllNodes, [1,2,3], 'disp'))
 
@@ -934,7 +934,7 @@ def TBI_BRB_A(GMDataX,GMDataY, Dt, T1=None,T2=None, SupressOutput=True, Viewer =
         Loads = []
         for i in range(1,len(ZGrids)):
             Nodes = OData.GetNodesByZCoordinate(ZGrids[i],1)
-            Nodes = filter(lambda x: hasattr(x,'Used'),Nodes) #Filter for used nodes
+            Nodes = list(filter(lambda x: hasattr(x,'Used'),Nodes)) #Filter for used nodes
             for node in Nodes:
                 Loads.append(OpenSeesAPI.TCL.TCLScript('load %d $EigenVector%d%d 0 0 0 0 0'%(node.id, 1,i)))
         OData.AddObject(OpenSeesAPI.Model.Pattern.Plain(200,'Linear', Loads))
@@ -1167,9 +1167,9 @@ def TBI_BRB_A(GMDataX,GMDataY, Dt, T1=None,T2=None, SupressOutput=True, Viewer =
         Elements = []
         Elements.extend(map(lambda x: x.id if x._NodeI.GridZ == i else None, ColumnSet))
         Elements.extend(map(lambda x: x.id if x._NodeI.GridZ == i else None, BraceSet))
-        Elements = filter(lambda x: x != None, Elements)
-        FxShears = np.array(filter(lambda x: x != None, map(lambda x: x['Fx'] if Elements.__contains__(x['id']) else None, ColumnBraceForceDictionaryList)))
-        FyShears = np.array(filter(lambda x: x != None, map(lambda x: x['Fy'] if Elements.__contains__(x['id']) else None, ColumnBraceForceDictionaryList)))
+        Elements = list(filter(lambda x: x != None, Elements))
+        FxShears = np.array(list(filter(lambda x: x != None, map(lambda x: x['Fx'] if Elements.__contains__(x['id']) else None, ColumnBraceForceDictionaryList))))
+        FyShears = np.array(list(filter(lambda x: x != None, map(lambda x: x['Fy'] if Elements.__contains__(x['id']) else None, ColumnBraceForceDictionaryList))))
 
         FXStoryShear.append(np.sum(FxShears,0))
         FYStoryShear.append(np.sum(FyShears,0))
