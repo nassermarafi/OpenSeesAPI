@@ -30,15 +30,17 @@ Advanced users (who intends to add classes or change the source code) can also c
 
 Instructions:
 - Add OpenSees to your path
-- Clone respository with github
+- In your working directory, clone GitHub respository
 
 <pre><code>git clone https://github.com/nassermarafi/OpenSeesAPI
 </code></pre>
 
-- Setup in develop mode
+- Install OSAPI in develop mode
 
 <pre><code>python setup.py develop
 </code></pre>
+
+- Start developing OSAPI and make some pull requests
 
 ## Example Scripts
 
