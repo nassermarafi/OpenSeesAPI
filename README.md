@@ -32,7 +32,7 @@ Instructions:
 - Add OpenSees to your path
 - Clone respository with github
 
-<pre><codegit clone https://github.com/nassermarafi/OpenSeesAPI
+<pre><code>git clone https://github.com/nassermarafi/OpenSeesAPI
 </code></pre>
 
 - Setup in develop mode
