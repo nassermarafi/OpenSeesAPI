@@ -25,6 +25,21 @@ Mac/Linux Users:
 <pre><code>pip install OpenSeesAPI
 </code></pre>
 
+## Advance Users
+Advanced users (who intends to add classes or change the source code) can also clone this repository and then setup it in develop mode which allows you to make changes to the original source files as you run OSAPI (this is recommended as I have not included all the OpenSees classes). 
+
+Instructions:
+- Add OpenSees to your path
+- Clone respository with github
+
+<pre><codegit clone https://github.com/nassermarafi/OpenSeesAPI
+</code></pre>
+
+- Setup in develop mode
+
+<pre><code>python setup.py develop
+</code></pre>
+
 ## Example Scripts
 
 Three Example Script using OSAPI are available:
