@@ -111,5 +111,10 @@ target/
 
 # Python egg metadata, regenerated from source files by setuptools.
 /*.egg-info
+
+# Ignore all the files that would be made if you run OpenSees
 *.tcl
 *.dat
+
+# Ignore all of pycharms idea-intellij files
+.idea
