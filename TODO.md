@@ -1,2 +1,56 @@
 ## Things that still need to be added
-Add the remaining uniaxial materials
+- Add the remaining OpenSees classes
+- Simplify callouts to opensees classes
+- organize how the tcl files are written... it should probably go something like this
+    - Initiate Basic Builder
+    - Nodes
+    - Materials
+    - Sections
+    - Elements
+    - Shells
+    - Restraints/Constraints
+    - Output Commands
+    - Eigen
+    - Loading
+    - Gravity Analysis
+    - Pushover loading
+    - Pushover Solution Algorithm
+        - Number
+        - System
+        - Analysis
+        - Constraint
+        - Type
+        - Test
+        - Algorithm
+        - Integrator
+        - Analysis
+    - Ground Motions
+    - Dynamic Solution Algorithm
+    - Other (Anything can be put here... I sometimes like to run a pushover after a dynamic analysis to see if my structure has collapse... others might want to run another ground-motion)
+- Solution Algorithms need to be inserted manually or using a helper
+- Shorten callout so that it goes like this:
+    - Analysis
+        - Algorithm
+        - Analysis
+        - Analyze
+        - Constraints
+        - Eigen
+        - Integrator
+        - Numberer
+        - System
+        - Test
+    - Node
+    - Element
+    - Material
+        - UniaxialMaterial
+        - ND Material
+    - Section
+    - BasicBuilder
+    - Constraint
+    - Pattern
+    - TimeSeries
+    - TCL
+    - Database
+    - Output
+    - Executible
+    - Misc
