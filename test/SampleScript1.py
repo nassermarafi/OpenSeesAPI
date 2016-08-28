@@ -106,54 +106,17 @@ OData.AddMaterial(Spring)
 OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Define Elements'))
 OData.AddElement(OpenSeesAPI.Model.Element.Element.ZeroLength(OData.GetFreeElementId(9,1),SupportNode, MassNode, [Spring],[1]))
 
+
+########################## Define Restraints/Constraints ##########################
+OData.AddConstraint(OpenSeesAPI.Model.Constraint.Fix(SupportNode,[1,1,1]))
+OData.AddConstraint(OpenSeesAPI.Model.Constraint.Fix(MassNode,[0,1,1]))
+
 ##############################################################################
 ### Start Writing Elements to the Executible File
 ##############################################################################
 
-# Setting Nodes as Used
-for object in set(OData._Elements):
-    object._NodeI.__setattr__('Used',True)
-    object._NodeJ.__setattr__('Used',True)
-
-#Writing Nodes to File
-OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Defining Nodes'))
-for obj in OData._Nodes:
-    try:
-        if obj.Used:
-            OData.Executable.AddCommand(obj.CommandLine)
-    except:
-        continue
-
-#Defining Fixity
-OData.AddConstraint(OpenSeesAPI.Model.Constraint.Fix(SupportNode,[1,1,1]))
-OData.AddConstraint(OpenSeesAPI.Model.Constraint.Fix(MassNode,[0,1,1]))
-
-#Defining Masses
-
-#Write Element from OpenSees Collector
-OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Writing Materials'))
-for obj in OData._Materials:
-    OData.Executable.AddCommand(obj.CommandLine)
-
-#Write Sections from OpenSees Collector
-OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Writing Sections'))
-for obj in OData._Sections:
-    OData.Executable.AddCommand(obj.CommandLine)
-
-#Write Elements from OpenSees Collector
-OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Writing Elements'))
-for obj in OData._Elements:
-    OData.Executable.AddCommand(obj.CommandLine)
-
-#Write Shells from OpenSees Collector
-OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Writing Shells'))
-for obj in OData._Quadrilaterals:
-    OData.Executable.AddCommand(obj.CommandLine)
-
-#Write Constraints from OpenSees Collector
-OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Writing Constraints'))
-for obj in OData._Constraints:
-    OData.Executable.AddCommand(obj.CommandLine)
+########################## Write Model to TCL File ##########################
+OData.WriteModel()
 
 ########################## Eigenvalue Analysis ##########################
 OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Eigenvalue Analysis'))
