@@ -82,7 +82,7 @@ class Collector(object):
 
     def GetFreeNodeId(self, NodeType, GroupId):
         temp = '%d%d'%(NodeType, GroupId)
-        if self._NodeIds.has_key(temp):
+        if temp in self._NodeIds:
             self._NodeIds[temp] += 1
         else:
             self._NodeIds[temp] = 1
@@ -92,7 +92,7 @@ class Collector(object):
 
     def GetFreeElementId(self, ElementType, GroupId):
         temp = '%d%d'%(ElementType, GroupId)
-        if self._ElementIds.has_key(temp):
+        if temp in self._ElementIds:
             self._ElementIds[temp] += 1
         else:
             self._ElementIds[temp] = 1
@@ -102,7 +102,7 @@ class Collector(object):
 
     def GetFreeMaterialId(self, MaterialType, GroupId):
         temp = '%d%d'%(MaterialType, GroupId)
-        if self._MaterialIds.has_key(temp):
+        if temp in self._MaterialIds:
             self._MaterialIds[temp] += 1
         else:
             self._MaterialIds[temp] = 1
