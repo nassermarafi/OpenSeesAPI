@@ -7,7 +7,6 @@
 ############################################################################
 __author__ = 'marafi'
 
-import os
 import numpy as np
 
 ########################## Input Parameters ##########################
@@ -67,20 +66,20 @@ OData = OpenSeesAPI.Database.Collector(OpenSeesCommand, TCLFileDirectory, FileNa
 
 ########################## Setup and Source Definition ##########################
 OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Initialization'))
-OData.AddObject(OpenSeesAPI.Model.BasicBuilder(2,3))
+OData.AddObject(OpenSeesAPI.BasicBuilder(2,3))
 
 ########################## Define Building Geometry, Nodes and Constraints ##########################
 OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Geometry Setup'))
 
 SupportNode = OData.CreateNode(0,0)
 MassNode = OData.CreateNode(0,0)
-OData.AddConstraint(OpenSeesAPI.Model.Node.Mass(MassNode,[m,1e-6,1e-6]))
+OData.AddConstraint(OpenSeesAPI.Node.Mass(MassNode,[m,1e-6,1e-6]))
 
 ########################## Define Geometric Transformations ##########################
 OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Define Geometric Transformations'))
 
 #Define Geometry Transformations for Beams and Column
-GeoTransfLinear = OpenSeesAPI.Model.Element.GeomTransf.Linear(1)
+GeoTransfLinear = OpenSeesAPI.GeomTransf.Linear(1)
 OData.AddObject(GeoTransfLinear)
 
 ##############################################################################
@@ -99,12 +98,12 @@ OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Define Rotational Springs for Plastic
 ThetaP = Dy*Mu - Dy
 Ult = k*Dy + k*PY*ThetaP
 ThetaPC = Ult/(k*PC)
-Spring = OpenSeesAPI.Model.Element.Material.UniaxialMaterial.ModIMKPinched(1,k,PY,PY,k*Dy,-1*k*Dy, 0.1, 0.1, 0.5, LamdaSCA,LamdaSCA,LamdaSCA,LamdaK,cRate,cRate,cRate,cRate,ThetaP, ThetaP, ThetaPC, ThetaPC, Kappa, Kappa, (ThetaPC+ThetaP+Dy)*2, (ThetaPC+ThetaP+Dy)*2, 1.0, 1.0)
+Spring = OpenSeesAPI.Material.UniaxialMaterial.ModIMKPinched(1,k,PY,PY,k*Dy,-1*k*Dy, 0.1, 0.1, 0.5, LamdaSCA,LamdaSCA,LamdaSCA,LamdaK,cRate,cRate,cRate,cRate,ThetaP, ThetaP, ThetaPC, ThetaPC, Kappa, Kappa, (ThetaPC+ThetaP+Dy)*2, (ThetaPC+ThetaP+Dy)*2, 1.0, 1.0)
 OData.AddMaterial(Spring)
 
 ########################## Define Elements ##########################
 OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Define Elements'))
-OData.AddElement(OpenSeesAPI.Model.Element.Element.ZeroLength(OData.GetFreeElementId(9,1),SupportNode, MassNode, [Spring],[1]))
+OData.AddElement(OpenSeesAPI.Element.ZeroLength(OData.GetFreeElementId(9,1),SupportNode, MassNode, [Spring],[1]))
 
 ##############################################################################
 ### Start Writing Elements to the Executible File
@@ -125,8 +124,8 @@ for obj in OData._Nodes:
         continue
 
 #Defining Fixity
-OData.AddConstraint(OpenSeesAPI.Model.Constraint.Fix(SupportNode,[1,1,1]))
-OData.AddConstraint(OpenSeesAPI.Model.Constraint.Fix(MassNode,[0,1,1]))
+OData.AddConstraint(OpenSeesAPI.Constraint.Fix(SupportNode,[1,1,1]))
+OData.AddConstraint(OpenSeesAPI.Constraint.Fix(MassNode,[0,1,1]))
 
 #Defining Masses
 
@@ -170,7 +169,7 @@ OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Loads'))
 ########################## Time Series ##########################
 OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Time Series'))
 
-TimeSeries = OpenSeesAPI.Model.TimeSeries.Path(1,Dt, GMData)
+TimeSeries = OpenSeesAPI.TimeSeries.Path(1,Dt, GMData)
 OData.AddObject(TimeSeries)
 
 ########################## Recorders ##########################
@@ -212,7 +211,7 @@ OData.AddObject(OpenSeesAPI.Analysis.Integrator.Transient.Newmark(0.5,0.25))
 OData.AddObject(OpenSeesAPI.Analysis.Analysis.Transient())
 
 #Load Pattern
-OData.AddObject(OpenSeesAPI.Model.Pattern.UniformExcitation(400,1,TimeSeries))
+OData.AddObject(OpenSeesAPI.Pattern.UniformExcitation(400,1,TimeSeries))
 
 #Run Analysis
 OData.AddObject(OpenSeesAPI.TCL.TCLScript('set ok 0;'))
