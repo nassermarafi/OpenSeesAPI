@@ -16,5 +16,6 @@ setup(name='OpenSeesAPI',
                     'OpenSeesAPI.Model',
                         'OpenSeesAPI.Model.Element',
                             'OpenSeesAPI.Model.Element.Material',
+                    'OpenSeesAPI.Helpers',
                 'test'],
       zip_safe=False)
