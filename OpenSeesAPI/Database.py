@@ -46,6 +46,7 @@ class Collector(object):
         self._ElementIds = {}
         self._NodeIds = {}
         self._MaterialIds = {}
+        self._SectionIds = {}
 
     @property
     def Executable(self):
@@ -87,6 +88,16 @@ class Collector(object):
         else:
             self._NodeIds[temp] = 1
         id =  '%4.0f'%self._NodeIds[temp]
+        id = id.replace(' ','0')
+        return int('%s%s'%(temp,id))
+
+    def GetFreeSectionId(self, SectionType, GroupId):
+        temp = '%d%d'%(SectionType, GroupId)
+        if temp in self._SectionIds:
+            self._SectionIds[temp] += 1
+        else:
+            self._SectionIds[temp] = 1
+        id =  '%4.0f'%self._SectionIds[temp]
         id = id.replace(' ','0')
         return int('%s%s'%(temp,id))
 
