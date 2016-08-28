@@ -127,6 +127,49 @@ class Collector(object):
         self._Nodes.append(Node)
         return Node
 
+    def WriteModel(self):
+        # setting nodes that are used by the Elements
+        for object in set(self._Elements):
+            object._NodeI.__setattr__('Used', True)
+            object._NodeJ.__setattr__('Used', True)
+            if hasattr(object,'NodeK'):
+                object._NodeK.__setattr__('Used', True)
+            if hasattr(object,'NodeL'):
+                object._NodeL.__setattr__('Used', True)
+            if hasattr(object,'NodeM'):
+                object._NodeM.__setattr__('Used', True)
+
+        # Writing Nodes to File
+        self.AddObject(OpenSeesAPI.TCL.CodeTitle('Defining Nodes'))
+        for obj in self._Nodes:
+            if hasattr(obj, 'Used'):
+                if obj.Used:
+                    self.Executable.AddCommand(obj.CommandLine)
+
+        self.AddObject(OpenSeesAPI.TCL.CodeTitle('Defining Materials'))
+        for obj in self._Materials:
+            self.Executable.AddCommand(obj.CommandLine)
+
+        # Write Sections from OpenSees Collector
+        self.AddObject(OpenSeesAPI.TCL.CodeTitle('Defining Sections'))
+        for obj in self._Sections:
+            self.Executable.AddCommand(obj.CommandLine)
+
+        # Write Elements from OpenSees Collector
+        self.AddObject(OpenSeesAPI.TCL.CodeTitle('Defining Elements'))
+        for obj in self._Elements:
+            self.Executable.AddCommand(obj.CommandLine)
+
+        # Write Shells from OpenSees Collector
+        self.AddObject(OpenSeesAPI.TCL.CodeTitle('Defining Shells'))
+        for obj in self._Quadrilaterals:
+            self.Executable.AddCommand(obj.CommandLine)
+
+        # Write Restraints/Constraints from OpenSees Collector
+        self.AddObject(OpenSeesAPI.TCL.CodeTitle('Defining Restraints/Constraints'))
+        for obj in self._Constraints:
+            self.Executable.AddCommand(obj.CommandLine)
+
     #Methods
     def GetNodesByYCoordinate(self, YCoordinate, NodeType=1):
         return list(filter(lambda x: x.Y==YCoordinate and x.NodeType==NodeType, self._Nodes))
