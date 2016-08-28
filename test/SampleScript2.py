@@ -254,7 +254,7 @@ def TBI_BRB_A(GMDataX,GMDataY, Dt, T1=None,T2=None, SupressOutput=True, Viewer =
 
     import time
     import uuid
-    randomnumber = str(uuid.uuid4().get_hex().upper()[0:12])
+    randomnumber = str(uuid.uuid4()).replace('-','').upper()
     timestamp = ''#time.strftime("%y%m%d-%H%M%S")+randomnumber
     ModelName = 'TBI-BRB'
     FileName = '%s-%s.tcl'%(ModelName,timestamp)

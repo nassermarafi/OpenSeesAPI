@@ -26,9 +26,8 @@ import numpy as np
 
 ### Create OpenSees Database
 
-import time
 import uuid
-randomnumber = str(uuid.uuid4().get_hex().upper()[0:12])
+randomnumber = str(uuid.uuid4()).replace('-','').upper()
 ModelName = 'SteelMomentFrame'
 FileName = '%s.tcl'%(ModelName)
 TCLFileDirectory = os.getcwd()+'/tcl/'

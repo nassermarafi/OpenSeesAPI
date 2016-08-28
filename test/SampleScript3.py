@@ -25,7 +25,7 @@ import numpy as np
 
 import time
 import uuid
-randomnumber = str(uuid.uuid4().get_hex().upper()[0:12])
+randomnumber = str(uuid.uuid4()).replace('-','').upper()
 timestamp = time.strftime("%y%m%d-%H%M%S")+randomnumber
 ModelName = 'ExampleScript'
 FileName = '%s-%s.tcl'%(ModelName,timestamp)
