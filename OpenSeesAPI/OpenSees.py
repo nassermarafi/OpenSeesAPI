@@ -16,7 +16,7 @@ class Executable(object):
         try:
             self._Log = self._TCLFileName[:-4]+'.log'
         except:
-            print 'TCL File Name Too Short'
+            print('TCL File Name Too Short')
 
     def AddCommand(self, Command):
         self._CommandLines.append(Command)
@@ -29,7 +29,7 @@ class Executable(object):
         tcl.close()
 
         # Run OpenSees
-        print 'Running OpenSees Tcl File: %s'%(self._TCLFileName)
+        print('Running OpenSees Tcl File: %s'%(self._TCLFileName))
         from subprocess import Popen, PIPE, STDOUT
         if SuppressOutput:
             import os
@@ -45,14 +45,14 @@ class Executable(object):
             import os
             os.remove(self._TCLFileLocation)
         except:
-            print 'Error Deleting TCL File'
+            print('Error Deleting TCL File')
 
     def DeleteLogFile(self):
         try:
             import os
             os.remove(self._Filelocation+self._Log)
         except:
-            print 'Error Deleting LOG File'
+            print('Error Deleting LOG File')
 
     @property
     def LogFileName(self):
