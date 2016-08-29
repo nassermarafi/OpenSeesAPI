@@ -26,7 +26,7 @@ Mac/Linux Users:
 </code></pre>
 
 ## Advance Users
-Advanced users (who intends to add classes or change the source code) can also clone this repository and then setup it in develop mode which allows you to make changes to the original source files as you run OSAPI (this is recommended as I have not included all the OpenSees classes). 
+Advanced users (who intend to add classes and improve the source code) can also clone this repository and then setup osapi in develop mode which allows you to make changes to the original source files while using OSAPI. 
 
 Instructions:
 - Add OpenSees to your path
