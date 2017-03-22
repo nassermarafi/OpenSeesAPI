@@ -86,7 +86,7 @@ class EnergyIncr(OpenSees):
     def __init__(self, Tolerance, MaxIterations, pFlag = 0 , nType=2):
         self._Tolerance = Tolerance
         self._MaxIterations = MaxIterations
-        self._CommandLine = 'test EnergyIncr %f %d %d %d'%(Tolerance,MaxIterations,pFlag,nType)
+        self._CommandLine = 'test EnergyIncr %e %d %d %d'%(Tolerance,MaxIterations,pFlag,nType)
 
 class RelativeNormUnbalance(OpenSees):
     def __init__(self, Tolerance, MaxIterations):
