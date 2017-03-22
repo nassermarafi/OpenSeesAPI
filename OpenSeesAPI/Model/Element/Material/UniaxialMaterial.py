@@ -821,3 +821,27 @@ class SelfCentering(OpenSees):
 
         self._CommandLine =  'uniaxialMaterial SelfCentering %d %f %f %f %f %f %f %f'%(self._id, self._k1, self._k2, self._sigAct, self._beta, self._epsSlip, self._epsBear, self._rBear)
 
+class MaxStrainRange(OpenSees):
+    """
+    This command is used to construct a MaxStrainRange material object.
+    uniaxialMaterial MaxStrainRange $tag $base_tag $eps_range -min $eps_min -max $eps_max -tangentRatio $kappa
+
+    """
+    def __init__(self, id, OtherMaterial, eps_range, eps_min = None, eps_max = None, kappa = None, **kwargs):
+        self._id = id
+        self._OtherMaterial = OtherMaterial
+        self._eps_range = eps_range
+        self._eps_min = eps_min
+        self._eps_max = eps_max
+        self._kappa = kappa
+        self._Optional = ''
+        self.__dict__.update(kwargs)
+
+        if eps_min != None:
+            self._Optional += '-min %f '%self._eps_min
+        if eps_max != None:
+            self._Optional += '-max %f ' % self._eps_max
+        if kappa != None:
+            self._Optional += '-tangentRatio %f ' % self._kappa
+
+        self._CommandLine =  'uniaxialMaterial MaxStrainRange %d %d %f %s'%(self._id, self._OtherMaterial.id, self._eps_range, self._Optional)
