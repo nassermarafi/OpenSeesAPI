@@ -85,7 +85,7 @@ class NewtonLineSearch(OpenSees):
         self._MaxIteration = MaxIteration
         self._MinEta = MinEta
         self._MaxEta = MaxEta
-        self._CommandLine = 'algorithm NewtonLineSearch -type %s -tol %f -maxIter %d -minEta %f -maxEta %f'%(self._typeSearch,self._Tolerance,self._MaxIteration,self._MinEta,self._MaxEta)
+        self._CommandLine = 'algorithm NewtonLineSearch -type %s -tol %e -maxIter %d -minEta %f -maxEta %f'%(self._typeSearch,self._Tolerance,self._MaxIteration,self._MinEta,self._MaxEta)
 
 class KrylovNewton(OpenSees):
     """
