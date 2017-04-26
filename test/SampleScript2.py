@@ -761,7 +761,7 @@ def TBI_BRB_A(GMDataX,GMDataY, Dt, T1=None,T2=None, SupressOutput=True, Viewer =
         RZ = FloorMass[i]*((107.*12.)**2.+(170.*12.)**2.)/12.
         OData.AddObject(OpenSeesAPI.Model.Node.Mass(OutputNodes[i],[FloorMass[i],FloorMass[i],1.e-6,1.e-6,1.e-6,RZ],_Notes='Mass at GridZ: %d'%(i)))
 
-    #Add Raleigh Damping to Nodes
+    #Add Rayleigh Damping to Nodes
 
     #Write Element from OpenSees Collector
     OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Writing Materials'))
