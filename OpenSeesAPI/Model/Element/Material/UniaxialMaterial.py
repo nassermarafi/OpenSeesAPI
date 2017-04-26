@@ -845,3 +845,24 @@ class MaxStrainRange(OpenSees):
             self._Optional += '-tangentRatio %f ' % self._kappa
 
         self._CommandLine =  'uniaxialMaterial MaxStrainRange %d %d %f %s'%(self._id, self._OtherMaterial.id, self._eps_range, self._Optional)
+
+class Parallel(OpenSees):
+    """
+    This command is used to construct a parallel material object made up of an arbitrary number of previously-constructed UniaxialMaterial objects.
+uniaxialMaterial Parallel $matTag $tag1 $tag2 ... <-factors $fact1 $fact2 ...>
+$matTag	integer tag identifying material
+$tag1 $tag2 ...	identification tags of materials making up the material model
+$fact1 $fact2 ...	factors to create a linear combination of the specified materials. Factors can be negative to subtract one material from an other. (optional, default = 1.0)
+
+    """
+    def __init__(self, id, Materials, Factors=None, **kwargs):
+        self._id = id
+        self._Materials = Materials
+        self._Factors = Factors
+        self.__dict__.update(kwargs)
+
+        if Factors is not None:
+            self._CommandLine =  'uniaxialMaterial Parallel %d %s -factors %s'%(self._id, ''.join([' %d'%s.id for s in self._Materials]), ''.join([' %f'%s for s in self._Factors]))
+        else:
+            self._CommandLine = 'uniaxialMaterial Parallel %d %s' % (
+            self._id, ''.join([' %d' % s.id for s in self._Materials]))
