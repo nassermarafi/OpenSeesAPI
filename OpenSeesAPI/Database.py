@@ -47,6 +47,7 @@ class Collector(object):
         self._NodeIds = {}
         self._MaterialIds = {}
         self._SectionIds = {}
+        self._Mass = []
 
     @property
     def Executable(self):
@@ -72,6 +73,10 @@ class Collector(object):
     def AddSection(self, Section):
         self._Sections.append(Section)
         return Section
+
+    def AddMass(self, Mass):
+        self._Mass.append(Mass)
+        return Mass
 
     def AddConstraint(self, Constraint):
         self._Constraints.append(Constraint)
@@ -168,6 +173,10 @@ class Collector(object):
             if hasattr(obj, 'Used'):
                 if obj.Used:
                     self.Executable.AddCommand(obj.CommandLine)
+
+        self.AddObject(OpenSeesAPI.TCL.CodeTitle('Defining Node Mass'))
+        for obj in self._Mass:
+            self.Executable.AddCommand(obj.CommandLine)
 
         self.AddObject(OpenSeesAPI.TCL.CodeTitle('Defining Materials'))
         for obj in self._Materials:
