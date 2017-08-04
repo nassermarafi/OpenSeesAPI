@@ -299,9 +299,23 @@ class ReinforcingSteel():
     $R2	(default = 18)
     $R3	(default = 4)
     """
+    class ReinforcingSteel(OpenSees):
+        #This command is used to construct a ReinforcingSteel uniaxial material object. This object is intended to be used in a reinforced concrete fiber section as the steel reinforcing material.
+        def __init__(self, id, fy, fu, Es, Esh, esh, eult, Optional = '', **kwargs):
+            self._id = id
+            self._fy = fy
+            self._fu = fu
+            self._Es = Es
+            self._Esh = Esh
+            self._esh = esh
+            self._eult = eult
+            self._Optional = Optional
+            self.__dict__.update(kwargs)
+
+            self._CommandLine = 'uniaxialMaterial ReinforcingSteel %d %f %f %f %f %f %f %s'%(self._id, self._fy, self._fu, self._Es, self._Esh, self._esh, self._eult, self._Optional)
     class GABuck(OpenSees):
         #This command is used to construct a ReinforcingSteel uniaxial material object. This object is intended to be used in a reinforced concrete fiber section as the steel reinforcing material.
-        def __init__(self, id, fy, fu, Es, Esh, esh, eult, Isr, beta, r, gamma, Cf, alpha,Cd, **kwargs):
+        def __init__(self, id, fy, fu, Es, Esh, esh, eult, Isr, beta, r, gamma, Cf = None, alpha = None, Cd = None, **kwargs):
             self._id = id
             self._fy = fy
             self._fu = fu
@@ -316,12 +330,14 @@ class ReinforcingSteel():
             self._Cf = Cf
             self._alpha = alpha
             self._Cd = Cd
-
-            self._CommandLine = 'uniaxialMaterial ReinforcingSteel %d %f %f %f %f %f %f -GABuck %f %f %f %f -CMFatigue %f %f %f'%(self._id, self._fy, self._fu, self._Es, self._Esh, self._esh, self._eult, self._Isr, self._beta, self._r, self._gamma, self._Cf, self._alpha, self._Cd)
-
+            self.__dict__.update(kwargs)
+            if Cf == None:
+                self._CommandLine = 'uniaxialMaterial ReinforcingSteel %d %f %f %f %f %f %f -GABuck %f %f %f %f'%(self._id, self._fy, self._fu, self._Es, self._Esh, self._esh, self._eult, self._Isr, self._beta, self._r, self._gamma)
+            else:
+                self._CommandLine = 'uniaxialMaterial ReinforcingSteel %d %f %f %f %f %f %f -GABuck %f %f %f %f -CMFatigue %f %f %f'%(self._id, self._fy, self._fu, self._Es, self._Esh, self._esh, self._eult, self._Isr, self._beta, self._r, self._gamma, self._Cf, self._alpha, self._Cd)
     class DMBuck(OpenSees):
         #This command is used to construct a ReinforcingSteel uniaxial material object. This object is intended to be used in a reinforced concrete fiber section as the steel reinforcing material.
-        def __init__(self, id, fy, fu, Es, Esh, esh, eult, Isr, beta, r, gamma, Cf, alpha,Cd, **kwargs):
+        def __init__(self, id, fy, fu, Es, Esh, esh, eult, Isr, alpha, Cf = None, a = None, Cd = None, Optional = '', **kwargs):
             self._id = id
             self._fy = fy
             self._fu = fu
@@ -331,8 +347,15 @@ class ReinforcingSteel():
             self._eult = eult
             self._Isr = Isr
             self._alpha = alpha
-
-            self._CommandLine = 'uniaxialMaterial ReinforcingSteel %d %f %f %f %f %f %f -DMBuck %f %f'%(self._id, self._fy, self._fu, self._Es, self._Esh, self._esh, self._eult, self._Isr, self._alpha)
+            self._Cf = Cf
+            self._a = a
+            self._Cd = Cd
+            self._Optional = Optional
+            self.__dict__.update(kwargs)
+            if Cf == None:
+                self._CommandLine = 'uniaxialMaterial ReinforcingSteel %d %f %f %f %f %f %f -DMBuck %f %f %s'%(self._id, self._fy, self._fu, self._Es, self._Esh, self._esh, self._eult, self._Isr, self._alpha, self._Optional)
+            else:
+                self._CommandLine = 'uniaxialMaterial ReinforcingSteel %d %f %f %f %f %f %f -DMBuck %f %f -CMFatigue %f %f %f %s'%(self._id, self._fy, self._fu, self._Es, self._Esh, self._esh, self._eult, self._Isr, self._alpha, self._Cf, self._a, self._Cd, self._Optional)
 
 #############################################################################################################
 ##################################### CONCRETE MATERIAL MODELS ##############################################
@@ -729,6 +752,88 @@ class Clough(OpenSees):
     def RunCommandLine(self):
         self._CommandLine = 'uniaxialMaterial Clough %d %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f'%(self._id, self._Ke, self._My, self._MyNeg, self._AlphaYield, self._Residual, self._AlphaPC, self._ThetaCappingPos, self._ThetaCappingNeg, self._LambdaS, self._LambdaK, self._LambdaA, self._LambdaD, self._cS, self._cK, self._cA, self._cD)
 
+class Pinching4(OpenSees):
+    """
+    This command is used to construct a uniaxial material that represents a 'pinched' load-deformation response and exhibits degradation under cyclic loading. Cyclic degradation of strength and stiffness occurs in three ways: unloading stiffness degradation, reloading stiffness degradation, strength degradation.
+uniaxialMaterial Pinching4 $matTag $ePf1 $ePd1 $ePf2 $ePd2 $ePf3 $ePd3 $ePf4 $ePd4 <$eNf1 $eNd1 $eNf2 $eNd2 $eNf3 $eNd3 $eNf4 $eNd4> $rDispP $rForceP $uForceP <$rDispN $rForceN $uForceN > $gK1 $gK2 $gK3 $gK4 $gKLim $gD1 $gD2 $gD3 $gD4 $gDLim $gF1 $gF2 $gF3 $gF4 $gFLim $gE $dmgType
+$matTag	integer tag identifying material
+$ePf1 $ePf2 $ePf3 $ePf4	floating point values defining force points on the positive response envelope
+$ePd1 $ePd2 $ePd3 $ePd4	floating point values defining deformation points on the positive response envelope
+$eNf1 $eNf2 $eNf3 $eNf4	floating point values defining force points on the negative response envelope
+$eNd1 $eNd2 $eNd3 $eNd4	floating point values defining deformation points on the negative response envelope
+$rDispP	floating point value defining the ratio of the deformation at which reloading occurs to the maximum historic deformation demand
+$fFoceP	floating point value defining the ratio of the force at which reloading begins to force corresponding to the maximum historic deformation demand
+$uForceP	floating point value defining the ratio of strength developed upon unloading from negative load to the maximum strength developed under monotonic loading
+$rDispN	floating point value defining the ratio of the deformation at which reloading occurs to the minimum historic deformation demand
+$fFoceN	floating point value defining the ratio of the force at which reloading begins to force corresponding to the minimum historic deformation demand
+$uForceN	floating point value defining the ratio of strength developed upon unloading from negative load to the minimum strength developed under monotonic loading
+$gK1 $gK2 $gK3 $gK4 $gKLim	floating point values controlling cyclic degradation model for unloading stiffness degradation
+$gD1 $gD2 $gD3 $gD4 $gDLim	floating point values controlling cyclic degradation model for reloading stiffness degradation
+$gF1 $gF2 $gF3 $gF4 $gFLim	floating point values controlling cyclic degradation model for strength degradation
+$gE	floating point value used to define maximum energy dissipation under cyclic loading. Total energy dissipation capacity is defined as this factor multiplied by the energy dissipated under monotonic loading.
+$dmgType	string to indicate type of damage (option: "cycle", "energy")
+    """
+    def __init__(self, id, ePf1, ePd1, ePf2, ePd2, ePf3, ePd3, ePf4, ePd4, rDispP, rForceP, uForceP, gK1, gK2, gK3, gK4, gKLim, gD1, gD2, gD3, gD4, gDLim, gF1, gF2, gF3, gF4, gFLim, gE, dmgType,
+                 eNf1 = None, eNd1 = None, eNf2 = None, eNd2 = None, eNf3 = None, eNd3 = None, eNf4 = None, eNd4 = None,
+                 rDispN = None, rForceN = None, uForceN = None, **kwargs):
+        self._id = id
+        self._ePf1 = ePf1
+        self._ePd1 = ePd1
+        self._ePf2 = ePf2
+        self._ePd2 = ePd2
+        self._ePf3 = ePf3
+        self._ePd3 = ePd3
+        self._ePf4 = ePf4
+        self._ePd4 = ePd4
+        self._eNf1 = eNf1
+        self._eNd1 = eNd1
+        self._eNf2 = eNf2
+        self._eNd2 = eNd2
+        self._eNf3 = eNf3
+        self._eNd3 = eNd3
+        self._eNf4 = eNf4
+        self._eNd4 = eNd4
+        self._rDispP  = rDispP
+        self._rForceP = rForceP
+        self._uForceP = uForceP
+        self._rDispN  = rDispN
+        self._rForceN = rForceN
+        self._uForceN = uForceN
+        self._gK1     = gK1
+        self._gK2     = gK2
+        self._gK3     = gK3
+        self._gK4     = gK4
+        self._gKLim   = gKLim
+        self._gD1     = gD1
+        self._gD2     = gD2
+        self._gD3     = gD3
+        self._gD4     = gD4
+        self._gDLim   = gDLim
+        self._gF1     = gF1
+        self._gF2     = gF2
+        self._gF3     = gF3
+        self._gF4     = gF4
+        self._gFLim   = gFLim
+        self._gE      = gE
+        self._dmgType = dmgType
+
+        self.__dict__.update(kwargs)
+
+        self.RunCommandLine()
+
+    def RunCommandLine(self):
+        if self._eNf1 != None:
+            self._CommandLine = 'uniaxialMaterial Pinching4 %d %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %s' % (
+            self._id, self._ePf1, self._ePd1, self._ePf2, self._ePd2, self._ePf3, self._ePd3, self._ePf4, self._ePd4, self._eNf1, self._eNd1, self._eNf2, self._eNd2, self._eNf3, self._eNd3, self._eNf4, self._eNd4, self._rDispP, self._rForceP, self._uForceP, self._rDispN, self._rForceN, self._uForceN, self._gK1, self._gK2, self._gK3, self._gK4, self._gKLim, self._gD1, self._gD2, self._gD3, self._gD4, self._gDLim, self._gF1, self._gF2, self._gF3, self._gF4, self._gFLim, self._gE, self._dmgType)
+        elif self._eNf1 == None:
+            self._CommandLine = 'uniaxialMaterial Pinching4 %d %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %s' % (
+                self._id, self._ePf1, self._ePd1, self._ePf2, self._ePd2, self._ePf3, self._ePd3, self._ePf4,
+                self._ePd4, self._rDispP, self._rForceP, self._uForceP,
+                self._gK1, self._gK2, self._gK3, self._gK4, self._gKLim, self._gD1, self._gD2, self._gD3, self._gD4,
+                self._gDLim, self._gF1, self._gF2, self._gF3, self._gF4, self._gFLim, self._gE, self._dmgType)
+
+
+
 #############################################################################################################
 ############################################ MATERIAL WRAPPERS ##############################################
 #############################################################################################################
@@ -866,3 +971,47 @@ $fact1 $fact2 ...	factors to create a linear combination of the specified materi
         else:
             self._CommandLine = 'uniaxialMaterial Parallel %d %s' % (
             self._id, ''.join([' %d' % s.id for s in self._Materials]))
+
+class Steel02LB(OpenSees):
+    """
+    This command is used to construct a uniaxial Giuffre-Menegotto-Pinto steel material object with isotropic strain hardening.
+    uniaxialMaterial Steel02 $matTag $Fy $E $b $R0 $cR1 $cR2 <$a1 $a2 $a3 $a4 $sigInit>
+    $matTag	integer tag identifying material
+    $Fy	yield strength
+    $E0	initial elastic tangent
+    $b	strain-hardening ratio (ratio between post-yield tangent and initial elastic tangent)
+    $Ks is the post-buckling stiffness (positive #)
+    $eps_b is the strain/deformation at initial buckling (positive #)
+    $sig_res is
+    $R0 $CR1 $CR2	parameters to control the transition from elastic to plastic branches.
+    Recommended values: $R0=between 10 and 20, $cR1=0.925, $cR2=0.15
+    $a1	isotropic hardening parameter, increase of compression yield envelope as proportion of yield strength after a plastic strain of $a2*($Fy/E0). (optional)
+    $a2	isotropic hardening parameter (see explanation under $a1). (optional default = 1.0).
+    $a3	isotropic hardening parameter, increase of tension yield envelope as proportion of yield strength after a plastic strain of $a4*($Fy/E0). (optional default = 0.0)
+    $a4	isotropic hardening parameter (see explanation under $a3). (optional default = 1.0)
+    $sigInit	Initial Stress Value (optional, default: 0.0) the strain is calculated from epsP=$sigInit/$E
+    if (sigInit!= 0.0) { double epsInit = sigInit/E; eps = trialStrain+epsInit; } else eps = trialStrain;
+    """
+    def __init__(self, id, Fy, E0, b, Ks, eps_b, sig_res, R0=15, CR1=0.925, CR2=0.15, a1=None,a2=None,a3=None,a4=None,sigInit=None, **kwargs):
+        self._id = id
+        self._Fy = Fy
+        self._E0 = E0
+        self._b = b
+        self._Ks = Ks
+        self._eps_b = eps_b
+        self._sig_res = sig_res
+        self._R0 = R0
+        self._CR1 = CR1
+        self._CR2 = CR2
+        self._a1 = a1
+        self._a2 = a2
+        self._a3 = a3
+        self._a4 = a4
+        self._sigInit = sigInit
+
+        self.__dict__.update(kwargs)
+
+        if self._a1 == None:
+            self._CommandLine =  'uniaxialMaterial Steel02LB %d %f %f %f %f %f %f %f %f %f'%(self._id, self._Fy, self._E0, self._b, self._Ks, self._eps_b, self._sig_res, self._R0, self._CR1, self._CR2)
+        else:
+            self._CommandLine =  'uniaxialMaterial Steel02LB %d %f %f %f %f %f %f %f %f %f %f %f %f %f %f'%(self._id, self._Fy, self._E0, self._b, self._Ks, self._eps_b, self._sig_res, self._R0, self._CR1, self._CR2, self._a1, self._a2, self._a3, self._a4, self._sigInit)
