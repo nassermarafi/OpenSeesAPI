@@ -353,8 +353,8 @@ class FiberSection(OpenSees):
                 self._zJ = zJ
                 self._yK = yK
                 self._zK = zK
-                self.yL = yL
-                self.zL = zL
+                self._yL = yL
+                self._zL = zL
                 self.__dict__.update(kwargs)
 
                 self._CommandLine =  'patch quad %d %d %d %f %f %f %f %f %f %f %f'%(self._Mat.id, self._numSubDivIJ, self._numSubDivJK, self._yI, self._zI, self._yJ, self._zJ, self._yK, self._zK, self._yL, self._zL)
