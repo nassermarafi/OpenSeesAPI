@@ -100,10 +100,16 @@ algorithm KrylovNewton <-iterate $tangIter> <-increment $tangIncr> <-maxDim $max
         self._TangIter = TangIter
         self._TangIncr = TangIncr
         self._MaxDim = MaxDim
-        if self._TangIncr == None:
-            self._CommandLine = 'algorithm KrylovNewton'
-        else:
-            self._CommandLine = 'algorithm KrylovNewton %f %f %d'%(self._TangIncr, self._TangIncr, self._MaxDim)
+
+        self._Options = ''
+        if self._TangIter != None:
+            self._Options += '-iterate %s'%self._TangIter
+        if self._TangIter != None:
+            self._Options += '-increment %s'%self._TangIncr
+        if self._MaxDim != None:
+            self._Options += '-maxDim %s'%self._MaxDim
+
+        self._CommandLine = 'algorithm KrylovNewton %s'%(self._Options)
 
 class BFGS(OpenSees):
     """
