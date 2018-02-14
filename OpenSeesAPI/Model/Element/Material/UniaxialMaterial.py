@@ -211,6 +211,7 @@ class Steel02(OpenSees):
         else:
             self._CommandLine =  'uniaxialMaterial Steel02 %d %f %f %f %f %f %f %f %f %f %f %f'%(self._id, self._Fy, self._E0, self._b, self._R0, self._CR1, self._CR2, self._a1, self._a2, self._a3, self._a4, self._sigInit)
 
+
 class Hysteretic(OpenSees):
     """
     This command is used to construct a uniaxial bilinear hysteretic material object with pinching of force and deformation, damage due to ductility and energy, and degraded unloading stiffness based on ductility.
@@ -508,6 +509,39 @@ class ConcreteCM(OpenSees):
         self._CommandLine = 'uniaxialMaterial ConcreteCM %d %f %f %f %f %f %f %f %f %f %s' % (
         self._id, self._fc, self._ec, self._Ec, self._rc, self._xcrn, self._ft, self._et, self._rt, self._xcrp, self._Optional)
 
+
+class Concrete02IS(OpenSees):
+    """
+    uniaxialMaterial Concrete02IS $matTag $ E0 $fpc $epsc0 $fpcu $epsU $lambda $ft $Ets
+    $matTag	integer tag identifying material
+    $E0 Initial Stiffness
+    $fpc	concrete compressive strength at 28 days (compression is negative)*
+    $epsc0	concrete strain at maximum strength*
+    $fpcu	concrete crushing strength *
+    $epsU	concrete strain at crushing strength*
+    $lambda	ratio between unloading slope at $epscu and initial slope
+    $ft	tensile strength
+    $Ets	tension softening stiffness (absolute value) (slope of the linear tension softening branch)
+
+    NOTE:
+    Compressive concrete parameters should be input as negative values.
+    The initial slope for this model is (2*$fpc/$epsc0)
+    """
+
+    def __init__(self, id, E0, fc, ec, fpcu, ecu, lam, ft, Ets, **kwargs):
+        self._id = id
+        self._E0 = E0
+        self._fc = fc
+        self._ec = ec
+        self._fpcu = fpcu
+        self._ecu = ecu
+        self._lam = lam
+        self._ft = ft
+        self._Ec = Ets
+
+        self.__dict__.update(kwargs)
+
+        self._CommandLine =  'uniaxialMaterial Concrete02IS %d %f %f %f %f %f %f %f %f'%(self._id, self._E0, self._fc, self._ec, self._fpcu, self._ecu, self._lam, self._ft, self._Ec)
 
 #############################################################################################################
 ##################################### OTHER MATERIAL MODELS ##############################################
@@ -869,14 +903,20 @@ class Fatigue(OpenSees):
     $minStrain	minimum value of strain. optional default = -1.0e16.
     $maxStrain	max value of strain. optional default = 1.0e16.
     """
-    def __init__(self, id, OtherMaterial, E0, m, **kwargs):
+    def __init__(self, id, OtherMaterial, E0, m, minStrain= None, maxStrain = None, **kwargs):
         self._id = id
         self._OtherMaterial = OtherMaterial
         self._E0 = E0
         self._m = m
+        self._minStrain = minStrain
+        self._maxStrain = maxStrain
         self.__dict__.update(kwargs)
 
-        self._CommandLine =  'uniaxialMaterial Fatigue %d %d -E0 %f -m %f'%(self._id, self._OtherMaterial.id, self._E0, self._m)
+        if self._minStrain is None:
+            self._CommandLine =  'uniaxialMaterial Fatigue %d %d -E0 %f -m %f'%(self._id, self._OtherMaterial.id, self._E0, self._m)
+        else:
+            self._CommandLine = 'uniaxialMaterial Fatigue %d %d -E0 %f -m %f -min %f -max %f' % (
+            self._id, self._OtherMaterial.id, self._E0, self._m, self._minStrain, self._maxStrain)
 
 class InitStrainMaterial(OpenSees):
     """
@@ -1015,3 +1055,52 @@ class Steel02LB(OpenSees):
             self._CommandLine =  'uniaxialMaterial Steel02LB %d %f %f %f %f %f %f %f %f %f'%(self._id, self._Fy, self._E0, self._b, self._Ks, self._eps_b, self._sig_res, self._R0, self._CR1, self._CR2)
         else:
             self._CommandLine =  'uniaxialMaterial Steel02LB %d %f %f %f %f %f %f %f %f %f %f %f %f %f %f'%(self._id, self._Fy, self._E0, self._b, self._Ks, self._eps_b, self._sig_res, self._R0, self._CR1, self._CR2, self._a1, self._a2, self._a3, self._a4, self._sigInit)
+
+class Steel02Fatigue(OpenSees):
+    """
+    This command is used to construct a uniaxial Giuffre-Menegotto-Pinto steel material object with isotropic strain hardening.
+    uniaxialMaterial Steel02 $matTag $Fy $E $b $R0 $cR1 $cR2 <$a1 $a2 $a3 $a4 $sigInit>
+    $matTag	integer tag identifying material
+    $Fy	yield strength
+    $E0	initial elastic tangent
+    $b	strain-hardening ratio (ratio between post-yield tangent and initial elastic tangent)
+    $R0 $CR1 $CR2	parameters to control the transition from elastic to plastic branches.
+    Recommended values: $R0=between 10 and 20, $cR1=0.925, $cR2=0.15
+    $a1	isotropic hardening parameter, increase of compression yield envelope as proportion of yield strength after a plastic strain of $a2*($Fy/E0). (optional)
+    $a2	isotropic hardening parameter (see explanation under $a1). (optional default = 1.0).
+    $a3	isotropic hardening parameter, increase of tension yield envelope as proportion of yield strength after a plastic strain of $a4*($Fy/E0). (optional default = 0.0)
+    $a4	isotropic hardening parameter (see explanation under $a3). (optional default = 1.0)
+    $sigInit	Initial Stress Value (optional, default: 0.0) the strain is calculated from epsP=$sigInit/$E
+    if (sigInit!= 0.0) { double epsInit = sigInit/E; eps = trialStrain+epsInit; } else eps = trialStrain;
+    """
+    def __init__(self, id, Fy, E0, b, Cd, Cf, Alpha, Beta, MinStrain, MaxStrain, R0=None, CR1=None, CR2=None, a1=None, a2=None, a3=None, a4=None, sigInit=None, **kwargs):
+        self._id = id
+        self._Fy = Fy
+        self._E0 = E0
+        self._b = b
+        self._Cd = Cd
+        self._Cf = Cf
+        self._Alpha = Alpha
+        self._Beta = Beta
+        self._MinStrain = MinStrain
+        self._MaxStrain = MaxStrain
+
+        self._R0 = R0
+        self._CR1 = CR1
+        self._CR2 = CR2
+        self._a1 = a1
+        self._a2 = a2
+        self._a3 = a3
+        self._a4 = a4
+        self._sigInit = sigInit
+
+        self.__dict__.update(kwargs)
+
+        if self._R0 == None and self._a1 == None:
+            self._CommandLine = 'uniaxialMaterial Steel02Fatigue %d %f %f %f %f %f %f %f %f %f' % (
+            self._id, self._Fy, self._E0, self._b, self._Cd, self._Cf, self._Alpha,
+            self._Beta, self._MinStrain, self._MaxStrain)
+        elif self._R0 == None and self._a1 != None:
+            self._CommandLine =  'uniaxialMaterial Steel02Fatigue %d %f %f %f %f %f %f %f %f %f %f %f %f'%(self._id, self._Fy, self._E0, self._b, self._R0, self._CR1, self._CR2, self._Cd, self._Cf, self._Alpha, self._Beta, self._MinStrain, self._MaxStrain)
+        else:
+            self._CommandLine =  'uniaxialMaterial Steel02Fatigue %d %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f'%(self._id, self._Fy, self._E0, self._b, self._R0, self._CR1, self._CR2, self._a1, self._a2, self._a3, self._a4, self._Cd, self._Cf, self._Alpha, self._Beta, self._MinStrain, self._MaxStrain, self._sigInit)
