@@ -377,6 +377,8 @@ class ForceBeamColumnOriginal(OpenSees):
 
         if type(self._Section) == str:
             self._CommandLine = 'element forceBeamColumn %d %d %d %d %s %d %s'%(self._id, self._NodeI.id, self._NodeJ.id, self._NoOfIntPoints, self._Section, self._GeomTrans.id, self._EndCommand)
+        elif type(self._Section) == list:
+            self._CommandLine = 'element forceBeamColumn %d %d %d %d -sections %s %d %s'%(self._id, self._NodeI.id, self._NodeJ.id, self._NoOfIntPoints, ''.join([' %d'%x.id for x in self._Section]), self._GeomTrans.id, self._EndCommand)
         else:
             self._CommandLine = 'element forceBeamColumn %d %d %d %d %d %d %s'%(self._id, self._NodeI.id, self._NodeJ.id, self._NoOfIntPoints, self._Section.id, self._GeomTrans.id, self._EndCommand)
 
