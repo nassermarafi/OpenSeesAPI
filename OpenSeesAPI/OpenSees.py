@@ -28,6 +28,9 @@ class Executable(object):
             tcl.write(line+'\n')
         tcl.close()
 
+        # import time
+        # time.sleep(60) # Wait for the file to write
+
         # Run OpenSees
         print('Running OpenSees Tcl File: %s'%(self._TCLFileName))
         from subprocess import Popen, PIPE, STDOUT
