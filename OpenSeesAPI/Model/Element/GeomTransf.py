@@ -58,18 +58,25 @@ class PDelta(OpenSees):
     $dXi $dYi $dZi	joint offset values -- offsets specified with respect to the global coordinate system for element-end node i (the number of arguments depends on the dimensions of the current model). The offset vector is oriented from node i to node j as shown in a figure below. (optional)
     $dXj $dYj $dZj	joint offset values -- offsets specified with respect to the global coordinate system for element-end node j (the number of arguments depends on the dimensions of the current model). The offset vector is oriented from node j to node i as shown in a figure below. (optional)
     """
-    def __init__(self, id, VectorX=None, VectorY=None, VectorZ=None, **kwargs):
+    def __init__(self, id, VectorX=None, VectorY=None, VectorZ=None, jinOffset = None, **kwargs):
         self._id = id
         self._VectorX = VectorX
         self._VectorY = VectorY
         self._VectorZ = VectorZ
+        self._jinOffset = jinOffset
 
         self.__dict__.update(kwargs)
 
         if self._VectorX == None:
             self._CommandLine =  'geomTransf PDelta %d'%(self.id)
         else:
-            self._CommandLine =  'geomTransf PDelta %d %d %d %d'%(self.id, self._VectorX, self._VectorY, self._VectorZ)
+            if self._jinOffset == None:
+                self._CommandLine =  'geomTransf PDelta %d %d %d %d'%(
+                    self.id, self._VectorX, self._VectorY, self._VectorZ)
+            else:
+                self._CommandLine = 'geomTransf PDelta %d %d %d %d -jntOffset %s' % (
+                self.id, self._VectorX, self._VectorY, self._VectorZ, ''.join([' %f'%x for x in self._jinOffset]))
+
 
 class Corotational(OpenSees):
     """
