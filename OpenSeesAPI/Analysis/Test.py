@@ -45,7 +45,7 @@ class NormUnbalance(OpenSees):
             self._Optional = '%d %d'%(PrintFlag,nType)
         else:
             self._Optional = ''
-        self._CommandLine = 'test NormUnbalance %f %d %s'%(Tolerance,MaxIterations,self._Optional)
+        self._CommandLine = 'test NormUnbalance %e %d %s'%(Tolerance,MaxIterations,self._Optional)
 
 class NormDispIncr(OpenSees):
     """
@@ -67,7 +67,7 @@ class NormDispIncr(OpenSees):
         self._MaxIterations = MaxIterations
         self._pFlag = pFlag
         self._nType = nType
-        self._CommandLine = 'test NormDispIncr %f %d %d %d'%(self._Tolerance,self._MaxIterations, self._pFlag, self._nType)
+        self._CommandLine = 'test NormDispIncr %e %d %d %d'%(self._Tolerance,self._MaxIterations, self._pFlag, self._nType)
 
 class EnergyIncr(OpenSees):
     """
@@ -86,22 +86,22 @@ class EnergyIncr(OpenSees):
     def __init__(self, Tolerance, MaxIterations, pFlag = 0 , nType=2):
         self._Tolerance = Tolerance
         self._MaxIterations = MaxIterations
-        self._CommandLine = 'test EnergyIncr %f %d %d %d'%(Tolerance,MaxIterations,pFlag,nType)
+        self._CommandLine = 'test EnergyIncr %e %d %d %d'%(Tolerance,MaxIterations,pFlag,nType)
 
 class RelativeNormUnbalance(OpenSees):
     def __init__(self, Tolerance, MaxIterations):
         self._Tolerance = Tolerance
         self._MaxIterations = MaxIterations
-        self._CommandLine = 'test RelativeNormUnbalance %f %d'%(Tolerance,MaxIterations)
+        self._CommandLine = 'test RelativeNormUnbalance %e %d'%(Tolerance,MaxIterations)
 
 class RelativeNormDispIncr(OpenSees):
     def __init__(self, Tolerance, MaxIterations):
         self._Tolerance = Tolerance
         self._MaxIterations = MaxIterations
-        self._CommandLine = 'test RelativeNormDispIncr %f %d'%(Tolerance,MaxIterations)
+        self._CommandLine = 'test RelativeNormDispIncr %e %d'%(Tolerance,MaxIterations)
 
 class RelativeEnergyIncr(OpenSees):
     def __init__(self, Tolerance, MaxIterations):
         self._Tolerance = Tolerance
         self._MaxIterations = MaxIterations
-        self._CommandLine = 'test RelativeEnergyIncr %f %d'%(Tolerance,MaxIterations)
+        self._CommandLine = 'test RelativeEnergyIncr %e d'%(Tolerance,MaxIterations)

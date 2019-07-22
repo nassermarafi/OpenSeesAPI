@@ -28,7 +28,7 @@ class Eigen(OpenSees):
         self._CommandLine += 'set nModes %d; \n'%(self._NoOfModes)
         self._CommandLine += 'set lambdaN [eigen %s %d]; \n'%(self._Optional,self._NoOfModes)
         for i in range(0,self._NoOfModes):
-                self._CommandLine += 'set lambdaN%d [lindex $lambdaN [expr %d]]; \n'%(i+1,i)
+            self._CommandLine += 'set lambdaN%d [lindex $lambdaN [expr %d]]; \n'%(i+1,i)
         for i in range(0,self._NoOfModes):
             self._CommandLine += 'set w%d [expr pow($lambdaN%d,0.5)]; \n'%(i+1,i+1)
         for i in range(0,self._NoOfModes):

@@ -60,7 +60,7 @@ class Static:
             self._DOF = DOF
             self._Increment = Increment
             self._Optional = Optional
-            self._CommandLine = 'integrator DisplacementControl %d %d %f %s'%(self._Node.id, self._DOF, self._Increment, self._Optional)
+            self._CommandLine = 'integrator DisplacementControl %d %d %e %s'%(self._Node.id, self._DOF, self._Increment, self._Optional)
 
     class ArcLength(OpenSees):
         """
@@ -100,8 +100,14 @@ class Transient:
 
         integrator HHT 0.9
         """
-        def __init__(self):
-            self._CommandLine = 'integrator HHT'
+        def __init__(self, Alpha, Gamma=None, Beta=None):
+            self._Alpha = Alpha
+            self._Gamma = Gamma
+            self._Beta = Beta
+            if Gamma == None and Beta == None:
+                self._CommandLine = 'integrator HHT %.3f'%(self._Alpha)
+            else:
+                self._CommandLine = 'integrator HHT %.3f %.3f %.3f' % (self._Alpha, self._Gamma, self._Beta)
 
     class CentralDifference(OpenSees):
         """
