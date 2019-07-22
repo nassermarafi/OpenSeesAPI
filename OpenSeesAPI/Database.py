@@ -47,6 +47,7 @@ class Collector(object):
         self._NodeIds = {}
         self._MaterialIds = {}
         self._SectionIds = {}
+        self._Mass = []
 
     @property
     def Executable(self):
@@ -72,6 +73,10 @@ class Collector(object):
     def AddSection(self, Section):
         self._Sections.append(Section)
         return Section
+
+    def AddMass(self, Mass):
+        self._Mass.append(Mass)
+        return Mass
 
     def AddConstraint(self, Constraint):
         self._Constraints.append(Constraint)
@@ -127,6 +132,29 @@ class Collector(object):
         self._Nodes.append(Node)
         return Node
 
+    def AssignUsedNodes(self):
+        # setting nodes that are used by the Elements
+        for object in set(self._Elements):
+            object._NodeI.__setattr__('Used', True)
+            object._NodeJ.__setattr__('Used', True)
+            if hasattr(object,'NodeK'):
+                object._NodeK.__setattr__('Used', True)
+            if hasattr(object,'NodeL'):
+                object._NodeL.__setattr__('Used', True)
+            if hasattr(object,'NodeM'):
+                object._NodeM.__setattr__('Used', True)
+
+        for object in set(self._Quadrilaterals):
+            object._NodeI.__setattr__('Used', True)
+            object._NodeJ.__setattr__('Used', True)
+            if hasattr(object,'_NodeK'):
+                object._NodeK.__setattr__('Used', True)
+            if hasattr(object,'_NodeL'):
+                object._NodeL.__setattr__('Used', True)
+            if hasattr(object,'_NodeM'):
+                object._NodeM.__setattr__('Used', True)
+
+
     def WriteModel(self):
         # setting nodes that are used by the Elements
         for object in set(self._Elements):
@@ -145,6 +173,10 @@ class Collector(object):
             if hasattr(obj, 'Used'):
                 if obj.Used:
                     self.Executable.AddCommand(obj.CommandLine)
+
+        self.AddObject(OpenSeesAPI.TCL.CodeTitle('Defining Node Mass'))
+        for obj in self._Mass:
+            self.Executable.AddCommand(obj.CommandLine)
 
         self.AddObject(OpenSeesAPI.TCL.CodeTitle('Defining Materials'))
         for obj in self._Materials:
@@ -191,3 +223,10 @@ class Collector(object):
 
     def GetNode(self, id):
         return list(filter(lambda x: x.id == id, self._Nodes))[0]
+
+    def GetNodeByCoordinate(self,X, Y, Z, NodeType=1):
+        return list(filter(lambda x: x.X == X and x.Y == Y and x.Z == Z and x.NodeType == NodeType, self._Nodes))
+
+    def GetNodeByCoordinateWithTolerance(self,X, Y, Z, NodeType=1, DecimalPoint = 2):
+        DP = DecimalPoint
+        return list(filter(lambda x: round(x.X,DP) == round(X,DP) and round(x.Y,DP) == round(Y,DP) and round(x.Z,DP) == round(Z,DP) and x.NodeType == NodeType, self._Nodes))
