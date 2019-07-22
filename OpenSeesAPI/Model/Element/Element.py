@@ -225,6 +225,57 @@ class ElasticBeamColumn(OpenSees):
         else:
             self._CommandLine = 'element elasticBeamColumn %d %d %d %f %f %f %f %f %f %d %s'%(self._id, self._NodeI.id, self._NodeJ.id, self._A, self._E, self._G, self._J, self._Iy, self._Iz, self._TransTag.id, self._EndCommand)
 
+
+class ElasticTimoshenkoBeam(OpenSees):
+    """
+    This command is used to construct an ElasticTimoshenkoBeam element object. A Timoshenko beam is a frame member that accounts for shear deformations. The arguments for the construction of an elastic Timoshenko beam element depend on the dimension of the problem, ndm:
+    For a two-dimensional problem:
+    element ElasticTimoshenkoBeam $eleTag $iNode $jNode $E $G $A $Iz $Avy $transfTag <-mass $massDens> <-cMass>
+    For a three-dimensional problem:
+    element ElasticTimoshenkoBeam $eleTag $iNode $jNode $E $G $A $Jx $Iy $Iz $Avy $Avz $transfTag <-mass $massDens> <-cMass>
+
+    $eleTag	unique element object tag
+    $iNode $jNode	end nodes
+    $E	Young's Modulus
+    $G	Shear Modulus
+    $A	cross-sectional area of element
+    $Jx	torsional moment of inertia of cross section
+    $Iy	second moment of area about the local y-axis
+    $Iz	second moment of area about the local z-axis
+    $Avy	Shear area for the local y-axis
+    $Avz	Shear area for the local z-axis
+    $transfTag	identifier for previously-defined coordinate-transformation (CrdTransf) object
+    $massDens	element mass per unit length (optional, default = 0.0)
+    -cMass	to form consistent mass matrix (optional, default = lumped mass matrix)
+    """
+    def __init__(self, id, NodeI, NodeJ, E, G, A, Iz, Avy, TransTag, Jx=None, Iy=None, Avz=None, MassDensity=None, Option='', **kwargs):
+        self._id = id
+        self._NodeI = NodeI
+        self._NodeJ = NodeJ
+        self._E = E
+        self._G = G
+        self._A = A
+        self._Jx = Jx
+        self._Iy = Iy
+        self._Iz = Iz
+        self._Avy = Avy
+        self._Avz = Avz
+        self._TransTag = TransTag
+        self._MassDensity = MassDensity
+        self._Option = Option
+        self.__dict__.update(kwargs)
+
+        if self._MassDensity != None:
+            self._EndCommand = '-mass %f %s'%(self._MassDensity,self._Option)
+        else:
+            self._EndCommand = self._Option
+
+        if Jx == None:
+            self._CommandLine = 'element ElasticTimoshenkoBeam %d %d %d %f %f %f %f %f %d %s'%(self._id, self._NodeI.id, self._NodeJ.id, self._E, self._G, self._A, self._Iz, self._Avy, self._TransTag.id, self._EndCommand)
+        else:
+            self._CommandLine = 'element ElasticTimoshenkoBeam %d %d %d %f %f %f %f %f %f %f %f %d %s'%(self._id, self._NodeI.id, self._NodeJ.id, self._E, self._G, self._A, self._Jx, self._Iy, self._Iz, self._Avy, self._Avz, self._TransTag.id, self._EndCommand)
+
+
 class DispBeamColumn(OpenSees):
     """
     element dispBeamColumn $eleTag $iNode $jNode $numIntgrPts $secTag $transfTag <-mass $massDens> <-cMass> <-integration $intType>
@@ -256,10 +307,10 @@ class DispBeamColumn(OpenSees):
             self._EndCommand = '-mass %f %s'%(self._Mass,self._Optional)
         else:
             self._EndCommand = self._Optional
-        if list != self._Section:
+        if type(self._Section) != list:
             self._CommandLine = 'element dispBeamColumn %d %d %d %d %d %d %s'%(self._id, self._NodeI.id, self._NodeJ.id, self._numIntgrPts, self._Section.id, self._GeoTrans.id, self._EndCommand)
         else:
-            self._CommandLine = 'element dispBeamColumn %d %d %d %d -section %s %d %s'%(self._id, self._NodeI.id, self._NodeJ.id, self._numIntgrPts, ''.join([' %d'%x.id for x in self._Section]), self._GeoTrans.id, self._EndCommand)
+            self._CommandLine = 'element dispBeamColumn %d %d %d %d -sections %s %d %s'%(self._id, self._NodeI.id, self._NodeJ.id, self._numIntgrPts, ''.join([' %d'%x.id for x in self._Section]), self._GeoTrans.id, self._EndCommand)
 
 class ForceBeamColumn(OpenSees):
     """
@@ -326,6 +377,8 @@ class ForceBeamColumnOriginal(OpenSees):
 
         if type(self._Section) == str:
             self._CommandLine = 'element forceBeamColumn %d %d %d %d %s %d %s'%(self._id, self._NodeI.id, self._NodeJ.id, self._NoOfIntPoints, self._Section, self._GeomTrans.id, self._EndCommand)
+        elif type(self._Section) == list:
+            self._CommandLine = 'element forceBeamColumn %d %d %d %d -sections %s %d %s'%(self._id, self._NodeI.id, self._NodeJ.id, self._NoOfIntPoints, ''.join([' %d'%x.id for x in self._Section]), self._GeomTrans.id, self._EndCommand)
         else:
             self._CommandLine = 'element forceBeamColumn %d %d %d %d %d %d %s'%(self._id, self._NodeI.id, self._NodeJ.id, self._NoOfIntPoints, self._Section.id, self._GeomTrans.id, self._EndCommand)
 
@@ -408,6 +461,17 @@ class Joint2D(OpenSees):
             self._CommandLine = 'element Joint2D %d %d %d %d %d %d %d %d %d %d %d %d'%(self._id, self._NodeI.id, self._NodeJ.id, self._NodeK.id, self._NodeL.id, self._NodeCTag, self._MatIJKL[0].id, self._MatIJKL[1].id, self._MatIJKL[2].id, self._MatIJKL[3].id,self._MatC.id, self._LargeDispTag)
 
 class ShellMITC4(OpenSees):
+    """
+    This command is used to construct a ShellMITC4 element object, which uses a bilinear isoparametric formulation in combination with a modified shear interpolation to improve thin-plate bending performance.
+
+    element ShellMITC4 $eleTag $iNode $jNode $kNode $lNode $secTag
+
+
+    $eleTag	unique element object tag
+    $iNode $jNode $kNode $lNode	four nodes defining element boundaries, input in counter-clockwise order around the element.
+    $secTag	tag associated with previously-defined SectionForceDeformation object.
+    Currently must be either a PlateFiberSection, or ElasticMembranePlateSection
+    """
     def __init__(self, id, NodeI, NodeJ, NodeK, NodeL, Section, **kwargs):
         self._id = id
         self._NodeI = NodeI
@@ -418,3 +482,85 @@ class ShellMITC4(OpenSees):
         self.__dict__.update(kwargs)
 
         self._CommandLine = 'element ShellMITC4 %d %d %d %d %d %d'%(self._id, self._NodeI.id, self._NodeJ.id, self._NodeK.id, self._NodeL.id, self._Section.id)
+
+class ShellDKGQ(OpenSees):
+    """
+    This command is used to construct a ShellDKGQ element object, which is a quadrilateral shell element based on the theory of generalized conforming element.
+
+    element ShellDKGQ $eleTag $iNode $jNode $kNode $lNode $secTag
+
+
+    $eleTag	unique element object tag
+    $iNode $jNode $kNode $lNode	four nodes defining element boundaries, input in clockwise or counter-clockwise order around the element.
+    $secTag	tag associated with previously-defined SectionForceDeformation object.
+    Currently can be a PlateFiberSection, a ElasticMembranePlateSection and a LayeredShell section
+    """
+
+    def __init__(self, id, NodeI, NodeJ, NodeK, NodeL, Section, **kwargs):
+        self._id = id
+        self._NodeI = NodeI
+        self._NodeJ = NodeJ
+        self._NodeK = NodeK
+        self._NodeL = NodeL
+        self._Section = Section
+        self.__dict__.update(kwargs)
+
+        self._CommandLine = 'element ShellDKGQ %d %d %d %d %d %d' % (
+        self._id, self._NodeI.id, self._NodeJ.id, self._NodeK.id, self._NodeL.id, self._Section.id)
+
+class ShellNLDKGQ(OpenSees):
+    """
+    This command is used to construct a ShellNLDKGQ element object accounting for the geometric nonlinearity of large deformation using the updated Lagrangian formula, which is developed based on the ShellDKGQ element.
+
+    element ShellNLDKGQ $eleTag $iNode $jNode $kNode $lNode $secTag
+
+
+    $eleTag	unique element object tag
+    $iNode $jNode $kNode $lNode	four nodes defining element boundaries, input in clockwise or counter-clockwise order around the element.
+    $secTag	tag associated with previously-defined SectionForceDeformation object.
+    Currently can be a PlateFiberSection, a ElasticMembranePlateSection and a LayeredShell section.
+    """
+
+    def __init__(self, id, NodeI, NodeJ, NodeK, NodeL, Section, **kwargs):
+        self._id = id
+        self._NodeI = NodeI
+        self._NodeJ = NodeJ
+        self._NodeK = NodeK
+        self._NodeL = NodeL
+        self._Section = Section
+        self.__dict__.update(kwargs)
+
+        self._CommandLine = 'element ShellNLDKGQ %d %d %d %d %d %d' % (
+            self._id, self._NodeI.id, self._NodeJ.id, self._NodeK.id, self._NodeL.id, self._Section.id)
+
+class MVLEM(OpenSees):
+    """
+    Element MVLEM $eleTag $Dens $iNode $jNode $m $c -thick {Thicknesses} -width {Widths} -rho {Reinforcing_ratios} -matConcrete {Concrete_tags} -matSteel {Steel_tags} -matShear {Shear_tag}
+    $eleTag	Unique element object tag
+    $Dens	Wall density
+    $iNode $jNode	End node tags
+    $m	Number of element macro-fibers
+    $c	Location of center of rotation from the iNode, c = 0.4 (recommended)
+    {Thicknesses}	Array of m macro-fiber thicknesses
+    {Widths}	Array of m macro-fiber widths
+    {Reinforcing_ratios}	Array of m reinforcing ratios corresponding to macro-fibers; for each fiber: rhoi = As,i/Agross,i (1 < i < m)
+    {Concrete _tags}	Array of m uniaxialMaterial tags for concrete
+    {Steel_tags}	Array of m uniaxialMaterial tags for steel
+    {Shear_tag}	Tag of uniaxialMaterial for shear material
+    """
+    def __init__(self, id, Density, NodeI, NodeJ, m, c, Thicknesses, Widths, ReinforcingRatios, ConcreteTags, SteelTags, ShearTag, **kwargs):
+        self._id = id
+        self.Density = Density
+        self._NodeI = NodeI
+        self._NodeJ = NodeJ
+        self.m = m
+        self.c = c
+        self.Thicknesses = Thicknesses
+        self.Widths = Widths
+        self.ReinforcingRatios = ReinforcingRatios
+        self.ConcreteTags = ConcreteTags,
+        self.SteelTags = SteelTags
+        self.ShearTag = ShearTag
+        self.__dict__.update(kwargs)
+
+        self._CommandLine = 'element MVLEM %d %f %d %d %d %f -thick %s -width %s -rho %s -matConcrete %s -matSteel %s -matShear %d'%(self._id, self.Density, self._NodeI.id, self._NodeJ.id, self.m, self.c, ''.join([' %f'%s for s in self.Thicknesses]), ''.join([' %f'%s for s in self.Widths]), ''.join([' %f'%s for s in self.ReinforcingRatios]), ''.join([' %d'%s.id for s in self.ConcreteTags]), ''.join([' %d'%s.id for s in self.SteelTags]), self.ShearTag.id)
