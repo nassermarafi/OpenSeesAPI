@@ -62,7 +62,7 @@ class Mass(OpenSees):
 
         self.__dict__.update(kwargs)
 
-class Raleigh(OpenSees):
+class Rayleigh(OpenSees):
     def __init__(self, AlphaM, BetaK, BetaKInitial, BetaKCommitted):
         self._AlphaM = AlphaM
         self._BetaK = BetaK
