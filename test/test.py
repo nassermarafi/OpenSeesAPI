@@ -123,7 +123,7 @@ OData.AddObject(OpenSeesAPI.Analysis.Eigen(1, fullGenLapack=True))
 ########################## Rayleigh Damping ##########################
 OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Rayleigh Damping'))
 # Adding Rayleigh Damping to the Mass Matrix Only
-OData.AddObject(OpenSeesAPI.Model.Node.Raleigh(2*Zeta*2*np.pi/T,0,0,0))
+OData.AddObject(OpenSeesAPI.Model.Node.Rayleigh(2 * Zeta * 2 * np.pi / T, 0, 0, 0))
 
 ########################## Loads ##########################
 OData.AddObject(OpenSeesAPI.TCL.CodeTitle('Loads'))
