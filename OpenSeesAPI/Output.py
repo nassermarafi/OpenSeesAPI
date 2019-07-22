@@ -70,7 +70,9 @@ class Recorder:
             for dof in self._DOFs:
                 OutputDOF += ' %d'%dof
 
-            self._CommandLine = 'recorder Node %s %s %s -time -node %s -dof %s %s'%(self._FileType,self._FilePath, self._Optional, OutputNodes, OutputDOF, self._Variable)
+            self._CommandLine = 'recorder Node %s %s %s -time -node %s -dof %s %s'%(self._FileType,self._FilePath,
+                                                                                    self._Optional, OutputNodes,
+                                                                                    OutputDOF, self._Variable)
 
     class Element(OpenSees):
         """
@@ -93,15 +95,18 @@ class Recorder:
         -1 recorder command failed if integer -1 returned.
         """
 
-        def __init__(self, FilePath, Elements, ResponseType, FileType='-file', **kwargs):
+        def __init__(self, FilePath, Elements, ResponseType, FileType='-file', Optional='', **kwargs):
             self._FilePath = FilePath
             self._Elements = Elements
             self._ResponseType = ResponseType
             self._FileType = FileType
+            self._Optional = Optional
 
             self.__dict__.update(kwargs)
 
-            self._CommandLine = 'recorder Element %s %s -time -ele %s %s'%(self._FileType, self._FilePath, ''.join(map(lambda x: ' %d'%x.id, self._Elements)),self._ResponseType)
+            self._CommandLine = 'recorder Element %s %s -time %s -ele %s %s'%(self._FileType, self._FilePath,
+                                                                              self._Optional,
+                                                                              ''.join(map(lambda x: ' %d'%x.id, self._Elements)),self._ResponseType)
 
 class NodeDisp(OpenSees):
     def __init__(self, Node, DOF):
